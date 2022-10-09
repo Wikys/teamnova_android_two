@@ -40,6 +40,16 @@ public class Main extends AppCompatActivity {
                 startActivity(wqmove);
             }
         });
-        
+
+        LinearLayout wbbtn = (LinearLayout) findViewById(R.id.주간보스); //위클리보스 이동버튼
+
+                wbbtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent wbmove = new Intent(Main.this, weekly_quest.class);
+            startActivity(wbmove);
+                }
+                });
+
     }
 }
