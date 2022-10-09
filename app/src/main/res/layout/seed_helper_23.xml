@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <TextView
+        android:id="@+id/버튼타이틀"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@drawable/roundbtnwhite"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:textColor="@color/teal_700"
+        android:text="시드 층"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드23"
+
+        />
+    <Button
+        android:id="@+id/시드23"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbutton"
+        android:fontFamily="@font/jalnan"
+        android:text="23"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/버튼타이틀"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드24"
+        />
+    <Button
+        android:id="@+id/시드24"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="24"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드23"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드36"
+        />
+    <Button
+        android:id="@+id/시드36"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="36"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드39"
+        />
+    <Button
+        android:id="@+id/시드39"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="39"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드36"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드47"
+        />
+    <Button
+        android:id="@+id/시드47"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="47"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드39"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드48"
+        />
+    <Button
+        android:id="@+id/시드48"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="48"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드47"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/시드49"
+        />
+    <Button
+        android:id="@+id/시드49"
+        android:layout_width="60dp"
+        android:layout_height="94dp"
+        android:background="@drawable/roundbtnviolet"
+        android:fontFamily="@font/jalnan"
+        android:text="49"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/시드48"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView
+        android:id="@+id/타이틀"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jalnan"
+        android:textSize="29dp"
+        android:text="시드 23층"
+        android:gravity="center"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/버튼타이틀"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/스테이지1"
+        />
+
+
+    <ImageView
+        android:id="@+id/스테이지1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/seedtwt"
+        app:layout_constraintTop_toBottomOf="@id/타이틀"
+        app:layout_constraintLeft_toRightOf="@id/시드23"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/스테이지2"
+        />
+    <ImageView
+        android:id="@+id/스테이지2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/seedtwt1"
+        app:layout_constraintTop_toBottomOf="@id/스테이지1"
+        app:layout_constraintLeft_toRightOf="@id/시드23"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/스테이지3"
+        />
+    <ImageView
+        android:id="@+id/스테이지3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/seedtwt2"
+        app:layout_constraintTop_toBottomOf="@id/스테이지2"
+        app:layout_constraintLeft_toRightOf="@id/시드23"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--좌측 버튼배치는 시드헬퍼와 동일-->
+    <!--매치컨스트레인트 기능 활용해서 크기를맞춤(리니어는 레이아웃을-->
+    <!--규격에 맞춰놔서 매치 패런트로 맞췄엇음)-->
+    <!--상대적인 규격만 맞춰주면 매치컨스트레인트(0dp)와 체인기능으로-->
+    <!--규칙적인 배열을 아주 손쉽게 할수잇는 장점이있음-->

@@ -14,6 +14,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +44,51 @@ public class Main extends AppCompatActivity {
 
         LinearLayout wbbtn = (LinearLayout) findViewById(R.id.주간보스); //위클리보스 이동버튼
 
-                wbbtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent wbmove = new Intent(Main.this, weekly_quest.class);
-            startActivity(wbmove);
-                }
-                });
+        wbbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent wbmove = new Intent(Main.this, weekly_boss.class);
+                startActivity(wbmove);
+            }
+        });
+
+        LinearLayout timerbtn = (LinearLayout) findViewById(R.id.재획타이머); // 재획타이머 이동버튼
+
+        timerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent timermove = new Intent(Main.this, timer.class);
+                startActivity(timermove);
+            }
+        });
+        LinearLayout schebtn = (LinearLayout) findViewById(R.id.일정표); // 일정표 이동버튼
+
+        schebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent schemove = new Intent(Main.this, schedule.class);
+                startActivity(schemove);
+            }
+        });
+        LinearLayout seedbtn = (LinearLayout) findViewById(R.id.시드도우미); // 시드도우미 이동버튼
+
+        seedbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent seedmove = new Intent(Main.this, seed_helper.class);
+                startActivity(seedmove);
+            }
+        });
+        LinearLayout mubtn = (LinearLayout) findViewById(R.id.무릉도우미); // 무릉도우미 이동버튼
+
+        mubtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mumove = new Intent(Main.this, mulung_helper.class);
+                startActivity(mumove);
+            }
+        });
+
 
     }
 }
