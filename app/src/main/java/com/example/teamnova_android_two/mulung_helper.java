@@ -54,6 +54,7 @@ public class mulung_helper extends AppCompatActivity {
                                     // 조건 만족되면 나와서 체크버튼 원상복구
                                 }
                         }
+
                     };
                     m_timer.schedule(mt_timer, 0, 1000);
                 }

@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class daily_boss extends AppCompatActivity {
+public class mulung_helper_scedule extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daily_boss);
+        setContentView(R.layout.mulung_helper_scedule);
     }
-
 }
