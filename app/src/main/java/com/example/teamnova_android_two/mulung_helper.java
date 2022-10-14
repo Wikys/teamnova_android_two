@@ -18,8 +18,7 @@ public class mulung_helper extends AppCompatActivity {
     int 초타이머 = 2; //60 초기값
     private Timer m_timer; //분타이머
     private TimerTask mt_timer;
-    private Timer s_timer; //초타이머
-    private TimerTask st_timer;
+
     private boolean timer_s = true;
 
     @Override
@@ -33,9 +32,8 @@ public class mulung_helper extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //토글버튼을 눌렀을때 작동이벤트
 
                 if (timer_s == true) {
-                    m_timer = new Timer();
+                    m_timer = new Timer(); //타이머객체는 재활용이 안되므로 클릭과동시에 생성
                     mt_timer = new TimerTask() {
-
                         @Override
                         public void run() {
                                 if (초타이머 > 0 || 분타이머 > 0) {
@@ -54,20 +52,12 @@ public class mulung_helper extends AppCompatActivity {
                                     // 조건 만족되면 나와서 체크버튼 원상복구
                                 }
                         }
-
                     };
                     m_timer.schedule(mt_timer, 0, 1000);
                 }
-                if (timer_s == false) {
-                    Toast.makeText(mulung_helper.this, "여기잘들어와", Toast.LENGTH_SHORT).show();
-                    mulung_timer.toggle();
-                    timer_s = true;
-                } else {
-                    Toast.makeText(mulung_helper.this, "안되는디?", Toast.LENGTH_SHORT).show();
-                }
+                //끝나고 토글버튼 원위치 시켜놓으려했지만 메인스레드에서만 ui 조작가능
             }
         });
-
     }
 
     @Override
