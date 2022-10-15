@@ -12,5 +12,4 @@ public class daily_boss extends AppCompatActivity {
         setContentView(R.layout.daily_boss);
 
     }
-
 }

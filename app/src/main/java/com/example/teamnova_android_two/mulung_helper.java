@@ -1,7 +1,5 @@
 package com.example.teamnova_android_two;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -15,11 +13,11 @@ import java.util.TimerTask;
 
 public class mulung_helper extends AppCompatActivity {
     int 분타이머 = 1; //14 초기값
-    int 초타이머 = 2; //60 초기값
+    int 초타이머 = 5; //60 초기값
     private Timer m_timer; //분타이머
     private TimerTask mt_timer;
-
-    private boolean timer_s = true;
+    private Timer s_timer; //초타이머
+    private TimerTask st_timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,40 +28,45 @@ public class mulung_helper extends AppCompatActivity {
 
         mulung_timer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //토글버튼을 눌렀을때 작동이벤트
+                if (isChecked) {
+                m_timer = new Timer();
+                mt_timer = new TimerTask() {
+                    @Override
+                    public void run() {
 
-                if (timer_s == true) {
-                    m_timer = new Timer(); //타이머객체는 재활용이 안되므로 클릭과동시에 생성
-                    mt_timer = new TimerTask() {
-                        @Override
-                        public void run() {
-                                if (초타이머 > 0 || 분타이머 > 0) {
-                                    초타이머--;
-                                    if (초타이머 < 0 && 분타이머 > 0) {
-                                        분타이머--;
-                                        초타이머 = 2; //59
-                                    }
-                                    타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
-                                } else {
-                                    분타이머 = 14;
-                                    초타이머 = 60;
-                                    타이머.setText("15분 0초");
-                                    timer_s = false;
-                                    m_timer.cancel();
-                                    // 조건 만족되면 나와서 체크버튼 원상복구
-                                }
+                        if (초타이머 > 0 || 분타이머 > 0) {
+                            초타이머--;
+                            if (초타이머 < 0 && 분타이머 > 0) {
+                                분타이머--;
+                                초타이머 = 5; //59
+                            }
+                            타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
+                        } else {
+                            try {
+                                분타이머 = 14;
+                                초타이머 = 60;
+                                타이머.setText("15분 0초");
+                                mulung_timer.setChecked(false);
+                                m_timer.cancel();
+                                mt_timer.cancel();
+                            } catch (Exception e) {
+                                System.out.println("분타이머(태스크)| 인터럽트 예외 발생");
+                            }
                         }
-                    };
-                    m_timer.schedule(mt_timer, 0, 1000);
+                    }
+                };
+                m_timer.schedule(mt_timer, 0, 1000);
+            }else{
+                    타이머.setText("15분 0초");
+
                 }
-                //끝나고 토글버튼 원위치 시켜놓으려했지만 메인스레드에서만 ui 조작가능
+//                if (isChecked) {
+//                    //  The toggle is enabled
+//                } else {
+//                    // The toggle is disabled
+//                }
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
 
     }
 

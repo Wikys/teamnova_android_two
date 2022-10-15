@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver alarm;
@@ -32,12 +34,20 @@ public class MainActivity extends AppCompatActivity {
         alarm = new alarm();
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
+        TextView id = (TextView) MainActivity.this.findViewById(R.id.로그인);
+        TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Main.class);
-                startActivity(intent);
+                if(id.getText().toString().equals("ayc0812") && ps.getText().toString().equals("111222")){
+                    Toast.makeText(MainActivity.this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, Main.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인 해주세요", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
