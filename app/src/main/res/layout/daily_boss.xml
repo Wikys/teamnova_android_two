@@ -54,6 +54,7 @@
         app:layout_constraintBottom_toTopOf="@id/힐라버튼"
         app:layout_constraintRight_toLeftOf="@id/혼테일"
         />
+
     <ImageView
         android:id="@+id/혼테일"
         android:layout_width="80dp"
