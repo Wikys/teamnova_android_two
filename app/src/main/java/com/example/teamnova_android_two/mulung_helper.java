@@ -1,7 +1,10 @@
 package com.example.teamnova_android_two;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ public class mulung_helper extends AppCompatActivity {
         setContentView(R.layout.mulung_helper);
         ToggleButton mulung_timer = (ToggleButton) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
+
 
         mulung_timer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //토글버튼을 눌렀을때 작동이벤트
@@ -67,6 +71,16 @@ public class mulung_helper extends AppCompatActivity {
 //                }
             }
         });
+        Button memo = (Button) findViewById(R.id.메모);
+
+        memo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent memo_move = new Intent(mulung_helper.this, mulung_helper_scedule.class);
+                startActivity(memo_move);
+
+            }
+        });;
 
     }
 

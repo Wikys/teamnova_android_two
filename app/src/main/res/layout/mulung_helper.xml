@@ -18,6 +18,16 @@
         app:layout_constraintBottom_toTopOf="@id/준비"
         app:layout_constraintVertical_chainStyle="spread"
         />
+    <Button
+        android:id="@+id/메모"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="메모"
+        app:layout_constraintLeft_toRightOf="@id/타이틀"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/준비"
+        />
     <TextView
         android:id="@+id/준비"
         android:layout_width="wrap_content"

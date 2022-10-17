@@ -32,15 +32,20 @@
         <entry key="app/src/main/res/layout/daily_boss.xml" value="0.335" />
         <entry key="app/src/main/res/layout/daily_quest.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/mulung_helper.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/mulung_helper_scedule.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/mulung_helper.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/mulung_helper_scedule.xml" value="0.25" />
         <entry key="app/src/main/res/layout/schedule.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/seed_helper.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/seed_helper_23.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/seed_helper_24.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/seed_helper_36.xml" value="0.16923076923076924" />
         <entry key="app/src/main/res/layout/seed_helper_39.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/seed_helper_47.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/seed_helper_48.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/seed_helper_49.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/timer.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/weekly_boss.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/weekly_quest.xml" value="0.28229166666666666" />
       </map>
     </option>
   </component>

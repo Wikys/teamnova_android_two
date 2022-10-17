@@ -2,8 +2,105 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".mulung_helper_scedule">
+    android:layout_width="350dp"
+    android:layout_height="500dp"
+    android:orientation="horizontal"
+    android:background="@drawable/border"
+
+    >
+    <LinearLayout
+        android:id="@+id/저장목록"
+        android:layout_width="80dp"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/border"
+
+        >
+<!--        저장해논 메모목록-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="준비"
+            />
+<!--        코드로 추가-->
+    </LinearLayout>
+
+        <EditText
+            android:id="@+id/분"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:hint="분"
+            android:inputType="number"
+            android:maxLength="2"
+            app:layout_constraintLeft_toRightOf="@id/저장목록"
+            app:layout_constraintRight_toLeftOf="@id/콜론"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/준비"
+            android:gravity="center"
+            app:layout_constraintHorizontal_chainStyle="packed"
+
+            />
+        <TextView
+            android:id="@+id/콜론"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text=" "
+            app:layout_constraintLeft_toRightOf="@id/분"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/초"
+            app:layout_constraintBottom_toTopOf="@id/준비"
+            android:gravity="center"
+            />
+        <EditText
+            android:id="@+id/초"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:hint="초"
+            android:inputType="number"
+            android:maxLength="2"
+            app:layout_constraintLeft_toRightOf="@id/콜론"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/준비"
+            android:gravity="center"
+            />
+    <EditText
+        android:id="@+id/준비"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#8B000000"
+        android:text="도핑을 확인해주세요\n\n길,우뿌\n익스트림레드/블루/그린\n유니온의 힘\n영웅의 메아리\nMVP슈퍼파워\n전영비+고보킬,반빨별+대영비\n노블\n9,10랩 스탯물약,5랩 공마물약\n아기용의 이유식"
+        android:textSize="20dp"
+        android:textColor="@color/teal_700"
+        app:layout_constraintTop_toBottomOf="@id/콜론"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/저장버튼"
+        />
+    <Button
+        android:id="@+id/저장버튼"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="저장"
+        app:layout_constraintTop_toBottomOf="@id/준비"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
+        app:layout_constraintRight_toLeftOf="@id/종료버튼"
+        />
+    <Button
+        android:id="@+id/종료버튼"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="종료"
+        app:layout_constraintTop_toBottomOf="@id/준비"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/저장버튼"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
