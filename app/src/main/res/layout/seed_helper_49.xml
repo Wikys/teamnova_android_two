@@ -11,7 +11,7 @@
         android:fontFamily="@font/jalnan"
         android:gravity="center"
         android:textColor="@color/teal_700"
-        android:text="시드 층"
+        android:text="돌아가기"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드23"
