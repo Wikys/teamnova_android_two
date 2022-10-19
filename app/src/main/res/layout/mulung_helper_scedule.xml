@@ -38,7 +38,7 @@
             app:layout_constraintLeft_toRightOf="@id/저장목록"
             app:layout_constraintRight_toLeftOf="@id/콜론"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/준비"
+            app:layout_constraintBottom_toTopOf="@id/제목"
             android:gravity="center"
             app:layout_constraintHorizontal_chainStyle="packed"
 
@@ -51,7 +51,7 @@
             app:layout_constraintLeft_toRightOf="@id/분"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/초"
-            app:layout_constraintBottom_toTopOf="@id/준비"
+            app:layout_constraintBottom_toTopOf="@id/제목"
             android:gravity="center"
             />
         <EditText
@@ -64,9 +64,22 @@
             app:layout_constraintLeft_toRightOf="@id/콜론"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/준비"
+            app:layout_constraintBottom_toTopOf="@id/제목"
             android:gravity="center"
             />
+    <EditText
+        android:id="@+id/제목"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:maxLength="4"
+        android:hint="제목"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/콜론"
+        app:layout_constraintBottom_toTopOf="@id/준비"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
     <EditText
         android:id="@+id/준비"
         android:layout_width="wrap_content"
@@ -75,7 +88,7 @@
         android:text="도핑을 확인해주세요\n\n길,우뿌\n익스트림레드/블루/그린\n유니온의 힘\n영웅의 메아리\nMVP슈퍼파워\n전영비+고보킬,반빨별+대영비\n노블\n9,10랩 스탯물약,5랩 공마물약\n아기용의 이유식"
         android:textSize="20dp"
         android:textColor="@color/teal_700"
-        app:layout_constraintTop_toBottomOf="@id/콜론"
+        app:layout_constraintTop_toBottomOf="@id/제목"
         app:layout_constraintLeft_toRightOf="@id/저장목록"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/저장버튼"
@@ -88,16 +101,25 @@
         app:layout_constraintTop_toBottomOf="@id/준비"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/저장목록"
-        app:layout_constraintRight_toLeftOf="@id/종료버튼"
+        app:layout_constraintRight_toLeftOf="@id/삭제버튼"
         />
     <Button
-        android:id="@+id/종료버튼"
+        android:id="@+id/삭제버튼"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="종료"
+        android:text="삭제"
         app:layout_constraintTop_toBottomOf="@id/준비"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/저장버튼"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <Button
+        android:id="@+id/종료버튼"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="4dp"
+        android:text="X"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
 
