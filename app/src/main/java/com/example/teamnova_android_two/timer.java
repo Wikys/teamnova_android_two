@@ -1,5 +1,6 @@
 package com.example.teamnova_android_two;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -20,14 +21,15 @@ public class timer extends AppCompatActivity {
 //    private TimerTask t_Timer;
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
+    Button 시작 = (Button) findViewById(R.id.시작);
+    TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
 
-        Button 시작 = (Button) findViewById(R.id.시작);
-        TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
+
 
 
         시작.setOnClickListener(new View.OnClickListener() { //시작버튼
@@ -92,4 +94,11 @@ public class timer extends AppCompatActivity {
 
         super.onStop();
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String 백업 = (String) 타이머.getText();
+        outState.putString(백업본, 백업);
+
 }
