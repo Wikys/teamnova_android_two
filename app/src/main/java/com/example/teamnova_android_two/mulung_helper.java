@@ -2,6 +2,7 @@ package com.example.teamnova_android_two;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +18,9 @@ import java.util.TimerTask;
 public class mulung_helper extends AppCompatActivity {
     int 분타이머 = 1; //14 초기값
     int 초타이머 = 5; //60 초기값
-    private Timer m_timer; //분타이머
+    private Timer m_timer; //타이머
     private TimerTask mt_timer;
-    private Timer s_timer; //초타이머
-    private TimerTask st_timer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

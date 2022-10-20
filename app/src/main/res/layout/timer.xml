@@ -56,8 +56,17 @@
         app:layout_constraintTop_toBottomOf="@id/타이머토글"
         app:layout_constraintBottom_toTopOf="@id/아이콘그룹1"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/중단"
+        />
+    <Button
+        android:id="@+id/중단"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="중단"
+        app:layout_constraintTop_toBottomOf="@id/타이머토글"
+        app:layout_constraintBottom_toTopOf="@id/아이콘그룹1"
+        app:layout_constraintLeft_toRightOf="@id/시작"
         app:layout_constraintRight_toRightOf="parent"
-
         />
 
     <View
