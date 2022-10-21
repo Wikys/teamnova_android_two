@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 public class mulung_helper_scedule extends Activity {
 
-    ArrayList<String> Button_Name_list = new ArrayList<>(); //만든 버튼 이름들이 저장되는곳
+    ArrayList<String> buttonNameList = new ArrayList<>(); //만든 버튼 이름들이 저장되는곳
+    private LinearLayout 저장목록; //버튼 추가되는 레이아웃
+    Button addBtn, removeBtn; // 버튼 추가 삭제 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class mulung_helper_scedule extends Activity {
             @Override
             public void onClick(View view) {
                 //생성된 버튼이름을 어레이리스트와 비교해서
-                //기존에 있던 버튼 제목지정한거랑 중복되면 경고
+                //기존에 있던 버튼 제목지정한거랑 중복되면 경고(시간도)
                 //아니면 생성
             }
         });
