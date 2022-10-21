@@ -20,11 +20,11 @@
 
         >
 <!--        저장해논 메모목록-->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="준비"
-            />
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="준비"-->
+<!--            />-->
 <!--        코드로 추가-->
     </LinearLayout>
 

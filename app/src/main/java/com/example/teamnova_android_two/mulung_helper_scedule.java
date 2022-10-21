@@ -13,20 +13,34 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class mulung_helper_scedule extends Activity {
+
+    ArrayList<String> Button_Name_list = new ArrayList<>(); //만든 버튼 이름들이 저장되는곳
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature( Window.FEATURE_NO_TITLE );
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mulung_helper_scedule);
+
+        Button save = (Button) findViewById(R.id.저장버튼);
+        save.setOnClickListener(new View.OnClickListener() { //버튼생성 이벤트
+            @Override
+            public void onClick(View view) {
+                //생성된 버튼이름을 어레이리스트와 비교해서
+                //기존에 있던 버튼 제목지정한거랑 중복되면 경고
+                //아니면 생성
+            }
+        });
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //바깥레이어 클릭시 안닫히게
-        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
             return false;
         }
         return true;
