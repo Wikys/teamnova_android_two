@@ -23,13 +23,14 @@ public class timer extends AppCompatActivity {
     private TimerTask mt_timer;
     Button 시작 = (Button) findViewById(R.id.시작);
     TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
+    String 백업본 = (String) 타이머.getText();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
-
-
+//        String data = savedInstanceState.getString(백업본); //오류나면
+//        타이머.setText(data); //이부분 삭제
 
 
         시작.setOnClickListener(new View.OnClickListener() { //시작버튼
@@ -76,8 +77,7 @@ public class timer extends AppCompatActivity {
                     m_timer.cancel();
                     타이머.setText("120분 0초");
                     Toast.makeText(timer.this, "재획타이머가 중단되었습니다", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(timer.this, "타이머가 작동중이 아닙니다", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -95,10 +95,11 @@ public class timer extends AppCompatActivity {
         super.onStop();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        String 백업 = (String) 타이머.getText();
-        outState.putString(백업본, 백업);
-
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        String 백업 = 타이머.getText().toString();
+//        outState.putString(백업본, 백업); // 백업본 변수가아니라 다른걸로 해야할수도
+//
+//    } 이걸로 저장기능 구현 불가능
 }
