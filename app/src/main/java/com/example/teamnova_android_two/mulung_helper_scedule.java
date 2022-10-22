@@ -79,7 +79,7 @@ public class mulung_helper_scedule extends Activity {
     }
     private void removeList(){
         // 클릭한 뷰의 아이디를 받아와서 삭제해줘야함
-        Button 동적버튼 = findViewById(버튼id); // 생성했던 View의 ID 가져오기
+        Button 동적버튼 = findViewById(버튼id);//<-- 여기가 문젠가 // 생성했던 View의 ID 가져오기
         저장목록.removeView(동적버튼);
 
     }
