@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.DataOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +30,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     Map<String, String> 메모리스트 = new HashMap<>();
     Map<String, String> 분리스트 = new HashMap<>();
     Map<String, String> 초리스트 = new HashMap<>();
-
-
+    boolean 신규;
 
 
     @Override
@@ -40,8 +40,6 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         setContentView(R.layout.mulung_helper_scedule);
 
         Button save = (Button) findViewById(R.id.저장버튼);
-
-
         save.setOnClickListener(new View.OnClickListener() { //버튼생성 이벤트
             @Override
             public void onClick(View view) {
@@ -74,27 +72,68 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         LinearLayout 저장목록 = (LinearLayout) findViewById(R.id.저장목록); // 동적 레이아웃 아이디가져오기
         EditText title = (EditText) findViewById(R.id.제목); //사용자가 정한 제목
         String 제목 = title.getText().toString(); // 제목에 쓴 텍스트 변수화
-        Button savelist = new Button(this); // 버튼생성
+        int 캐스팅분 = Integer.valueOf(String.valueOf(m_get.getText()));//조건문에 대입해주기위해서 인트로 캐스팅
+        int 캐스팅초 = Integer.valueOf(String.valueOf(s_get.getText()));
+        if(제목리스트.containsKey(제목)){ //제목이 같으면 기존에 있던 버튼을 수정
+            if(!(캐스팅분 > 14) && !(캐스팅초 > 60)) {
+                신규 = false;
+                메모리스트.replace(제목, 메모); // 해시맵에 메모저장
+                분리스트.replace(제목, 분); // 해시맵에 분저장
+                초리스트.replace(제목, 초); // 해시맵에 초저장
+                Toast.makeText(this, "변경완료", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                Toast.makeText(this, "14분 60초 초과불가능", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        if(!분.equals(분리스트.containsValue(분)) || !초.equals(초리스트.containsValue(초)) ) { // 시간이 같으면 안되게끔
-            numButton++; // 버튼아이디 뒤에 붙일 숫자
-
-            savelist.setText(title.getText()); //제목에 입력한 텍스트를 버튼이름으로 지정
-            savelist.setId(id + numButton); //제목에 입력한 텍스트를 아이디로 지정
-            제목리스트.put(numButton.toString(), 제목); // 해시맵에 제목저장
-            메모리스트.put(numButton.toString(), 메모); // 해시맵에 메모저장
-            분리스트.put(numButton.toString(), 분); // 해시맵에 분저장
-            초리스트.put(numButton.toString(), 초); // 해시맵에 초저장
-        }else{
-            savelist = null; //버튼생성 안되는상황이니까 객체 삭제하여 리소스정리
-           Toast.makeText(this, "시간이 겹칩니다", Toast.LENGTH_SHORT).show();
         }
 
-        //해시맵을 여러개써서 각각 제목 시간 아이디등을 넣고 키값은 넘버튼으로 주면어떨까
+        else if (!제목리스트.containsKey(제목) ) {
+            신규 = true;
+            //제목같으면안되고(o) 시간비어있으면안되고(o) 제목비어있으면 안되고(x)
+            //시간같으면안되고(o)
+            //분이 14이상이면안되고 초가 60이상이면 안되고(o)
+
+            if (!(캐스팅분 > 14) && !(캐스팅초 > 60)) {
+                if (!분리스트.containsValue(분) || !초리스트.containsValue(초)) { // 시간이 같으면 안되게끔
+                    numButton++; // 버튼아이디 뒤에 붙일 숫자
+                    제목리스트.put(제목, 제목); // 해시맵에 제목저장
+                    메모리스트.put(제목, 메모); // 해시맵에 메모저장
+                    분리스트.put(제목, 분); // 해시맵에 분저장
+                    초리스트.put(제목, 초); // 해시맵에 초저장
+                    Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "시간이 겹칩니다", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }else {
+                Toast.makeText(this, "14분 60초 초과불가능", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            Toast.makeText(this, "제목을 확인해주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+
+        Button savelist = new Button(this); // 버튼생성
+        savelist.setText(title.getText()); //제목에 입력한 텍스트를 버튼이름으로 지정
+        savelist.setId(id + numButton); //제목에 입력한 텍스트를 아이디로 지정
+        //해시맵을 여러개써서 각각 제목 시간 아이디등을 넣고 키값은 제목으로 주면어떨까
         //이제 밖으로 값을넘겨주고 알람매니저로 메인에서 받아서 텍스트변경해주기..
-        //그전에 아래 셋온클릭리스너에서 해시맵으로 정보뿌려주고 제대로 되나보기
+
         savelist.setOnClickListener(new View.OnClickListener() { // 버튼클릭하면 작동할코드
             public void onClick(View v) { // v <- 클릭한뷰
+                //수정기능 만들기
+                //클릭한뷰에맞는 키값을 가진 해쉬맵의 벨류를 뿌려주기
+                //어디에? 제목 메모 분 초
+                //제목 -> 해시맵 핵심키값
+                //메모 -> 팝업창 메모내용, 메인에넘겨주기
+                //분,초 -> 팝업창 메모내용, 메인에 넘겨주기
+
                 Button delete = (Button) findViewById(R.id.삭제버튼);
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -106,16 +145,15 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
             }
         });
-        저장목록.addView(savelist, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        //시간이나 제목이 동일하면 호출불가하게 설정
-        //텍스트내용이랑 시간정보도 보내줘야함
+        if(신규) { //신규생성로직으로 등로된버튼이면 생성
+            저장목록.addView(savelist, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }else{
+            Toast.makeText(this, "변경 되었습니다", Toast.LENGTH_SHORT).show();
+            신규 = true;
+        }
+
+
     }
-//    private void removeList(){
-//        // 클릭한 뷰의 아이디를 받아와서 삭제해줘야함
-//        Button 동적버튼 = findViewById(버튼id);//<-- 여기가 문젠가 // 생성했던 View의 ID 가져오기
-//        저장목록.removeView(동적버튼);
-//
-//    }
 
 
     @Override
