@@ -13,6 +13,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,9 +31,21 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         setContentView(R.layout.mulung_helper);
         Log.d("LC", "onCreate: ");
 
+//        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
+//        //이부분 브로드캐스트로
+//
+//        HashMap<String, String> 제목 = (HashMap<String, String>)저장목록.getSerializableExtra("제목");
+//        HashMap<String, String> 메모 = (HashMap<String, String>)저장목록.getSerializableExtra("메모");
+//        HashMap<String, String> 분 = (HashMap<String, String>)저장목록.getSerializableExtra("분");
+//        HashMap<String, String> 초 = (HashMap<String, String>)저장목록.getSerializableExtra("초");
+//
+//        Log.v("HashMapTest", 제목.get("key"));
+//        Log.v("HashMapTest", 메모.get("key"));
+//        Log.v("HashMapTest", 분.get("key"));
+//        Log.v("HashMapTest", 초.get("key"));
+
         ToggleButton mulung_timer = (ToggleButton) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
-
 
         mulung_timer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //토글버튼을 눌렀을때 작동이벤트
@@ -124,4 +137,5 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         Log.d("LC", "onRestart: ");
         super.onRestart();
     }
+    //온크리에이트가 단 한번만 실행되니까 거따가 코딩하기
 }

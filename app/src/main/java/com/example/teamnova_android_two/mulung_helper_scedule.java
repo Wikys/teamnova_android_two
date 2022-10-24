@@ -56,7 +56,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         Button exit = (Button) findViewById(R.id.종료버튼);
         exit.setOnClickListener(new View.OnClickListener() { //x버튼 눌렀을때 꺼지게하기 onstop
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { //x버튼 누르면 액티비티파괴
                 finish();
             }
         });
@@ -138,12 +138,14 @@ public class mulung_helper_scedule extends Activity implements Serializable {
                 m_get.setText(분리스트.get(제목));
                 s_get.setText(초리스트.get(제목));
 
-
-
                 Button delete = (Button) findViewById(R.id.삭제버튼);
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        제목리스트.remove(제목); //해시맵에 등록된데이터 삭제
+                        메모리스트.remove(제목);
+                        분리스트.remove(제목);
+                        초리스트.remove(제목);
                         저장목록.removeView(v); //저장한버튼 삭제
 
                     }
@@ -151,7 +153,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
             }
         });
-        if(신규) { //신규생성로직으로 등로된버튼이면 생성
+        if(신규) { //신규생성로직으로 등록된버튼이면 생성
             저장목록.addView(savelist, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }else{
             Toast.makeText(this, "변경 되었습니다", Toast.LENGTH_SHORT).show();
@@ -178,19 +180,16 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     }
 
     @Override
-    protected void onStop() { // 온스탑이될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
+    protected void onPause() { // 온퍼즈될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
         Intent put_data = new Intent(this,mulung_helper.class);
         put_data.putExtra("제목", (Serializable) 제목리스트);
         put_data.putExtra("메모", (Serializable) 메모리스트);
         put_data.putExtra("분", (Serializable) 분리스트);
         put_data.putExtra("초", (Serializable) 초리스트);
         startActivity(put_data);
-
-        super.onStop();
+        super.onPause();
     }
-
-
-//    public void onClick(View v) { //선택한뷰 아이디값 가져와서 삭제버튼에 보내주고
+    //    public void onClick(View v) { //선택한뷰 아이디값 가져와서 삭제버튼에 보내주고
 //        //삭제버튼에서 받아서 삭제
 //        동적버튼 = findViewById(v.getId()); //맴버변수 값을 아이디로 변경
 //
