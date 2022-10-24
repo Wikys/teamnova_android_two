@@ -1,7 +1,9 @@
 package com.example.teamnova_android_two;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +40,6 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mulung_helper_scedule);
-
         Button save = (Button) findViewById(R.id.저장버튼);
         save.setOnClickListener(new View.OnClickListener() { //버튼생성 이벤트
             @Override
@@ -122,17 +123,22 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         Button savelist = new Button(this); // 버튼생성
         savelist.setText(title.getText()); //제목에 입력한 텍스트를 버튼이름으로 지정
         savelist.setId(id + numButton); //제목에 입력한 텍스트를 아이디로 지정
-        //해시맵을 여러개써서 각각 제목 시간 아이디등을 넣고 키값은 제목으로 주면어떨까
-        //이제 밖으로 값을넘겨주고 알람매니저로 메인에서 받아서 텍스트변경해주기..
 
         savelist.setOnClickListener(new View.OnClickListener() { // 버튼클릭하면 작동할코드
             public void onClick(View v) { // v <- 클릭한뷰
-                //수정기능 만들기
-                //클릭한뷰에맞는 키값을 가진 해쉬맵의 벨류를 뿌려주기
+                //이제 밖으로 값을넘겨주고 알람매니저로 메인에서 받아서 텍스트변경해주기..
+                //클릭한뷰에맞는 키값(제목)을 가진 해쉬맵의 벨류(값)를 뿌려주기
                 //어디에? 제목 메모 분 초
                 //제목 -> 해시맵 핵심키값
                 //메모 -> 팝업창 메모내용, 메인에넘겨주기
                 //분,초 -> 팝업창 메모내용, 메인에 넘겨주기
+
+                title.setText(제목리스트.get(제목));
+                memo.setText(메모리스트.get(제목));
+                m_get.setText(분리스트.get(제목));
+                s_get.setText(초리스트.get(제목));
+
+
 
                 Button delete = (Button) findViewById(R.id.삭제버튼);
                 delete.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +179,13 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
     @Override
     protected void onStop() { // 온스탑이될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
+        Intent put_data = new Intent(this,mulung_helper.class);
+        put_data.putExtra("제목", (Serializable) 제목리스트);
+        put_data.putExtra("메모", (Serializable) 메모리스트);
+        put_data.putExtra("분", (Serializable) 분리스트);
+        put_data.putExtra("초", (Serializable) 초리스트);
+        startActivity(put_data);
+
         super.onStop();
     }
 

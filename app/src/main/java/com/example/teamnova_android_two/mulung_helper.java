@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,11 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class mulung_helper extends AppCompatActivity {
+public class mulung_helper extends AppCompatActivity implements Serializable {
     int 분타이머 = 1; //14 초기값
     int 초타이머 = 5; //60 초기값
     private Timer m_timer; //타이머
@@ -26,6 +28,8 @@ public class mulung_helper extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mulung_helper);
+        Log.d("LC", "onCreate: ");
+
         ToggleButton mulung_timer = (ToggleButton) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
 
@@ -82,12 +86,42 @@ public class mulung_helper extends AppCompatActivity {
             }
         });;
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("LC", "onStart: ");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("LC", "onResume: ");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("LC", "onPause: ");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("LC", "onStop: ");
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-
+        Log.d("LC", "onDestroy: ");
         super.onDestroy();
+    }
 
+    @Override
+    protected void onRestart() {
+        Log.d("LC", "onRestart: ");
+        super.onRestart();
     }
 }

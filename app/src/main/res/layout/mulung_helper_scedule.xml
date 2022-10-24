@@ -82,8 +82,8 @@
         />
     <EditText
         android:id="@+id/준비"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="265dp"
+        android:layout_height="330dp"
         android:background="#8B000000"
         android:text="도핑을 확인해주세요\n\n길,우뿌\n익스트림레드/블루/그린\n유니온의 힘\n영웅의 메아리\nMVP슈퍼파워\n전영비+고보킬,반빨별+대영비\n노블\n9,10랩 스탯물약,5랩 공마물약\n아기용의 이유식"
         android:textSize="20dp"
