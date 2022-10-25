@@ -14,6 +14,7 @@ import android.widget.ToggleButton;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,6 +24,10 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     int 초타이머 = 5; //60 초기값
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
+//    Map<String, String> 제목 = new HashMap<>();
+//    Map<String, String> 메모= new HashMap<>();
+//    Map<String, String> 분 = new HashMap<>();
+//    Map<String, String> 초 = new HashMap<>();
 
 
     @Override
@@ -31,14 +36,14 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         setContentView(R.layout.mulung_helper);
         Log.d("LC", "onCreate: ");
 
-//        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
-//        //이부분 브로드캐스트로
-//
-//        HashMap<String, String> 제목 = (HashMap<String, String>)저장목록.getSerializableExtra("제목");
-//        HashMap<String, String> 메모 = (HashMap<String, String>)저장목록.getSerializableExtra("메모");
-//        HashMap<String, String> 분 = (HashMap<String, String>)저장목록.getSerializableExtra("분");
-//        HashMap<String, String> 초 = (HashMap<String, String>)저장목록.getSerializableExtra("초");
-//
+        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
+        //이부분 브로드캐스트로
+
+        HashMap<String, String> 제목 = (HashMap<String, String>)저장목록.getSerializableExtra("제목");
+        HashMap<String, String> 메모 = (HashMap<String, String>)저장목록.getSerializableExtra("메모");
+        HashMap<String, String> 분 = (HashMap<String, String>)저장목록.getSerializableExtra("분");
+        HashMap<String, String> 초 = (HashMap<String, String>)저장목록.getSerializableExtra("초");
+
 //        Log.v("HashMapTest", 제목.get("key"));
 //        Log.v("HashMapTest", 메모.get("key"));
 //        Log.v("HashMapTest", 분.get("key"));
@@ -127,7 +132,9 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onStop() {
-        Log.d("LC", "onStop: ");
+        m_timer.cancel();
+        mt_timer.cancel();
+        Log.d("LC", "타이머종료 ");
         super.onStop();
     }
 

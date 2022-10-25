@@ -21,14 +21,14 @@ public class timer extends AppCompatActivity {
 //    private TimerTask t_Timer;
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
-    Button 시작 = (Button) findViewById(R.id.시작);
-    TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
-    String 백업본 = (String) 타이머.getText();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
+        Button 시작 = (Button) findViewById(R.id.시작);
+        TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
 //        String data = savedInstanceState.getString(백업본); //오류나면
 //        타이머.setText(data); //이부분 삭제
 
@@ -37,8 +37,7 @@ public class timer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (타이머.getText().equals("120분 0초")) {
-                    int 시작분 = 분타이머;
-                    int 시작초 = 초타이머;
+
                     m_timer = new Timer();
                     mt_timer = new TimerTask() {
                         @Override
@@ -52,8 +51,8 @@ public class timer extends AppCompatActivity {
                                 타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
                             } else {
                                 try {
-                                    분타이머 = 시작분;
-                                    초타이머 = 시작초;
+                                    분타이머 = 1; // 120
+                                    초타이머 = 5; // 0
                                     타이머.setText("120분 0초");
                                     m_timer.cancel();
                                 } catch (Exception e) {
@@ -75,6 +74,8 @@ public class timer extends AppCompatActivity {
             public void onClick(View view) { // 중단버튼
                 if (!타이머.getText().equals("120분 0초")) {
                     m_timer.cancel();
+                    분타이머 = 1;
+                    초타이머 = 5;
                     타이머.setText("120분 0초");
                     Toast.makeText(timer.this, "재획타이머가 중단되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
