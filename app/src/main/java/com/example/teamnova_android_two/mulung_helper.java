@@ -44,6 +44,11 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 //        Log.v("HashMapTest", 분.get("key"));
 //        Log.v("HashMapTest", 초.get("key"));
 
+        //로직 반대로..
+        //여기서 해시맵만들고 스케쥴로 넘겨주고
+        //다시 저장해서 여기로넘겨주기
+        //
+
         ToggleButton mulung_timer = (ToggleButton) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
 
