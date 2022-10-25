@@ -29,8 +29,7 @@ public class timer extends AppCompatActivity {
         setContentView(R.layout.timer);
         Button 시작 = (Button) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
-//        String data = savedInstanceState.getString(백업본); //오류나면
-//        타이머.setText(data); //이부분 삭제
+
 
 
         시작.setOnClickListener(new View.OnClickListener() { //시작버튼
@@ -55,6 +54,7 @@ public class timer extends AppCompatActivity {
                                     초타이머 = 5; // 0
                                     타이머.setText("120분 0초");
                                     m_timer.cancel();
+                                    mt_timer.cancel();
                                 } catch (Exception e) {
                                     System.out.println("분타이머(태스크)| 인터럽트 예외 발생");
                                 }
@@ -74,6 +74,7 @@ public class timer extends AppCompatActivity {
             public void onClick(View view) { // 중단버튼
                 if (!타이머.getText().equals("120분 0초")) {
                     m_timer.cancel();
+                    mt_timer.cancel();
                     분타이머 = 1;
                     초타이머 = 5;
                     타이머.setText("120분 0초");
@@ -89,7 +90,12 @@ public class timer extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
+        if(m_timer != null) {
+            m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
+        }
+        if(mt_timer != null){
+            mt_timer.cancel();
+        }
         //남은시간 번들에 저장해놔야할듯
         //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
 

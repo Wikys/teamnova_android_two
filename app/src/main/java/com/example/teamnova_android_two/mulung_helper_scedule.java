@@ -47,7 +47,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
                 newSaveList();
                 //if문으로
-                //생성된 버튼이름을 어레이리스트와 비교해서
+                //생성된 버튼이름을 해쉬맵과 비교해서
                 //기존에 있던 버튼 제목지정한거랑 중복되면 경고(시간도)
                 //아니면 생성
             }
