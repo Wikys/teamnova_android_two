@@ -35,6 +35,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     boolean 중복 = false;
 
 
+
 //    Map<String, String> 제목 = new HashMap<>();
 //    Map<String, String> 메모= new HashMap<>();
 //    Map<String, String> 분 = new HashMap<>();
@@ -50,10 +51,12 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
         //이부분 브로드캐스트로
 
-        HashMap<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
-        HashMap<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
-        HashMap<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
-        HashMap<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
+        Map<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
+        Map<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
+        Map<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
+        Map<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
+        Map<String, String> 분초 = (HashMap<String, String>) 저장목록.getSerializableExtra("분초");
+
 
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
         Button 시작하기 = (Button) findViewById(R.id.시작);
@@ -74,8 +77,19 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     mt_timer = new TimerTask() {
                         @Override
                         public void run() {
+                            String 분텍스트 = Integer.toString(분타이머); //비교를위해 스트링으로 캐스팅
+                            String 초텍스트 = Integer.toString(초타이머);
+                            String 키합 = 분텍스트+초텍스트;
                             if (초타이머 > 0 || 분타이머 > 0) {
                                 //이쯤에서 분 초 체크하고 셋텍스트?
+                                if(분초.containsValue(키합)){
+
+                                    keySet 키분석 = new keySet( 분텍스트,초텍스트,분초); //키를 찾아주는 클래스
+                                    String 키 = 키분석.result(); // 분석된 키값을 변수에저장
+                                    String 메모수정 = 메모.get(키); // 키값을 인자로주고 저장된 메모받아오기
+//                                    준비.setText(메모수정); //텍스트뷰 메모수정인데 핸들러없어서 안됨
+
+                                }
 
 
                                 초타이머--;

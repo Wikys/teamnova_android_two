@@ -32,6 +32,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     Map<String, String> 메모리스트 = new HashMap<>();
     Map<String, String> 분리스트 = new HashMap<>();
     Map<String, String> 초리스트 = new HashMap<>();
+    Map<String, String> 분초리스트 = new HashMap<>();
     boolean 신규;
 
 
@@ -81,6 +82,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
                 메모리스트.replace(제목, 메모); // 해시맵에 메모저장
                 분리스트.replace(제목, 분); // 해시맵에 분저장
                 초리스트.replace(제목, 초); // 해시맵에 초저장
+                분초리스트.replace(제목, 분+초); // 밖으로 내보낼 데이터
                 Toast.makeText(this, "변경완료", Toast.LENGTH_SHORT).show();
                 return;
             }else{
@@ -96,20 +98,21 @@ public class mulung_helper_scedule extends Activity implements Serializable {
             //시간같으면안되고(o)
             //분이 14이상이면안되고 초가 60이상이면 안되고(o)
 
-            if (!(캐스팅분 > 14) && !(캐스팅초 > 60)) {
+            if (!(캐스팅분 > 14) && !(캐스팅초 > 60) && !(캐스팅초 == 0)) {
                 if (!분리스트.containsValue(분) || !초리스트.containsValue(초)) { // 시간이 같으면 안되게끔
                     numButton++; // 버튼아이디 뒤에 붙일 숫자
                     제목리스트.put(제목, 제목); // 해시맵에 제목저장
                     메모리스트.put(제목, 메모); // 해시맵에 메모저장
                     분리스트.put(제목, 분); // 해시맵에 분저장
                     초리스트.put(제목, 초); // 해시맵에 초저장
+                    분초리스트.put(제목, 분+초); // 밖으로 내보낼 데이터
                     Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "시간이 겹칩니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }else {
-                Toast.makeText(this, "14분 60초 초과불가능", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "14분 60초 초과불가능, 0초 입력x", Toast.LENGTH_SHORT).show();
                 return;
             }
         } else {
@@ -126,7 +129,6 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
         savelist.setOnClickListener(new View.OnClickListener() { // 버튼클릭하면 작동할코드
             public void onClick(View v) { // v <- 클릭한뷰
-                //이제 밖으로 값을넘겨주고 알람매니저로 메인에서 받아서 텍스트변경해주기..
                 //클릭한뷰에맞는 키값(제목)을 가진 해쉬맵의 벨류(값)를 뿌려주기
                 //어디에? 제목 메모 분 초
                 //제목 -> 해시맵 핵심키값
@@ -146,6 +148,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
                         메모리스트.remove(제목);
                         분리스트.remove(제목);
                         초리스트.remove(제목);
+                        분초리스트.remove(제목);
                         저장목록.removeView(v); //저장한버튼 삭제
 
                     }
@@ -186,6 +189,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         put_data.putExtra("메모", (Serializable) 메모리스트);
         put_data.putExtra("분", (Serializable) 분리스트);
         put_data.putExtra("초", (Serializable) 초리스트);
+        put_data.putExtra("분초", (Serializable) 분초리스트);
         startActivity(put_data);
         super.onPause();
     }
