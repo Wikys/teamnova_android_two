@@ -55,12 +55,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         HashMap<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
         HashMap<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
 
-
-
-        //로직 반대로..
-        //여기서 해시맵만들고 스케쥴로 넘겨주고
-        //다시 저장해서 여기로넘겨주기
-        //
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
         Button 시작하기 = (Button) findViewById(R.id.시작);
         TextView 준비 = (TextView) findViewById(R.id.준비);
@@ -70,7 +64,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 if (m_timer == null) {
-                    if(rt_timer != null && r_timer != null){
+                    if (rt_timer != null && r_timer != null) {
                         휴식 = 3; //10
                         중복 = false;
                         r_timer.cancel();
@@ -82,6 +76,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                         public void run() {
                             if (초타이머 > 0 || 분타이머 > 0) {
                                 //이쯤에서 분 초 체크하고 셋텍스트?
+
+
                                 초타이머--;
                                 if (초타이머 < 0 && 분타이머 > 0) {
                                     분타이머--;
@@ -144,6 +140,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                                         중복 = false;
                                         r_timer.cancel();
                                         rt_timer.cancel();
+                                        r_timer = null;
+                                        rt_timer = null;
                                         시작하기.callOnClick();
 
                                     } catch (Exception e) {
@@ -153,13 +151,13 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                             }
                         };
                         r_timer.schedule(rt_timer, 0, 1000);
-                    }else {
+                    } else {
                         Toast.makeText(mulung_helper.this, "중복실행 불가합니다", Toast.LENGTH_SHORT).show();
                     }
 //                    r_timer.schedule(rt_timer, 0, 1000);
 
 
-                }else {
+                } else {
                     Toast.makeText(mulung_helper.this, "시작하기를 먼저 눌러주세요", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -170,13 +168,25 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         중단하기.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 중단버튼
-                if (!타이머.getText().equals("15분 0초")) {
+                if (!타이머.getText().equals("15분 0초") && m_timer != null) {
                     m_timer.cancel();
                     mt_timer.cancel();
+                    m_timer = null;
+                    mt_timer = null;
+                    중복 = false;
                     분타이머 = 1;
                     초타이머 = 5;
                     타이머.setText("15분 0초");
                     Toast.makeText(mulung_helper.this, "무릉타이머가 중단되었습니다", Toast.LENGTH_SHORT).show();
+                } else if (r_timer != null) { // 휴식타이머가 작동중일때는 여기로와서 중단
+                    r_timer.cancel();
+                    rt_timer.cancel();
+                    r_timer = null;
+                    rt_timer = null;
+                    중복 = false;
+                    분타이머 = 1;
+                    초타이머 = 5;
+                    타이머.setText("15분 0초");
                 } else {
                     Toast.makeText(mulung_helper.this, "타이머가 작동중이 아닙니다", Toast.LENGTH_SHORT).show();
                 }
