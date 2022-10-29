@@ -1,11 +1,15 @@
 package com.example.teamnova_android_two;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.Lifecycle;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dailyNotificationChannel(); // 채널생성 메소드 호출
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "dayReset");
+        builder.setSmallIcon(R.drawable.icon); // 작은 아이콘
+        builder.setContentTitle("초기화알림 (일간)"); // 제목
+        builder.setContentText("날짜가 바뀌어 일정이 초기화 되었습니다"); //내용
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT); //알림 우선순위
         alarm = new alarm();
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
@@ -51,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void dailyNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ //오레오버전 미만에서는 차단
+            CharSequence name = "dayReset";  //채널이름
+            String description = "dayReset"; //채널 설명
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("dayReset", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 
 }
