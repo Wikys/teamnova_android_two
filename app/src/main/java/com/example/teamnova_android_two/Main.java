@@ -2,16 +2,22 @@ package com.example.teamnova_android_two;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Main extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        resetAlarm(this);// 알람실행
+
 
 
 
@@ -102,11 +110,37 @@ public class Main extends AppCompatActivity {
         //+일정표까지 신호날려줌
         //각각 클래스에서 받아서 상황에맞게 처리 (체크박스의경우엔 체크를 푼다던가)
         //일정표에서는 날짜가 바뀌면 메모내용이 해당날짜에 맞게 바뀐다던가 하는식으로
-        //ㅇ
+        //
 
         //알람매니저의 역할은 그냥 앱이 꺼져있어도 지정된 시간대에 신호(이벤트)를주는 역할뿐
         //이 신호를 받아서 브로드캐스트리시버가 작동한다
 
+
+    }
+    public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
+        AlarmManager resetAlarm = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+        Intent resetIntent = new Intent(context, alarm.class);
+        PendingIntent resetSender = PendingIntent.getBroadcast(context,0,resetIntent,0);
+
+        //자정시간
+        Calendar resetCal = Calendar.getInstance(); //캘린더클래스 객체
+        resetCal.setTimeInMillis(System.currentTimeMillis()); //현재시간을 밀리세컨드로 가져와 넘겨줌
+        resetCal.set(Calendar.HOUR_OF_DAY, 0); //일을 0으로 셋
+        resetCal.set(Calendar.MINUTE, 0); //분을 0으로 셋
+        resetCal.set(Calendar.SECOND, 0); //초를 0으로 셋
+        //다음날 0시에 맞추기위해 24시간을 뜻하는 상수인 INTERVAL_DAY을 더해줌
+
+        //여기서 이프문으로 일주일알람과 하루알람 구분?
+
+        resetAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
+                + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);
+        //반복주기
+        //하루,일주일에 한번 울리는 알람이라 수면모드 강제깨움 사용(무슨일이 있어도 동작해야하기때문)
+
+        //테스트코드
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
+        String setResetTime = format.format(new Date(resetCal.getTimeInMillis()+AlarmManager.INTERVAL_DAY));
+        Log.d("resetAlarm", "ResetHour : " + setResetTime);
 
     }
 }
