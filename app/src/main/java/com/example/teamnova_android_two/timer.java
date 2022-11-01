@@ -17,8 +17,6 @@ public class timer extends AppCompatActivity {
     int 분타이머 = 1; //120 초기값
     int 초타이머 = 2; //0 초기값
 
-    //    private Timer timer; //분타이머
-//    private TimerTask t_Timer;
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
 
@@ -89,24 +87,18 @@ public class timer extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop() { //필요없는 리소스 정리
         if(m_timer != null) {
             m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
         }
         if(mt_timer != null){
             mt_timer.cancel();
         }
-        //남은시간 번들에 저장해놔야할듯
+
         //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
 
         super.onStop();
     }
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        String 백업 = 타이머.getText().toString();
-//        outState.putString(백업본, 백업); // 백업본 변수가아니라 다른걸로 해야할수도
-//
-//    } 이걸로 저장기능 구현 불가능
+
 }
