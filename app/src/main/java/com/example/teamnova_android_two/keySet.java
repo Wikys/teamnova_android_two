@@ -18,14 +18,14 @@ public class keySet { // 키 찾아주는 클래스
 
     public void searchValue() {
         for (Map.Entry<String, String> entry : 리스트.entrySet()) {
-            if (entry.getValue().equals(분 + 초)) { // 받은해시맵과 일치하는 키를 찾아서 내보냄
-                Key = entry.getKey();
+            if (entry.getValue().equals(분 + 초)) { // 받은해시맵의 값과 받은 타이머의 시간과 일치하는 값을 가진 해시맵을 내보냄
+                Key = entry.getKey(); //값이 일치하는 해시맵의 키를 변수에담아주고 반복문탈출
                 break;
             }
         }
     }
     public String result(){
-        this.searchValue();
-        return Key;
+        this.searchValue(); //키를찾는 메소드
+        return Key; //찾은 키를 리턴
     }
 }

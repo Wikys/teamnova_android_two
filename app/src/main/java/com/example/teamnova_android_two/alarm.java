@@ -29,7 +29,7 @@ public class alarm extends BroadcastReceiver {
         n_Move.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //액티비티 흐름제어//새액티비티추가
         PendingIntent pn_Move = PendingIntent.getActivity(context, 0, n_Move,0);
         //특정시점에 intent 실행 예약 // 앱이 꺼져있어도 원격으로 켜질수있게해줌
-        dailyNotificationChannel(context); // 채널생성 메소드 호출 //나중에 이거 조건문으로 알람매니저랑 연동
+        dailyNotificationChannel(context); // 채널생성 메소드 호출
 
         //알림 컨텐츠,채널,아이콘등 설정
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "dayReset"); //채널설정

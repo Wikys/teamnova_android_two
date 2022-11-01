@@ -183,15 +183,16 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     }
 
     @Override
-    protected void onPause() { // 온퍼즈될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
-        Intent put_data = new Intent(this,mulung_helper.class);
+    protected void onStop() { // 온스탑될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
+
+        Intent put_data = new Intent(this, mulung_helper.class);
         put_data.putExtra("제목", (Serializable) 제목리스트);
         put_data.putExtra("메모", (Serializable) 메모리스트);
         put_data.putExtra("분", (Serializable) 분리스트);
         put_data.putExtra("초", (Serializable) 초리스트);
         put_data.putExtra("분초", (Serializable) 분초리스트);
         startActivity(put_data);
-        super.onPause();
+        super.onStop();
     }
     //    public void onClick(View v) { //선택한뷰 아이디값 가져와서 삭제버튼에 보내주고
 //        //삭제버튼에서 받아서 삭제

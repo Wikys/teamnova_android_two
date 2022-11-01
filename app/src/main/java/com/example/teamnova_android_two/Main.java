@@ -119,8 +119,9 @@ public class Main extends AppCompatActivity {
     }
     public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
         AlarmManager resetAlarm = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
-        Intent resetIntent = new Intent(context, alarm.class);
+        Intent resetIntent = new Intent(context, alarm.class); // 로직클래스(alarm) 인텐트
         PendingIntent resetSender = PendingIntent.getBroadcast(context,0,resetIntent,0);
+        //인텐트 보류후 특정시점에 브로드캐스트로 이동
 
         //자정시간
         Calendar resetCal = Calendar.getInstance(); //캘린더클래스 객체
@@ -130,7 +131,7 @@ public class Main extends AppCompatActivity {
         resetCal.set(Calendar.SECOND, 0); //초를 0으로 셋
         //다음날 0시에 맞추기위해 24시간을 뜻하는 상수인 INTERVAL_DAY을 더해줌
 
-        //여기서 이프문으로 일주일알람과 하루알람 구분?
+
 
         resetAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
                 + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);

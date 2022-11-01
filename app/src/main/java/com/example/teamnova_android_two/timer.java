@@ -3,7 +3,9 @@ package com.example.teamnova_android_two;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,7 @@ public class timer extends AppCompatActivity {
         setContentView(R.layout.timer);
         Button 시작 = (Button) findViewById(R.id.시작);
         TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
+        Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
 
 
 
@@ -51,6 +54,8 @@ public class timer extends AppCompatActivity {
                                     분타이머 = 1; // 120
                                     초타이머 = 5; // 0
                                     타이머.setText("120분 0초");
+//                                    진동.vibrate(500);
+//                                    Toast.makeText(timer.this, "재획이 종료되었습니다", Toast.LENGTH_SHORT).show();
                                     m_timer.cancel();
                                     mt_timer.cancel();
                                 } catch (Exception e) {
@@ -94,11 +99,11 @@ public class timer extends AppCompatActivity {
         if(mt_timer != null){
             mt_timer.cancel();
         }
-
         //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
+        //앱이 종료되기전에 타이머가 꺼지게하고
+        //내앱이 기획적으로 홈버튼이 눌렸을때 타이머가 멈췄으면 좋겠다
+
 
         super.onStop();
     }
-
-
 }

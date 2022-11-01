@@ -49,7 +49,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         Log.d("LC", "onCreate: ");
 
         Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
-        //이부분 브로드캐스트로
+
 
         Map<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
         Map<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
@@ -60,8 +60,10 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
         TextView 타이머 = (TextView) findViewById(R.id.타이머);
         Button 시작하기 = (Button) findViewById(R.id.시작);
+        Button 중단하기 = (Button) findViewById(R.id.중단);
         TextView 준비 = (TextView) findViewById(R.id.준비);
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
+
 
         시작하기.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,15 +83,18 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                             String 초텍스트 = Integer.toString(초타이머);
                             String 키합 = 분텍스트+초텍스트;
                             if (초타이머 > 0 || 분타이머 > 0) {
-                                //이쯤에서 분 초 체크하고 셋텍스트?
-                                if(분초.containsValue(키합)){
+                                //여기에서 분 초 체크
 
-                                    keySet 키분석 = new keySet( 분텍스트,초텍스트,분초); //키를 찾아주는 클래스
-                                    String 키 = 키분석.result(); // 분석된 키값을 변수에저장
-                                    String 메모수정 = 메모.get(키); // 키값을 인자로주고 저장된 메모받아오기
+                                if (!(분초 == null)){ //해시맵 비어있는지 먼저체크
+                                    if (분초.containsValue(키합)) {
+
+                                        keySet 키분석 = new keySet(분텍스트, 초텍스트, 분초); //키를 찾아주는 클래스
+                                        String 키 = 키분석.result(); // 분석된 키값을 변수에저장
+                                        String 메모수정 = 메모.get(키); // 키값을 인자로주고 저장된 메모받아오기
 //                                    준비.setText(메모수정); //텍스트뷰 메모수정인데 핸들러없어서 안됨
 
-                                }
+                                    }
+                            }
 
 
                                 초타이머--;
@@ -103,11 +108,13 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                                     분타이머 = 1; // 120
                                     초타이머 = 5; // 0
                                     타이머.setText("15분 0초");
-                                    진동.vibrate(500);
+//                                    진동.vibrate(500);
+//                                    Toast.makeText(mulung_helper.this, "무릉이 종료되었습니다", Toast.LENGTH_SHORT).show();
                                     m_timer.cancel();
                                     mt_timer.cancel();
                                     m_timer = null;
                                     mt_timer = null;
+
                                 } catch (Exception e) {
                                     //
                                 }
@@ -157,6 +164,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                                         r_timer = null;
                                         rt_timer = null;
                                         시작하기.callOnClick();
+                                        중단하기.callOnClick();
+
 
                                     } catch (Exception e) {
                                         //
@@ -178,7 +187,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         });
 
 
-        Button 중단하기 = (Button) findViewById(R.id.중단);
+
         중단하기.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // 중단버튼
@@ -193,6 +202,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     타이머.setText("15분 0초");
                     Toast.makeText(mulung_helper.this, "무릉타이머가 중단되었습니다", Toast.LENGTH_SHORT).show();
                 } else if (r_timer != null) { // 휴식타이머가 작동중일때는 여기로와서 중단
+                    휴식 = 3; //10
                     r_timer.cancel();
                     rt_timer.cancel();
                     r_timer = null;
