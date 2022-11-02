@@ -26,8 +26,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     private Integer numButton = 0; // 버튼의 개수
     ArrayList<String> buttonNameList = new ArrayList<>(); //만든 버튼 이름들이 저장되는곳
     //버튼 추가되는 레이아웃
-    LinearLayout 저장목록;
-    int 버튼id;
+
     Map<String, String> 제목리스트 = new HashMap<>();
     Map<String, String> 메모리스트 = new HashMap<>();
     Map<String, String> 분리스트 = new HashMap<>();
