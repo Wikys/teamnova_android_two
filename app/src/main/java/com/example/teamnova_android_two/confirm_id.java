@@ -22,6 +22,8 @@ public class confirm_id extends Activity {
     boolean 허가 = false;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +34,10 @@ public class confirm_id extends Activity {
         TextView 메세지 = findViewById(R.id.메세지);
         Button 종료버튼 = findViewById(R.id.종료버튼);
         Button 확인버튼 = findViewById(R.id.확인버튼);
-
         Intent 텍스트값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
-        중복텍스트.setText(텍스트값.getStringExtra("id")); //키값으로 데이터 찾아서 대입인
+
+
+        중복텍스트.setText(텍스트값.getStringExtra("id")); //키값으로 데이터 찾아서 대입
 
         중복확인.setOnClickListener(new View.OnClickListener() { //중복확인버튼 눌렀을때 동작하는 리스너
             @Override
@@ -62,14 +65,19 @@ public class confirm_id extends Activity {
             @Override
             public void onClick(View view) {
                 if(허가 == true){ // 허가라는 변수로 사용가능한 아이디인지 판별하고 가능할때
+                    String 텍스트 = 중복텍스트.getText().toString();
                     Intent ID확정 = new Intent(confirm_id.this, sign_up.class);
-                    ID확정.putExtra("ID확정",메세지.getText()); //아이디 회원가입 액티비티에 보내주기
-                    Toast.makeText(confirm_id.this, "확인용", Toast.LENGTH_SHORT).show();
+                    ID확정.putExtra("ID확정", 텍스트); //아이디 회원가입 액티비티에 보내주기
+                    setResult(RESULT_OK,ID확정);
+                    finish();
+
+
                 }else{
                     Toast.makeText(confirm_id.this, "아이디를 확인해주세요", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        //아이디 입력하고 확인누르면 액티비티가 꺼지면서 정보이동 -> 사인업으로
 
 
 
@@ -84,6 +92,7 @@ public class confirm_id extends Activity {
 
 
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -101,4 +110,3 @@ public class confirm_id extends Activity {
     }
 }
 
-//중복확인버튼 누르면 텍스트로 사용가능여부 띄우기
