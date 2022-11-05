@@ -13,11 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class sign_up extends Activity {
+public class sign_up extends Activity implements Serializable {
 //    Map<String, String> 아이디 = new HashMap<>();
 //    Map<String, String> 비밀번호 = new HashMap<>();
 //    Map<String, String> 닉네임 = new HashMap<>();
@@ -66,6 +67,7 @@ public class sign_up extends Activity {
                         Intent id전달 = new Intent(sign_up.this, confirm_id.class);
                         //입력한 아이디값을 중복확인 액티비티에 넘김
                         id전달.putExtra("id", 비교값); //에딧텍스트값 저장
+                        id전달.putExtra("id_list", 아이디);
 
                         startActivityForResult(id전달, REQUEST_ID); // 중복확인 액티비티로 이동
                     } else {
@@ -90,6 +92,7 @@ public class sign_up extends Activity {
                         Intent 닉전달 = new Intent(sign_up.this,confirm_nick.class);
                         //입력한 아이디값을 중복확인 액티비티에 넘김
                         닉전달.putExtra("nick", 비교값); //에딧텍스트값 저장
+                        닉전달.putExtra("nick_list", 닉네임);
 
                         startActivityForResult(닉전달,REQUEST_NICK); //닉중복 액티비티로 이동
                     } else {
@@ -118,10 +121,17 @@ public class sign_up extends Activity {
                 }
             }
         });
+        종료버튼.setOnClickListener(new View.OnClickListener() { //x버튼 누르면 저장이나 별도의 로직없이 그냥 화면꺼줌
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     @Override //리퀘스트코드 = 내가 데이터 보낼때 썻던 인식코드, 리저트코드 = 내가 데이터 받아올때 썻던 인식코드, 데이터 = 인텐트
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //데이터 결과값 받아오는메소드
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("main", "onActivityResult: ");
         if(requestCode == REQUEST_ID && resultCode == RESULT_OK){ // 리퀘스트코드가 내가설정한 코드일때, 하위액티비티에서 사용한 리절트코드와 일치할떄
 
             TextView id_Result = (TextView) findViewById(R.id.id_text); //아이디
@@ -136,7 +146,9 @@ public class sign_up extends Activity {
             NICK중복확인 = true;
 
         }
+
     }
+
 
 
     @Override

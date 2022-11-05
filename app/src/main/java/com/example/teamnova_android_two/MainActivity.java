@@ -1,5 +1,6 @@
 package com.example.teamnova_android_two;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -53,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, sign_up.class);
-                startActivity(intent);
+                ActivityResultLauncher
 
             }
         });
 
     }
 }
+//데이터 단방향전송할까하다가
+//그렇게되면 스타트액티비티로 다시 돌아와야하는데 생명주기꼬임

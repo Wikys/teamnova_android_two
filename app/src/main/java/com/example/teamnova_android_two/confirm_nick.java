@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class confirm_nick extends Activity {
-    ArrayList<String> 닉네임 = new ArrayList<>();
+
     boolean 허가 = false;
 
     @Override
@@ -31,6 +31,7 @@ public class confirm_nick extends Activity {
         Button 종료버튼 = findViewById(R.id.종료버튼);
         Button 확인버튼 = findViewById(R.id.확인버튼);
         Intent 텍스트값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
+        ArrayList<String> 닉네임 = (ArrayList<String>)텍스트값.getSerializableExtra("nick_list");
 
         중복텍스트.setText(텍스트값.getStringExtra("nick")); //키값으로 데이터 찾아서 대입
 
