@@ -22,10 +22,16 @@ public class sign_up extends Activity {
 //    Map<String, String> 비밀번호 = new HashMap<>();
 //    Map<String, String> 닉네임 = new HashMap<>();
 //    Map<String, String> 사진 = new HashMap<>();
-    ArrayList<String> 아이디 = new ArrayList<>();
+    ArrayList<String> 아이디 = new ArrayList<>(); //아이디 저장리스트
+    ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
+    ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
+
 
     private static final int REQUEST_ID = 1; //아이디 요청변수
-    private static final int REQUEST_NICK = 1; //닉네임 요청변수
+    private static final int REQUEST_NICK = 2; //닉네임 요청변수
+
+    boolean ID중복확인 = false;
+    boolean NICK중복확인 = false;
 
 
 
@@ -73,6 +79,7 @@ public class sign_up extends Activity {
         });
         //액티비티 풋엑스트라 메소드로 컨필름id 액티비티로 아이디값전달해줌
 
+
         닉중복.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,9 +98,24 @@ public class sign_up extends Activity {
                 }else {
                     Toast.makeText(sign_up.this, "아이디가 결정되었습니다", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-
-
+        완료버튼.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { //완료버튼 누르면 확인후 계정생성로직
+                String 비번 = ps.getText().toString().trim();
+                String 비밀번호확인 = confirm_ps.getText().toString().trim();
+                if(ID중복확인 == true && NICK중복확인 == true && 비번.equals(비밀번호확인)){
+                    Toast.makeText(sign_up.this, "계정생성 완료", Toast.LENGTH_SHORT).show();
+                    아이디.add(id.getText().toString());
+                    닉네임.add(nick.getText().toString());
+                    비밀번호.add(비번);
+                    finish();
+                    //이부분 스타트액티비티포리저트로 바꾸면 수정해야함
+                }else{
+                    Toast.makeText(sign_up.this, "비밀번호가 일치하지않거나 중복체크를 안하셨습니다", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -105,6 +127,13 @@ public class sign_up extends Activity {
             TextView id_Result = (TextView) findViewById(R.id.id_text); //아이디
             id_Result.setText(data.getStringExtra("ID확정"));
             id_Result.setEnabled(false);
+            ID중복확인 = true;
+        }
+        if(requestCode == REQUEST_NICK && resultCode == RESULT_OK){
+            TextView nick_Result = (TextView) findViewById(R.id.닉네임텍스트); //닉네임
+            nick_Result.setText(data.getStringExtra("NICK확정"));
+            nick_Result.setEnabled(false);
+            NICK중복확인 = true;
 
         }
     }
@@ -171,4 +200,6 @@ public class sign_up extends Activity {
 
 //비밀번호 두개 일치하면 일치여부 텍스트로 띄우기
 
-//아이디값을 해쉬맵에 저장해서 중복액티비티에서 에딧텍스트로 들어온값이랑 비교
+//아이디값을 어레이리스트에 저장해서 중복액티비티에서 에딧텍스트로 들어온값이랑 비교
+
+//데이터 메인에 전달
