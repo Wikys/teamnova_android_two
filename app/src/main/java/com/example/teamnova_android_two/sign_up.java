@@ -23,7 +23,7 @@ public class sign_up extends Activity implements Serializable {
 //    Map<String, String> 비밀번호 = new HashMap<>();
 //    Map<String, String> 닉네임 = new HashMap<>();
 //    Map<String, String> 사진 = new HashMap<>();
-    ArrayList<String> 아이디 = new ArrayList<>(); //아이디 저장리스트
+    ArrayList<String> 아이디 = new ArrayList<>();//아이디 저장리스트
     ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
 
@@ -44,7 +44,7 @@ public class sign_up extends Activity implements Serializable {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //타이틀바없앰
         setContentView(R.layout.sign_up);
-        Log.d("main", "onCreate: ");
+        Log.d("sign_up", "onCreate: ");
         TextView id = (TextView) findViewById(R.id.id_text); //아이디
         TextView ps = (TextView) findViewById(R.id.ps_text); //비밀번호
         TextView confirm_ps = (TextView) findViewById(R.id.confirm_ps); //비밀번호 확인
@@ -66,6 +66,9 @@ public class sign_up extends Activity implements Serializable {
                     if (비교값.length() != 0) {
                         Intent id전달 = new Intent(sign_up.this, confirm_id.class);
                         //입력한 아이디값을 중복확인 액티비티에 넘김
+                        Intent 아이디값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
+                        아이디 = (ArrayList<String>)아이디값.getSerializableExtra("닉네임");
+                        //입력한 닉네임값을 중복확인 액티비티에 넘김
                         id전달.putExtra("id", 비교값); //에딧텍스트값 저장
                         id전달.putExtra("id_list", 아이디);
 
@@ -90,7 +93,9 @@ public class sign_up extends Activity implements Serializable {
 
                     if (비교값.length() != 0) {
                         Intent 닉전달 = new Intent(sign_up.this,confirm_nick.class);
-                        //입력한 아이디값을 중복확인 액티비티에 넘김
+                        Intent 닉값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
+                        닉네임 = (ArrayList<String>)닉값.getSerializableExtra("아이디");
+                        //입력한 닉네임값을 중복확인 액티비티에 넘김
                         닉전달.putExtra("nick", 비교값); //에딧텍스트값 저장
                         닉전달.putExtra("nick_list", 닉네임);
 
@@ -114,6 +119,12 @@ public class sign_up extends Activity implements Serializable {
                     아이디.add(id.getText().toString());
                     닉네임.add(nick.getText().toString());
                     비밀번호.add(비번);
+                    Intent 계정생성 = new Intent(sign_up.this, MainActivity.class);
+                    계정생성.putExtra("아이디", 아이디);
+                    계정생성.putExtra("닉네임", 닉네임);
+                    계정생성.putExtra("비밀번호", 비밀번호);
+
+                    setResult(RESULT_OK, 계정생성);//레지스터포액티비티리절트
                     finish();
                     //이부분 스타트액티비티포리저트로 바꾸면 수정해야함
                 }else{
@@ -131,7 +142,7 @@ public class sign_up extends Activity implements Serializable {
     @Override //리퀘스트코드 = 내가 데이터 보낼때 썻던 인식코드, 리저트코드 = 내가 데이터 받아올때 썻던 인식코드, 데이터 = 인텐트
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //데이터 결과값 받아오는메소드
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("main", "onActivityResult: ");
+        Log.d("sign_up", "onActivityResult: ");
         if(requestCode == REQUEST_ID && resultCode == RESULT_OK){ // 리퀘스트코드가 내가설정한 코드일때, 하위액티비티에서 사용한 리절트코드와 일치할떄
 
             TextView id_Result = (TextView) findViewById(R.id.id_text); //아이디
@@ -168,19 +179,19 @@ public class sign_up extends Activity implements Serializable {
 
     @Override
     protected void onRestart() {
-        Log.d("main", "onRestart: ");
+        Log.d("sign_up", "onRestart: ");
         super.onRestart();
     }
 
     @Override
     protected void onStart() {
-        Log.d("main", "onStart: ");
+        Log.d("sign_up", "onStart: ");
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        Log.d("main", "onResume: ");
+        Log.d("sign_up", "onResume: ");
 //        Intent ID확정 = getIntent(); // 중복아이디체크 데이터가져오기
 //        TextView id_Result = (TextView) findViewById(R.id.id_text); //아이디
 //        if(ID확정.hasExtra("ID확정")) {
@@ -193,19 +204,19 @@ public class sign_up extends Activity implements Serializable {
 
     @Override
     protected void onPause() {
-        Log.d("main", "onPause: ");
+        Log.d("sign_up", "onPause: ");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.d("main", "onStop: ");
+        Log.d("sign_up", "onStop: ");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d("main", "onDestroy: ");
+        Log.d("sign_up", "onDestroy: ");
         super.onDestroy();
     }
 }

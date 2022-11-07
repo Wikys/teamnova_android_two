@@ -19,6 +19,7 @@ public class confirm_nick extends Activity {
 
     boolean 허가 = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +32,18 @@ public class confirm_nick extends Activity {
         Button 종료버튼 = findViewById(R.id.종료버튼);
         Button 확인버튼 = findViewById(R.id.확인버튼);
         Intent 텍스트값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
+//        ArrayList<String> 닉네임 = new ArrayList<>();
         ArrayList<String> 닉네임 = (ArrayList<String>)텍스트값.getSerializableExtra("nick_list");
+
+
+
 
         중복텍스트.setText(텍스트값.getStringExtra("nick")); //키값으로 데이터 찾아서 대입
 
         중복확인.setOnClickListener(new View.OnClickListener() { //중복확인버튼 눌렀을때 동작하는 리스너
             @Override
             public void onClick(View view) {
+
                 허가 = false;
                 String 텍스트 = 중복텍스트.getText().toString();
                 String 비교값 = 텍스트.trim();
