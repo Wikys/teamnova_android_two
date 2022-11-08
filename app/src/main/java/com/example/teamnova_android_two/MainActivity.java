@@ -18,6 +18,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ArrayList<String> 아이디 = new ArrayList<>(); //아이디 저장리스트
     ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
+    Uri uri; //이미지정보
 
     ActivityResultLauncher<Intent> receive_Id_Result = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -47,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         아이디 = (ArrayList<String>)계정정보.getSerializableExtra("아이디");
                         닉네임 = (ArrayList<String>)계정정보.getSerializableExtra("닉네임");
                         비밀번호 = (ArrayList<String>)계정정보.getSerializableExtra("비밀번호");
-
-
+                        uri = Uri.parse(계정정보.getStringExtra("uri")); //parse -> 스트링문자열을 Uri객체로 변환
                     }
                 }
             });
@@ -74,8 +75,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 if (아이디.contains(id.getText().toString()) && 비밀번호.contains(ps.getText().toString())) {
                     Toast.makeText(MainActivity.this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, Main.class);
-
                     //사진정보나 계정정보 넘기기 //
+                    //단방향
+
+
+
 
                     startActivity(intent);
 

@@ -1,25 +1,33 @@
 package com.example.teamnova_android_two;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class sign_up extends Activity implements Serializable {
-//    Map<String, String> 아이디 = new HashMap<>();
+public class sign_up extends AppCompatActivity implements Serializable {
+    //    Map<String, String> 아이디 = new HashMap<>();
 //    Map<String, String> 비밀번호 = new HashMap<>();
 //    Map<String, String> 닉네임 = new HashMap<>();
 //    Map<String, String> 사진 = new HashMap<>();
@@ -28,11 +36,35 @@ public class sign_up extends Activity implements Serializable {
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
 
 
+
     private static final int REQUEST_ID = 1; //아이디 요청변수
     private static final int REQUEST_NICK = 2; //닉네임 요청변수
 
     boolean ID중복확인 = false;
     boolean NICK중복확인 = false;
+    Uri uri = null;
+
+
+    ActivityResultLauncher<Intent> receive_Picture_Result = registerForActivityResult( //이미지 넘어오면 여기서받아와서 표기
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        ImageView 사진 = (ImageView) findViewById(R.id.사진); //사진들어가는 이미지뷰
+
+                        Intent intent = result.getData(); // 넘어온 사진데이터를 인텐트로 받고
+                        uri = intent.getData(); // uri타입 변수에 다시넣어줌 // 해당이미지파일의 경로 즉 uri정보를 담아줌
+                        Glide.with(sign_up.this).load(uri).override(150,150).into(사진);
+                        //override : 이미지 가로 세로크기 설정 (없어도됨)
+                        //into : 화면에 보여줄 이미지뷰 객체
+                        //load : 선턱 애미지 정보
+
+
+
+                    }
+                }
+            });
 
 
 
@@ -57,17 +89,18 @@ public class sign_up extends Activity implements Serializable {
 
 
 
+
         ID중복.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String 비교값 = id.getText().toString().trim();
-                if (id.isEnabled()){ //id텍스트뷰가 조작가능한상태면
+                if (id.isEnabled()) { //id텍스트뷰가 조작가능한상태면
 
                     if (비교값.length() != 0) {
                         Intent id전달 = new Intent(sign_up.this, confirm_id.class);
                         //입력한 아이디값을 중복확인 액티비티에 넘김
                         Intent 아이디값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
-                        아이디 = (ArrayList<String>)아이디값.getSerializableExtra("닉네임");
+                        아이디 = (ArrayList<String>) 아이디값.getSerializableExtra("닉네임");
                         //입력한 닉네임값을 중복확인 액티비티에 넘김
                         id전달.putExtra("id", 비교값); //에딧텍스트값 저장
                         id전달.putExtra("id_list", 아이디);
@@ -76,7 +109,7 @@ public class sign_up extends Activity implements Serializable {
                     } else {
                         Toast.makeText(sign_up.this, "아이디값이 공백입니다", Toast.LENGTH_SHORT).show();
                     }
-            }else {
+                } else {
                     Toast.makeText(sign_up.this, "아이디가 결정되었습니다", Toast.LENGTH_SHORT).show();
                 }
 
@@ -89,32 +122,47 @@ public class sign_up extends Activity implements Serializable {
             @Override
             public void onClick(View view) {
                 String 비교값 = nick.getText().toString().trim();
-                if (nick.isEnabled()){ //닉네임 텍스트뷰가 조작가능한상태면
+                if (nick.isEnabled()) { //닉네임 텍스트뷰가 조작가능한상태면
 
                     if (비교값.length() != 0) {
-                        Intent 닉전달 = new Intent(sign_up.this,confirm_nick.class);
+                        Intent 닉전달 = new Intent(sign_up.this, confirm_nick.class);
                         Intent 닉값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
-                        닉네임 = (ArrayList<String>)닉값.getSerializableExtra("아이디");
+                        닉네임 = (ArrayList<String>) 닉값.getSerializableExtra("아이디");
                         //입력한 닉네임값을 중복확인 액티비티에 넘김
                         닉전달.putExtra("nick", 비교값); //에딧텍스트값 저장
                         닉전달.putExtra("nick_list", 닉네임);
 
-                        startActivityForResult(닉전달,REQUEST_NICK); //닉중복 액티비티로 이동
+                        startActivityForResult(닉전달, REQUEST_NICK); //닉중복 액티비티로 이동
                     } else {
                         Toast.makeText(sign_up.this, "아이디값이 공백입니다", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Toast.makeText(sign_up.this, "아이디가 결정되었습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
+        사진등록.setOnClickListener(new View.OnClickListener() { //이미지가져오는 인텐트
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                receive_Picture_Result.launch(intent);
+
+            }
+        });
+
+
+
 
         완료버튼.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //완료버튼 누르면 확인후 계정생성로직
                 String 비번 = ps.getText().toString().trim();
                 String 비밀번호확인 = confirm_ps.getText().toString().trim();
-                if(ID중복확인 == true && NICK중복확인 == true && 비번.equals(비밀번호확인)){
+                if (ID중복확인 == true && NICK중복확인 == true && 비번.equals(비밀번호확인) && uri != null) {
                     Toast.makeText(sign_up.this, "계정생성 완료", Toast.LENGTH_SHORT).show();
                     아이디.add(id.getText().toString());
                     닉네임.add(nick.getText().toString());
@@ -123,12 +171,13 @@ public class sign_up extends Activity implements Serializable {
                     계정생성.putExtra("아이디", 아이디);
                     계정생성.putExtra("닉네임", 닉네임);
                     계정생성.putExtra("비밀번호", 비밀번호);
+                    계정생성.putExtra("uri", uri);
 
                     setResult(RESULT_OK, 계정생성);//레지스터포액티비티리절트
                     finish();
-                    //이부분 스타트액티비티포리저트로 바꾸면 수정해야함
-                }else{
-                    Toast.makeText(sign_up.this, "비밀번호가 일치하지않거나 중복체크를 안하셨습니다", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(sign_up.this, "모든 과정을 완료해주세요", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -139,18 +188,19 @@ public class sign_up extends Activity implements Serializable {
             }
         });
     }
+
     @Override //리퀘스트코드 = 내가 데이터 보낼때 썻던 인식코드, 리저트코드 = 내가 데이터 받아올때 썻던 인식코드, 데이터 = 인텐트
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //데이터 결과값 받아오는메소드
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("sign_up", "onActivityResult: ");
-        if(requestCode == REQUEST_ID && resultCode == RESULT_OK){ // 리퀘스트코드가 내가설정한 코드일때, 하위액티비티에서 사용한 리절트코드와 일치할떄
+        if (requestCode == REQUEST_ID && resultCode == RESULT_OK) { // 리퀘스트코드가 내가설정한 코드일때, 하위액티비티에서 사용한 리절트코드와 일치할떄
 
             TextView id_Result = (TextView) findViewById(R.id.id_text); //아이디
             id_Result.setText(data.getStringExtra("ID확정"));
             id_Result.setEnabled(false);
             ID중복확인 = true;
         }
-        if(requestCode == REQUEST_NICK && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_NICK && resultCode == RESULT_OK) {
             TextView nick_Result = (TextView) findViewById(R.id.닉네임텍스트); //닉네임
             nick_Result.setText(data.getStringExtra("NICK확정"));
             nick_Result.setEnabled(false);
@@ -159,7 +209,6 @@ public class sign_up extends Activity implements Serializable {
         }
 
     }
-
 
 
     @Override
