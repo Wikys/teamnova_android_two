@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     //단방향
 
 
-
-
                     startActivity(intent);
 
 

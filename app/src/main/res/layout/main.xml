@@ -5,6 +5,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/mainimage">
 
+    <ImageView
+        android:id="@+id/이미지"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/환영인사"
+        />
+    <TextView
+        android:id="@+id/환영인사"
+        android:layout_width="parent"
+        android:layout_height="wrap_content"
+        android:textsize = "10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/메뉴목록"
+        app:layout_constraintTop_toBottomOf="@id/이미지"
+
+        />
+
+<!--    이미지뷰 아래에 텍스트로 "닉네임"님 안녕하세요, 왼쪽에 일과 클리어 목록?-->
+
+    <ScrollView
+        android:id="@+id/메뉴목록"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/환영인사"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport = "true"
+
+        >
+
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/메뉴목록"
+        app:layout_constraintBottom_toBottomOf="@id/메뉴목록"
+        app:layout_constraintLeft_toLeftOf="@id/메뉴목록"
+        app:layout_constraintRight_toRightOf="@id/메뉴목록"
+        >
+
     <LinearLayout
         android:id="@+id/일일퀘스트"
         android:background="@drawable/roundbutton"
@@ -254,6 +299,9 @@
             android:layout_weight="1"
             />
     </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
