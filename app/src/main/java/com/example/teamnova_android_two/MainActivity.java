@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     Intent intent = new Intent(MainActivity.this, Main.class);
                     //사진정보나 계정정보 넘기기 //
                     //단방향
+                    intent.putExtra("아이디",아이디);
+                    intent.putExtra("닉네임",닉네임);
+                    intent.putExtra("사진",uri);
 
 
                     startActivity(intent);

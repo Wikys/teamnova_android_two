@@ -5,28 +5,56 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Main extends AppCompatActivity {
+    ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
+    ArrayList<String> 닉네임목록 = new ArrayList<>(); //닉네임 저장리스트
+    Uri uri; //이미지정보
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
+        Intent data = getIntent();
+        uri = data.getParcelableExtra("uri"); // paracelable -> 객체전달
+        아이디목록 = (ArrayList<String>)data.getSerializableExtra("아이디");
+        닉네임목록 = (ArrayList<String>)data.getSerializableExtra("닉네임");
+        String id = 아이디목록.get(0);
+        String nick = 닉네임목록.get(0);
+
+
+
         resetAlarm(this);// 알람실행
+
+        ImageView 프사 = (ImageView)Main.this.findViewById(R.id.이미지);
+        TextView 환영인사 = (TextView)Main.this.findViewById(R.id.환영인사);
+
+        Glide.with(Main.this).load(uri).override(150,150).into(프사); // 프사부분에 이미지띄워주기
+        환영인사.setText(id+"("+nick+") 님 어서오세요");
+
 
 
 

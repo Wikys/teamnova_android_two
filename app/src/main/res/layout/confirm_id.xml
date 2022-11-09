@@ -55,15 +55,14 @@
 
     <Button
         android:id="@+id/확인버튼"
-        android:fontFamily="@font/jalnan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="사용하기"
         android:layout_marginBottom="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:fontFamily="@font/jalnan"
+        android:text="사용하기"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
     <Button
         android:id="@+id/종료버튼"
         android:layout_width="40dp"

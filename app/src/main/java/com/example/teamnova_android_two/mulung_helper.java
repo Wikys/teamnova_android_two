@@ -46,6 +46,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mulung_helper);
+
         Log.d("LC", "onCreate: ");
 
         Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴

@@ -77,15 +77,15 @@ public class sign_up extends AppCompatActivity implements Serializable {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //타이틀바없앰
         setContentView(R.layout.sign_up);
         Log.d("sign_up", "onCreate: ");
-        TextView id = (TextView) findViewById(R.id.id_text); //아이디
-        TextView ps = (TextView) findViewById(R.id.ps_text); //비밀번호
-        TextView confirm_ps = (TextView) findViewById(R.id.confirm_ps); //비밀번호 확인
-        TextView nick = (TextView) findViewById(R.id.닉네임텍스트); //닉네임
-        Button 사진등록 = (Button) findViewById(R.id.사진버튼); //사진등록버튼
-        Button 완료버튼 = (Button) findViewById(R.id.완료버튼); //가입완료버튼
-        Button 종료버튼 = (Button) findViewById(R.id.종료버튼); //종료버튼
-        Button ID중복 = (Button) findViewById(R.id.ID중복); //ID중복확인버튼
-        Button 닉중복 = (Button) findViewById(R.id.닉중복); //닉네임중복확인버튼
+        TextView id = (TextView) sign_up.this.findViewById(R.id.id_text); //아이디
+        TextView ps = (TextView) sign_up.this.findViewById(R.id.ps_text); //비밀번호
+        TextView confirm_ps = (TextView) sign_up.this.findViewById(R.id.confirm_ps); //비밀번호 확인
+        TextView nick = (TextView) sign_up.this.findViewById(R.id.닉네임텍스트); //닉네임
+        Button 사진등록 = (Button) sign_up.this.findViewById(R.id.사진버튼); //사진등록버튼
+        Button 완료버튼 = (Button) sign_up.this.findViewById(R.id.완료버튼); //가입완료버튼
+        Button 종료버튼 = (Button) sign_up.this.findViewById(R.id.종료버튼); //종료버튼
+        Button ID중복 = (Button) sign_up.this.findViewById(R.id.ID중복); //ID중복확인버튼
+        Button 닉중복 = (Button) sign_up.this.findViewById(R.id.닉중복); //닉네임중복확인버튼
 
 
 
