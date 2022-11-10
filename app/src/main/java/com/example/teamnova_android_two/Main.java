@@ -39,7 +39,7 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.main);
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
         Intent data = getIntent();
-        uri = data.getParcelableExtra("uri"); // paracelable -> 객체전달
+        uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
         아이디목록 = (ArrayList<String>)data.getSerializableExtra("아이디");
         닉네임목록 = (ArrayList<String>)data.getSerializableExtra("닉네임");
         String id = 아이디목록.get(0);
@@ -148,7 +148,7 @@ public class Main extends AppCompatActivity {
     public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
         AlarmManager resetAlarm = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
         Intent resetIntent = new Intent(context, alarm.class); // 로직클래스(alarm) 인텐트
-        PendingIntent resetSender = PendingIntent.getBroadcast(context,0,resetIntent,0);
+        PendingIntent resetSender = PendingIntent.getBroadcast(context,0,resetIntent,PendingIntent.FLAG_MUTABLE);
         //인텐트 보류후 특정시점에 브로드캐스트로 이동
 
         //자정시간

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         아이디 = (ArrayList<String>)계정정보.getSerializableExtra("아이디");
                         닉네임 = (ArrayList<String>)계정정보.getSerializableExtra("닉네임");
                         비밀번호 = (ArrayList<String>)계정정보.getSerializableExtra("비밀번호");
-                        uri = Uri.parse(계정정보.getStringExtra("uri")); //parse -> 스트링문자열을 Uri객체로 변환
+                        uri = 계정정보.getParcelableExtra("uri"); // paracelable -> 객체전달
                     }
                 }
             });

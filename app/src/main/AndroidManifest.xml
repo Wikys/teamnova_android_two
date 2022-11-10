@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.teamnova_android_two">
+    xmlns:tools="http://schemas.android.com/tools">
 <!--    진동-->
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
