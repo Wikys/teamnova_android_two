@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -32,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Main extends AppCompatActivity {
     ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
@@ -42,7 +44,7 @@ public class Main extends AppCompatActivity {
     private boolean weekly_Quest = false; //주간퀘스트 초기화 변수
     private boolean weekly_Boss = false; //주간보스 초기화 변수
 
-    ArrayList<String> 일퀘상태 = new ArrayList<>();
+    HashMap<String, Boolean> 일퀘상태 = new HashMap<>(); // 버튼상태정보
     ArrayList<String> 일간보스상태 = new ArrayList<>();
     ArrayList<String> 주간퀘상태 = new ArrayList<>();
     ArrayList<String> 주간보스상태 = new ArrayList<>();
@@ -54,6 +56,13 @@ public class Main extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
+                        Intent 일퀘정보 = result.getData();
+                        일퀘상태 = (HashMap<String, Boolean>)일퀘정보.getSerializableExtra("일퀘버튼");
+                        //일퀘버튼 체크상태정보 받아옴
+
+
+                        Log.d("Main", "onActivityResult: ");
+
 
                     }
                 }
@@ -65,6 +74,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Log.d("Main", "onCreate: ");
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
         Intent data = getIntent();
         uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
@@ -85,19 +95,17 @@ public class Main extends AppCompatActivity {
         Glide.with(Main.this).load(uri).override(150,150).into(프사); // 프사부분에 이미지띄워주기
         환영인사.setText(id+"("+nick+") 님 어서오세요");
 
-
-
-
-
-
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent dqmove = new Intent(Main.this, daily_quest.class);
-                receive_Checkbox_State.launch(dqmove);
+                dqmove.putExtra("날짜변경",daily_Quest ); // 날짜변경 변수 넘김
+                dqmove.putExtra("일퀘상태",일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
 
-                dqmove.putExtra("날짜변경",daily_Quest ); // 날짜변경 스태틱변수 넘김
+
+
+               receive_Checkbox_State.launch(dqmove);
 
             }
         });
@@ -202,7 +210,42 @@ public class Main extends AppCompatActivity {
         //테스트코드
         SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
         String setResetTime = format.format(new Date(resetCal.getTimeInMillis()+AlarmManager.INTERVAL_DAY));
-        Log.d("resetAlarm", "ResetHour : " + setResetTime);
+        Log.d("Main", "ResetHour : " + setResetTime);
 
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("Main", "onStart: ");
+        super.onStart();
+    }
+    @Override
+    protected void onResume() {
+        Log.d("Main", "onResume: ");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("Main", "onPause: ");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("Main", "onStop: ");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("Main", "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("Main", "onRestart: ");
+        super.onRestart();
     }
 }
