@@ -1,5 +1,6 @@
 package com.example.teamnova_android_two;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -15,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -31,6 +37,28 @@ public class Main extends AppCompatActivity {
     ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
     ArrayList<String> 닉네임목록 = new ArrayList<>(); //닉네임 저장리스트
     Uri uri; //이미지정보
+    private boolean daily_Quest = false; //일간퀘스트 초기화 변수
+    private boolean daily_Boss = false; //일간보스 초기화 변수
+    private boolean weekly_Quest = false; //주간퀘스트 초기화 변수
+    private boolean weekly_Boss = false; //주간보스 초기화 변수
+
+    ArrayList<String> 일퀘상태 = new ArrayList<>();
+    ArrayList<String> 일간보스상태 = new ArrayList<>();
+    ArrayList<String> 주간퀘상태 = new ArrayList<>();
+    ArrayList<String> 주간보스상태 = new ArrayList<>();
+
+
+    ActivityResultLauncher<Intent> receive_Checkbox_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        //겟엑스트라 입력
+
+                    }
+                }
+            }); //체크박스 정보들 받아오는 런쳐
+
 
 
     @Override
@@ -42,8 +70,10 @@ public class Main extends AppCompatActivity {
         uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
         아이디목록 = (ArrayList<String>)data.getSerializableExtra("아이디");
         닉네임목록 = (ArrayList<String>)data.getSerializableExtra("닉네임");
-        String id = 아이디목록.get(0);
-        String nick = 닉네임목록.get(0);
+
+            String id = 아이디목록.get(0);
+            String nick = 닉네임목록.get(0);
+
 
 
 
@@ -65,7 +95,10 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent dqmove = new Intent(Main.this, daily_quest.class);
-                startActivity(dqmove);
+                receive_Checkbox_State.launch(dqmove);
+
+                dqmove.putExtra("날짜변경",daily_Quest ); // 날짜변경 스태틱변수 넘김
+
             }
         });
         LinearLayout dbbtn = (LinearLayout) findViewById(R.id.일일보스); //데일리보스 이동버튼

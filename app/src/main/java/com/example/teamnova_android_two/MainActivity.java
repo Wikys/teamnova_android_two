@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         닉네임 = (ArrayList<String>)계정정보.getSerializableExtra("닉네임");
                         비밀번호 = (ArrayList<String>)계정정보.getSerializableExtra("비밀번호");
                         uri = 계정정보.getParcelableExtra("uri"); // paracelable -> 객체전달
+
                     }
                 }
             });
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         Button sign_Up_Button = (Button) MainActivity.this.findViewById(R.id.sign_up_button);
 
-        login_button.setOnClickListener(new View.OnClickListener() {
+        login_button.setOnClickListener(new View.OnClickListener() {//로그인버튼 눌렀을때
             @Override
             public void onClick(View view) {
 
@@ -85,7 +86,17 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     startActivity(intent);
 
 
-                } else {
+                }
+                else if(true){ //테스트용 (매번 계정만들기 힘듬)
+                    Intent intent = new Intent(MainActivity.this, Main.class);
+                    아이디.add("ayc0812");
+                    닉네임.add("팀노바");
+                    intent.putExtra("아이디",아이디);
+                    intent.putExtra("닉네임",닉네임);
+                    intent.putExtra("사진",uri);
+                    startActivity(intent);
+                }
+                else {
                     Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인 해주세요", Toast.LENGTH_SHORT).show();
                 }
             }

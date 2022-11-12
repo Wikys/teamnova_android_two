@@ -59,9 +59,6 @@ public class sign_up extends AppCompatActivity implements Serializable {
                         //override : 이미지 가로 세로크기 설정 (없어도됨)
                         //into : 화면에 보여줄 이미지뷰 객체
                         //load : 선턱 애미지 정보
-
-
-
                     }
                 }
             });
