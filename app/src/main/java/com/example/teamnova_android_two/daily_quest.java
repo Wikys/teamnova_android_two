@@ -1,9 +1,13 @@
 package com.example.teamnova_android_two;
 
+import static com.example.teamnova_android_two.Main.dq_Reset;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +21,12 @@ import java.util.HashMap;
 public class daily_quest extends AppCompatActivity implements Serializable {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.daily_quest);
         Log.d("daily_quest", "onCreate: ");
-
 
         //메인가는버튼 하나만들어야할듯...
         Button 뒤로가기 = (Button) daily_quest.this.findViewById(R.id.뒤로가기);
@@ -33,26 +37,35 @@ public class daily_quest extends AppCompatActivity implements Serializable {
         ToggleButton 버튼5 = (ToggleButton) daily_quest.this.findViewById(R.id.모라스버튼);
         ToggleButton 버튼6 = (ToggleButton) daily_quest.this.findViewById(R.id.에스페라버튼);
 
-        if(savedInstanceState != null) {
+
+
 
             Intent 불러오기 = getIntent();
             버튼상태확인 = (HashMap<String, Boolean>) 불러오기.getSerializableExtra("일퀘상태");
+            if(버튼상태확인.size() != 0) {
+                버튼1.setChecked(버튼상태확인.get("버튼1"));
+                버튼2.setChecked(버튼상태확인.get("버튼2"));
+                버튼3.setChecked(버튼상태확인.get("버튼3"));
+                버튼4.setChecked(버튼상태확인.get("버튼4"));
+                버튼5.setChecked(버튼상태확인.get("버튼5"));
+                버튼6.setChecked(버튼상태확인.get("버튼6"));
+            }
+            else if(dq_Reset == true){ //브로드캐스트로 변경된 스태틱변수가 트루면
+                버튼1.setChecked(false);
+                버튼2.setChecked(false);
+                버튼3.setChecked(false);
+                버튼4.setChecked(false);
+                버튼5.setChecked(false);
+                버튼6.setChecked(false); //전부 초기화하고
+                dq_Reset = false; //스태틱변수 다시 펄스로바꿈
 
-            버튼1.setChecked(버튼상태확인.get("버튼1"));
-            버튼2.setChecked(버튼상태확인.get("버튼2"));
-            버튼3.setChecked(버튼상태확인.get("버튼3"));
-            버튼4.setChecked(버튼상태확인.get("버튼4"));
-            버튼5.setChecked(버튼상태확인.get("버튼5"));
-            버튼6.setChecked(버튼상태확인.get("버튼6"));
-        }
-
-
-        //상태값과 setchecked 상태를 맞추면될듯
+             }
+            //버튼상태확인 해시맵 안에 요소가 0개이상 있으면 버튼상태 체크하고 바꿔줌
 
 
         뒤로가기.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { //뒤로가기 버튼
 
                 버튼상태확인.put("버튼1", 버튼1.isChecked());
                 버튼상태확인.put("버튼2", 버튼2.isChecked());
@@ -72,8 +85,10 @@ public class daily_quest extends AppCompatActivity implements Serializable {
 
     }
 
+
+
     @Override
-    protected void onStop() { //여기서 버튼상태 저장해서 다시넘기기
+    protected void onStop() {
         Log.d("daily_quest", "onStop: ");
 
 

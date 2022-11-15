@@ -1,5 +1,10 @@
 package com.example.teamnova_android_two;
 
+import static com.example.teamnova_android_two.Main.db_Reset;
+import static com.example.teamnova_android_two.Main.dq_Reset;
+import static com.example.teamnova_android_two.Main.wb_Reset;
+import static com.example.teamnova_android_two.Main.wq_Reset;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,7 +32,7 @@ public class alarm extends BroadcastReceiver {
 
         Intent n_Move = new Intent(context, MainActivity.class); //노티피케이션 발동시 이동할액티비티
         n_Move.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //액티비티 흐름제어//새액티비티추가
-        PendingIntent pn_Move = PendingIntent.getActivity(context, 0, n_Move,0);
+        PendingIntent pn_Move = PendingIntent.getActivity(context, 0, n_Move, PendingIntent.FLAG_IMMUTABLE);
         //특정시점에 intent 실행 예약 // 앱이 꺼져있어도 원격으로 켜질수있게해줌
         dailyNotificationChannel(context); // 채널생성 메소드 호출
 
@@ -37,9 +42,16 @@ public class alarm extends BroadcastReceiver {
         if(요일.get(Calendar.DAY_OF_WEEK) == 5){ //목요일이면 주간초기화
             builder.setContentTitle("초기화알림 (주간)"); // 제목
             builder.setContentText("목요일이 되어 주간일정이 초기화 되었습니다"); //내용
+            wq_Reset = true;
+            wb_Reset = true;
+
+
         }else {
             builder.setContentTitle("초기화알림 (일간)"); // 제목
             builder.setContentText("날짜가 바뀌어 일정이 초기화 되었습니다"); //내용
+            dq_Reset = true;
+            db_Reset = true;
+
         }
 
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT); //알림 우선순위

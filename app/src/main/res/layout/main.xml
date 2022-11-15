@@ -33,9 +33,6 @@
 
 <!--    이미지뷰 아래에 텍스트로 "닉네임"님 안녕하세요, 왼쪽에 일과 클리어 목록?-->
 
-
-
-    
     <androidx.core.widget.NestedScrollView
         android:id="@+id/메뉴목록"
         android:layout_width="0dp"
@@ -64,7 +61,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/일일보스"
         app:layout_constraintBottom_toTopOf="@id/주간퀘스트"
-
         app:layout_constraintHorizontal_chainStyle="spread"
         >
         <ImageView

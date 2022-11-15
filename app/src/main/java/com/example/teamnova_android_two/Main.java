@@ -39,35 +39,70 @@ public class Main extends AppCompatActivity {
     ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
     ArrayList<String> 닉네임목록 = new ArrayList<>(); //닉네임 저장리스트
     Uri uri; //이미지정보
-    private boolean daily_Quest = false; //일간퀘스트 초기화 변수
-    private boolean daily_Boss = false; //일간보스 초기화 변수
-    private boolean weekly_Quest = false; //주간퀘스트 초기화 변수
-    private boolean weekly_Boss = false; //주간보스 초기화 변수
+    static boolean dq_Reset = false; //일간퀘스트 초기화 변수
+    static boolean db_Reset = false; //일간보스 초기화 변수
+    static boolean wq_Reset = false; //주간퀘스트 초기화 변수
+    static boolean wb_Reset = false; //주간보스 초기화 변수
 
     HashMap<String, Boolean> 일퀘상태 = new HashMap<>(); // 버튼상태정보
-    ArrayList<String> 일간보스상태 = new ArrayList<>();
-    ArrayList<String> 주간퀘상태 = new ArrayList<>();
-    ArrayList<String> 주간보스상태 = new ArrayList<>();
+    HashMap<String, Boolean> 일간보스상태 = new HashMap<>(); // 버튼상태정보
+    HashMap<String, Boolean> 주간퀘상태 = new HashMap<>(); // 버튼상태정보
+    HashMap<String, Boolean> 주간보스상태 = new HashMap<>(); // 버튼상태정보
 
 
-    ActivityResultLauncher<Intent> receive_Checkbox_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    ActivityResultLauncher<Intent> receive_Dq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
                         Intent 일퀘정보 = result.getData();
-                        일퀘상태 = (HashMap<String, Boolean>)일퀘정보.getSerializableExtra("일퀘버튼");
+                        일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-
-
                         Log.d("Main", "onActivityResult: ");
-
-
                     }
                 }
-            }); //체크박스 정보들 받아오는 런쳐
+            }); //일퀘런쳐
 
+
+    ActivityResultLauncher<Intent> receive_Db_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        Intent 일보정보 = result.getData();
+                        일간보스상태 = (HashMap<String, Boolean>) 일보정보.getSerializableExtra("일보버튼");
+                        //일보버튼 체크상태정보 받아옴
+                        Log.d("Main", "onActivityResult: ");
+                    }
+                }
+            }); //일보런쳐
+
+    ActivityResultLauncher<Intent> receive_Wq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        Intent 주간퀘정보 = result.getData();
+                        주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
+                        //일퀘버튼 체크상태정보 받아옴
+                        Log.d("Main", "onActivityResult: ");
+                    }
+                }
+            }); //주간퀘런쳐
+
+    ActivityResultLauncher<Intent> receive_Wb_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        Intent 주간보스정보 = result.getData();
+                        주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
+                        //일퀘버튼 체크상태정보 받아옴
+                        Log.d("Main", "onActivityResult: ");
+                    }
+                }
+            }); //주간보스런쳐
 
 
     @Override
@@ -78,35 +113,29 @@ public class Main extends AppCompatActivity {
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
         Intent data = getIntent();
         uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
-        아이디목록 = (ArrayList<String>)data.getSerializableExtra("아이디");
-        닉네임목록 = (ArrayList<String>)data.getSerializableExtra("닉네임");
+        아이디목록 = (ArrayList<String>) data.getSerializableExtra("아이디");
+        닉네임목록 = (ArrayList<String>) data.getSerializableExtra("닉네임");
 
-            String id = 아이디목록.get(0);
-            String nick = 닉네임목록.get(0);
-
-
+        String id = 아이디목록.get(0);
+        String nick = 닉네임목록.get(0);
 
 
         resetAlarm(this);// 알람실행
 
-        ImageView 프사 = (ImageView)Main.this.findViewById(R.id.이미지);
-        TextView 환영인사 = (TextView)Main.this.findViewById(R.id.환영인사);
+        ImageView 프사 = (ImageView) Main.this.findViewById(R.id.이미지);
+        TextView 환영인사 = (TextView) Main.this.findViewById(R.id.환영인사);
 
-        Glide.with(Main.this).load(uri).override(150,150).into(프사); // 프사부분에 이미지띄워주기
-        환영인사.setText(id+"("+nick+") 님 어서오세요");
+        Glide.with(Main.this).load(uri).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
+        환영인사.setText(id + "(" + nick + ") 님 어서오세요");
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent dqmove = new Intent(Main.this, daily_quest.class);
-                dqmove.putExtra("날짜변경",daily_Quest ); // 날짜변경 변수 넘김
-                dqmove.putExtra("일퀘상태",일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
-
-
-
-               receive_Checkbox_State.launch(dqmove);
-
+//                dqmove.putExtra("날짜변경",dq_Reset ); // 날짜변경 변수 넘김
+                dqmove.putExtra("일퀘상태", 일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
+                receive_Dq_State.launch(dqmove);
             }
         });
         LinearLayout dbbtn = (LinearLayout) findViewById(R.id.일일보스); //데일리보스 이동버튼
@@ -115,7 +144,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent dbmove = new Intent(Main.this, daily_boss.class);
-                startActivity(dbmove);
+                dbmove.putExtra("일보상태", 일간보스상태);
+                receive_Db_State.launch(dbmove);
             }
         });
         LinearLayout wqbtn = (LinearLayout) findViewById(R.id.주간퀘스트); //위클리퀘스트 이동버튼
@@ -124,7 +154,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent wqmove = new Intent(Main.this, weekly_quest.class);
-                startActivity(wqmove);
+                wqmove.putExtra("주간퀘상태",주간퀘상태);
+                receive_Wq_State.launch(wqmove);
             }
         });
 
@@ -134,7 +165,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent wbmove = new Intent(Main.this, weekly_boss.class);
-                startActivity(wbmove);
+                wbmove.putExtra("주간보스상태",주간보스상태);
+                receive_Wb_State.launch(wbmove);
             }
         });
 
@@ -186,10 +218,11 @@ public class Main extends AppCompatActivity {
 
 
     }
+
     public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
-        AlarmManager resetAlarm = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+        AlarmManager resetAlarm = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
         Intent resetIntent = new Intent(context, alarm.class); // 로직클래스(alarm) 인텐트
-        PendingIntent resetSender = PendingIntent.getBroadcast(context,0,resetIntent,PendingIntent.FLAG_MUTABLE);
+        PendingIntent resetSender = PendingIntent.getBroadcast(context, 0, resetIntent, PendingIntent.FLAG_IMMUTABLE);
         //인텐트 보류후 특정시점에 브로드캐스트로 이동
 
         //자정시간
@@ -201,7 +234,6 @@ public class Main extends AppCompatActivity {
         //다음날 0시에 맞추기위해 24시간을 뜻하는 상수인 INTERVAL_DAY을 더해줌
 
 
-
         resetAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
                 + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);
         //반복주기
@@ -209,7 +241,7 @@ public class Main extends AppCompatActivity {
 
         //테스트코드
         SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
-        String setResetTime = format.format(new Date(resetCal.getTimeInMillis()+AlarmManager.INTERVAL_DAY));
+        String setResetTime = format.format(new Date(resetCal.getTimeInMillis() + AlarmManager.INTERVAL_DAY));
         Log.d("Main", "ResetHour : " + setResetTime);
 
     }
@@ -219,6 +251,7 @@ public class Main extends AppCompatActivity {
         Log.d("Main", "onStart: ");
         super.onStart();
     }
+
     @Override
     protected void onResume() {
         Log.d("Main", "onResume: ");

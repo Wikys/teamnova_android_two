@@ -100,8 +100,8 @@ public class timer extends AppCompatActivity {
             mt_timer.cancel();
         }
         //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
-        //앱이 종료되기전에 타이머가 꺼지게하고
-        //내앱이 기획적으로 홈버튼이 눌렸을때 타이머가 멈췄으면 좋겠다
+        //앱이 종료되기전에 타이머가 꺼지게함
+
 
 
         super.onStop();
