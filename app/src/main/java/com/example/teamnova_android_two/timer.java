@@ -18,6 +18,8 @@ import java.util.TimerTask;
 public class timer extends AppCompatActivity {
     int 분타이머 = 1; //120 초기값
     int 초타이머 = 2; //0 초기값
+    int 디폴트분 = 1; // 기본값 (구분용)
+    int 디폴트초 = 2; // 기본값
 
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
@@ -35,72 +37,32 @@ public class timer extends AppCompatActivity {
         Button 중단 = (Button) findViewById(R.id.중단); // 타이머 중단버튼
 
 
-//        시작.setOnClickListener(new View.OnClickListener() { //시작버튼
-//            @Override
-//            public void onClick(View view) {
-//                if (타이머.getText().equals("120분 0초")) {
-//
-//                    m_timer = new Timer();
-//                    mt_timer = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            if (초타이머 > 0 || 분타이머 > 0) {
-//                                초타이머--;
-//                                if (초타이머 < 0 && 분타이머 > 0) {
-//                                    분타이머--;
-//                                    초타이머 = 5; //59
-//                                }
-//                                타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
-//                            } else {
-//                                try {
-//                                    분타이머 = 1; // 120
-//                                    초타이머 = 5; // 0
-//                                    타이머.setText("120분 0초");
-////                                    진동.vibrate(500);
-////                                    Toast.makeText(timer.this, "재획이 종료되었습니다", Toast.LENGTH_SHORT).show();
-//                                    m_timer.cancel();
-//                                    mt_timer.cancel();
-//                                } catch (Exception e) {
-//                                    System.out.println("분타이머(태스크)| 인터럽트 예외 발생");
-//                                }
-//                            }
-//                        }
-//                    };
-//                    m_timer.schedule(mt_timer, 0, 1000);
-//                } else {
-//                    Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
-//
-//        중단.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) { // 중단버튼
-//                if (!타이머.getText().equals("120분 0초")) {
-//                    m_timer.cancel();
-//                    mt_timer.cancel();
-//                    분타이머 = 1;
-//                    초타이머 = 5;
-//                    타이머.setText("120분 0초");
-//                    Toast.makeText(timer.this, "재획타이머가 중단되었습니다", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(timer.this, "타이머가 작동중이 아닙니다", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
         시작.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (end == false) {
                     end = true;
                     timer();
-                    //타이머가 다되면 변수가 초기화되면서 무한루프가돔
-
-
                 } else {
                     Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
                 }
+
+            }
+        });
+
+
+        중단.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(m_timer != null && mt_timer != null){
+                    timer_Stop();
+                }
+
+
+                else {
+                    Toast.makeText(timer.this, "실행중인 타이머가 없습니다", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -117,23 +79,21 @@ public class timer extends AppCompatActivity {
                     초타이머--;
                     if (초타이머 < 0 && 분타이머 > 0) {
                         분타이머--;
-                        초타이머 = 2; // 59
+                        초타이머 = 디폴트초; // 59
                     }
                     타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
                 } else {
 
-                    timer_Stop();
-                    m_timer.cancel();
-                    mt_timer.cancel();
 
-//                    Toast.makeText(timer.this, "재획이 종료되었습니다", Toast.LENGTH_SHORT).show();
+                    timer_Stop();
+
 
                 }
 
             }
 
         };
-        m_timer.schedule(mt_timer,1000,1000);
+        m_timer.schedule(mt_timer, 1000, 1000);
 
     }
 
@@ -141,11 +101,11 @@ public class timer extends AppCompatActivity {
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
 
         TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
-//        m_timer.cancel();
-//        mt_timer.cancel();
+
         end = false;
-        분타이머 = 1; // 120
-        초타이머 = 2; // 0
+
+        분타이머 = 디폴트분;
+        초타이머 = 디폴트초;
         타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
         진동.vibrate(500);
         timer.this.runOnUiThread(new Runnable() {
@@ -154,9 +114,10 @@ public class timer extends AppCompatActivity {
                 Toast.makeText(timer.this, "재획타이머가 종료되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
+        m_timer.cancel();
+        mt_timer.cancel();
+        m_timer = null;
+        mt_timer = null;
     }
 
 
@@ -165,14 +126,14 @@ public class timer extends AppCompatActivity {
         Log.d("timer", "onStop: ");
         if (m_timer != null) {
             m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
+            end = false; // 타이머종료 구분 변수 초기화를해서 멈춰줌
         }
         if (mt_timer != null) {
             mt_timer.cancel();
         }
+
         //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
         //앱이 종료되기전에 타이머가 꺼지게함
-
-
         super.onStop();
     }
 
@@ -204,7 +165,17 @@ public class timer extends AppCompatActivity {
     @Override
     protected void onRestart() {
         Log.d("timer", "onRestart: ");
-        //홈버튼 눌렀다 돌아오면 여기서 재실행하게 만들기?
+
+        if (분타이머 != 디폴트분 || 초타이머 != 디폴트초) {
+            if (end == false) {
+                end = true;
+                timer();
+            } else {
+                Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
+            }
+            // 저장된 변수(시간값)가 기본값이 아니면 타이머 도중 홈버튼을 눌렀다고 판단해 재시작
+            //온리줌에 넣게되면 버튼을 누르지도않았는데 자동으로 시작하게되서 트리거같은 느낌으로 리스타트에 넣었음
+        }
         super.onRestart();
     }
 }
