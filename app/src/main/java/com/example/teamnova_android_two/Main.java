@@ -48,6 +48,8 @@ public class Main extends AppCompatActivity {
     HashMap<String, Boolean> 일간보스상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간퀘상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간보스상태 = new HashMap<>(); // 버튼상태정보
+    int 재획타이머_분;
+    int 재획타이머_초;
 
 
     ActivityResultLauncher<Intent> receive_Dq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -103,6 +105,19 @@ public class Main extends AppCompatActivity {
                     }
                 }
             }); //주간보스런쳐
+
+    ActivityResultLauncher<Intent> receive_Timer_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+//                        Intent 주간보스정보 = result.getData();
+//                        주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
+                        //타이머 시간정보 받아옴
+                        Log.d("Main", "onActivityResult: ");
+                    }
+                }
+            }); //타이머
 
 
     @Override
@@ -176,7 +191,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent timermove = new Intent(Main.this, timer.class);
-                startActivity(timermove);
+                //분초정보 보내야함
+                receive_Timer_State.launch(timermove);
             }
         });
         LinearLayout schebtn = (LinearLayout) findViewById(R.id.일정표); // 일정표 이동버튼
