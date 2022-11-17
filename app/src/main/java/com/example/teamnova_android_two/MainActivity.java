@@ -122,7 +122,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onResume() {
         Log.d("MainActivity", "onResume: ");
+        TextView id = (TextView) MainActivity.this.findViewById(R.id.아이디);
+        TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         //온리줌에서 새로 데이터 받아왔을때 갱신해줘야함
+        if(아이디.size() > 0 && 비밀번호.size() > 0){
+            id.setText(아이디.get(0));
+            ps.setText(비밀번호.get(0));
+        }
 
         super.onResume();
     }

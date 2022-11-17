@@ -126,7 +126,7 @@ public class timer extends AppCompatActivity {
         Log.d("timer", "onStop: ");
         if (m_timer != null) {
             m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
-            end = false; // 타이머종료 구분 변수 초기화를해서 멈춰줌
+            end = false; // 타이머종료 구분 변수 초기화
         }
         if (mt_timer != null) {
             mt_timer.cancel();
@@ -170,8 +170,6 @@ public class timer extends AppCompatActivity {
             if (end == false) {
                 end = true;
                 timer();
-            } else {
-                Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
             }
             // 저장된 변수(시간값)가 기본값이 아니면 타이머 도중 홈버튼을 눌렀다고 판단해 재시작
             //온리줌에 넣게되면 버튼을 누르지도않았는데 자동으로 시작하게되서 트리거같은 느낌으로 리스타트에 넣었음
