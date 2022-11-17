@@ -41,7 +41,7 @@
         <activity
             android:name=".mulung_helper_scedule"
             android:exported="false"
-            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+            android:theme="@style/Theme.MyDialog" />
         <activity
             android:name=".seed_helper_49"
             android:exported="false" />

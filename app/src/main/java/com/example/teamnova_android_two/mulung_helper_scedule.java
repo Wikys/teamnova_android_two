@@ -14,13 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.DataOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class mulung_helper_scedule extends Activity implements Serializable {
+public class mulung_helper_scedule extends AppCompatActivity implements Serializable {
 
     private final int id = 0x8000; //버튼아이디 변수
     private Integer numButton = 0; // 버튼의 개수
@@ -38,6 +40,7 @@ public class mulung_helper_scedule extends Activity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("mulung_helper_scedule", "onCreate: ");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mulung_helper_scedule);
         Button save = (Button) findViewById(R.id.저장버튼);
@@ -57,6 +60,13 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         exit.setOnClickListener(new View.OnClickListener() { //x버튼 눌렀을때 꺼지게하기 onstop
             @Override
             public void onClick(View view) { //x버튼 누르면 액티비티파괴
+                Intent put_data = new Intent(mulung_helper_scedule.this, mulung_helper.class);
+                put_data.putExtra("제목", (Serializable) 제목리스트);
+                put_data.putExtra("메모", (Serializable) 메모리스트);
+                put_data.putExtra("분", (Serializable) 분리스트);
+                put_data.putExtra("초", (Serializable) 초리스트);
+                put_data.putExtra("분초", (Serializable) 분초리스트);
+                setResult(RESULT_OK, put_data);
                 finish();
             }
         });
@@ -73,25 +83,28 @@ public class mulung_helper_scedule extends Activity implements Serializable {
         LinearLayout 저장목록 = (LinearLayout) findViewById(R.id.저장목록); // 동적 레이아웃 아이디가져오기
         EditText title = (EditText) findViewById(R.id.제목); //사용자가 정한 제목
         String 제목 = title.getText().toString(); // 제목에 쓴 텍스트 변수화
-        int 캐스팅분 = Integer.valueOf(String.valueOf(m_get.getText()));//조건문에 대입해주기위해서 인트로 캐스팅
-        int 캐스팅초 = Integer.valueOf(String.valueOf(s_get.getText()));
-        if(제목리스트.containsKey(제목)){ //제목이 같으면 기존에 있던 버튼을 수정
-            if(!(캐스팅분 > 14) && !(캐스팅초 > 60)) {
+        int 캐스팅분 =0;
+        int 캐스팅초 =0;
+
+        if (!(m_get.getText().toString().equals("")) && !(s_get.getText().toString().equals(""))) {
+            캐스팅분 = Integer.valueOf(String.valueOf(m_get.getText()));//조건문에 대입해주기위해서 인트로 캐스팅
+            캐스팅초 = Integer.valueOf(String.valueOf(s_get.getText()));
+        }
+        if (제목리스트.containsKey(제목)) { //제목이 같으면 기존에 있던 버튼을 수정
+            if (!(캐스팅분 > 14) && !(캐스팅초 > 60)) {
                 신규 = false;
                 메모리스트.replace(제목, 메모); // 해시맵에 메모저장
                 분리스트.replace(제목, 분); // 해시맵에 분저장
                 초리스트.replace(제목, 초); // 해시맵에 초저장
-                분초리스트.replace(제목, 분+초); // 밖으로 내보낼 데이터
+                분초리스트.replace(제목, 분 + 초); // 밖으로 내보낼 데이터
                 Toast.makeText(this, "변경완료", Toast.LENGTH_SHORT).show();
                 return;
-            }else{
+            } else {
                 Toast.makeText(this, "14분 60초 초과불가능", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-        }
-
-        else if (!제목리스트.containsKey(제목) ) {
+        } else if (!제목리스트.containsKey(제목)) {
             신규 = true;
             //제목같으면안되고(o) 시간비어있으면안되고(o) 제목비어있으면 안되고(x)
             //시간같으면안되고(o)
@@ -104,13 +117,13 @@ public class mulung_helper_scedule extends Activity implements Serializable {
                     메모리스트.put(제목, 메모); // 해시맵에 메모저장
                     분리스트.put(제목, 분); // 해시맵에 분저장
                     초리스트.put(제목, 초); // 해시맵에 초저장
-                    분초리스트.put(제목, 분+초); // 밖으로 내보낼 데이터
+                    분초리스트.put(제목, 분 + 초); // 밖으로 내보낼 데이터
                     Toast.makeText(this, "저장완료", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "시간이 겹칩니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
-            }else {
+            } else {
                 Toast.makeText(this, "14분 60초 초과불가능, 0초 입력x", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -118,8 +131,6 @@ public class mulung_helper_scedule extends Activity implements Serializable {
             Toast.makeText(this, "제목을 확인해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
 
 
         Button savelist = new Button(this); // 버튼생성
@@ -155,9 +166,9 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
             }
         });
-        if(신규) { //신규생성로직으로 등록된버튼이면 생성
+        if (신규) { //신규생성로직으로 등록된버튼이면 생성
             저장목록.addView(savelist, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        }else{
+        } else {
             Toast.makeText(this, "변경 되었습니다", Toast.LENGTH_SHORT).show();
             신규 = true;
         }
@@ -183,19 +194,40 @@ public class mulung_helper_scedule extends Activity implements Serializable {
 
     @Override
     protected void onStop() { // 온스탑될때 저장목록에 있는 시간,메모정보를 메인에 쏴줘야함
+        Log.d("mulung_helper_scedule", "onStop: ");
 
-        Intent put_data = new Intent(this, mulung_helper.class);
-        put_data.putExtra("제목", (Serializable) 제목리스트);
-        put_data.putExtra("메모", (Serializable) 메모리스트);
-        put_data.putExtra("분", (Serializable) 분리스트);
-        put_data.putExtra("초", (Serializable) 초리스트);
-        put_data.putExtra("분초", (Serializable) 분초리스트);
-        startActivity(put_data);
+
         super.onStop();
     }
-    //    public void onClick(View v) { //선택한뷰 아이디값 가져와서 삭제버튼에 보내주고
-//        //삭제버튼에서 받아서 삭제
-//        동적버튼 = findViewById(v.getId()); //맴버변수 값을 아이디로 변경
-//
-//    }
+
+    @Override
+    protected void onStart() {
+        Log.d("mulung_helper_scedule", "onStart: ");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("mulung_helper_scedule", "onResume: ");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("mulung_helper_scedule", "onPause: ");
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("mulung_helper_scedule", "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("mulung_helper_scedule", "onRestart: ");
+        super.onRestart();
+    }
+
 }

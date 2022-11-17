@@ -1,11 +1,17 @@
 package com.example.teamnova_android_two;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -48,10 +54,30 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     Boolean rest_End = false;
 
 
-//    Map<String, String> 제목 = new HashMap<>();
-//    Map<String, String> 메모= new HashMap<>();
-//    Map<String, String> 분 = new HashMap<>();
-//    Map<String, String> 초 = new HashMap<>();
+    Map<String, String> 제목 = new HashMap<>();
+    Map<String, String> 메모 = new HashMap<>();
+    Map<String, String> 분 = new HashMap<>();
+    Map<String, String> 초 = new HashMap<>();
+    Map<String, String> 분초 = new HashMap<>();
+
+    ActivityResultLauncher<Intent> receive_Memo_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
+                        //겟엑스트라 입력
+                        Intent 스케쥴 = result.getData();
+                        제목 = (HashMap<String, String>) 스케쥴.getSerializableExtra("제목");
+                        메모 = (HashMap<String, String>) 스케쥴.getSerializableExtra("메모");
+                        분 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분");
+                        초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("초");
+                        분초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분초");
+
+                        //스케쥴 등록해논거 가져옴
+                        Log.d("mulung_helper", "onActivityResult: ");
+                    }
+                }
+            }); //메모런쳐
 
 
     @Override
@@ -61,14 +87,14 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
         Log.d("mulung_helper", "onCreate: ");
 
-        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
-
-
-        Map<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
-        Map<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
-        Map<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
-        Map<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
-        Map<String, String> 분초 = (HashMap<String, String>) 저장목록.getSerializableExtra("분초");
+//        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
+//
+//
+//        Map<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
+//        Map<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
+//        Map<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
+//        Map<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
+//        Map<String, String> 분초 = (HashMap<String, String>) 저장목록.getSerializableExtra("분초");
 
 
         TextView 타이머 = (TextView) mulung_helper.this.findViewById(R.id.타이머);
@@ -77,6 +103,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         TextView 준비 = (TextView) mulung_helper.this.findViewById(R.id.준비);
         TextView 휴식하기 = (TextView) mulung_helper.this.findViewById(R.id.휴식);
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
+        Button memo = (Button) findViewById(R.id.메모);
 
 
         시작하기.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +135,25 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 rest_Timer();
 
+
+            }
+        });
+
+
+        memo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent m_Move = new Intent(mulung_helper.this, mulung_helper_scedule.class);
+                //데이터리스트(해시맵)을 주고 디테일 액티비티에서 받아서 정보를 담아주고 다시 여기로 넘겨주게됨
+                //풋데이터 작성하기
+                if (제목 != null && 분 != null && 초 != null && 분초 != null && 메모 != null) {
+                    m_Move.putExtra("제목", (Serializable) 제목);
+                    m_Move.putExtra("분", (Serializable) 분);
+                    m_Move.putExtra("초", (Serializable) 초);
+                    m_Move.putExtra("분초", (Serializable) 분초);
+                    m_Move.putExtra("메모", (Serializable) 메모);
+                }
+                receive_Memo_State.launch(m_Move);
 
             }
         });
@@ -160,7 +206,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             rt_timer.cancel();
             r_timer = null;
             rt_timer = null;
-        }else if (m_timer != null && mt_timer != null){
+        } else if (m_timer != null && mt_timer != null) {
             m_timer.cancel();
             mt_timer.cancel();
             m_timer = null;
@@ -221,6 +267,10 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             Toast.makeText(this, "우선 타이머를 실행시켜주세요", Toast.LENGTH_SHORT).show();
 
         }
+
+
+        //메모로 이동하는 클래스 만들고
+        //생명주기로 타이머 재시작 연동 (휴식타이머인지 타이머인지 구분하는 변수가 필요할거같음)
 
     }
 
@@ -412,7 +462,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 //        if (mt_timer != null) {
 //            mt_timer.cancel();
 //        }
-        Log.d("mulung_helper", "타이머종료 ");
+        Log.d("mulung_helper", "onStop: ");
         super.onStop();
     }
 
