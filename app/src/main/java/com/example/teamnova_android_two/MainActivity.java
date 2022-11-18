@@ -46,15 +46,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
                         Intent 계정정보 = result.getData();
-                        아이디 = (ArrayList<String>)계정정보.getSerializableExtra("아이디");
-                        닉네임 = (ArrayList<String>)계정정보.getSerializableExtra("닉네임");
-                        비밀번호 = (ArrayList<String>)계정정보.getSerializableExtra("비밀번호");
+                        아이디 = (ArrayList<String>) 계정정보.getSerializableExtra("아이디");
+                        닉네임 = (ArrayList<String>) 계정정보.getSerializableExtra("닉네임");
+                        비밀번호 = (ArrayList<String>) 계정정보.getSerializableExtra("비밀번호");
                         uri = 계정정보.getParcelableExtra("uri"); // paracelable -> 객체전달
 
                     }
                 }
             });
-
 
 
     @Override
@@ -68,6 +67,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         TextView id = (TextView) MainActivity.this.findViewById(R.id.아이디);
         TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         Button sign_Up_Button = (Button) MainActivity.this.findViewById(R.id.sign_up_button);
+        Button 테스트 = (Button) MainActivity.this.findViewById(R.id.테스트);
+
+        테스트.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, test_activity.class);
+                startActivity(intent);
+            // 테스트용 액티비티
+            }
+        });
 
         login_button.setOnClickListener(new View.OnClickListener() {//로그인버튼 눌렀을때
             @Override
@@ -78,25 +87,23 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     Intent intent = new Intent(MainActivity.this, Main.class);
                     //사진정보나 계정정보 넘기기 //
                     //단방향
-                    intent.putExtra("아이디",아이디);
-                    intent.putExtra("닉네임",닉네임);
-                    intent.putExtra("사진",uri);
+                    intent.putExtra("아이디", 아이디);
+                    intent.putExtra("닉네임", 닉네임);
+                    intent.putExtra("사진", uri);
 
 
                     startActivity(intent);
 
 
-                }
-                else if(true){ //테스트용 (매번 계정만들기 힘듬)
+                } else if (true) { //테스트용 (매번 계정만들기 힘듬)
                     Intent intent = new Intent(MainActivity.this, Main.class);
                     아이디.add("ayc0812");
                     닉네임.add("팀노바");
-                    intent.putExtra("아이디",아이디);
-                    intent.putExtra("닉네임",닉네임);
-                    intent.putExtra("사진",uri);
+                    intent.putExtra("아이디", 아이디);
+                    intent.putExtra("닉네임", 닉네임);
+                    intent.putExtra("사진", uri);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인 해주세요", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -119,13 +126,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("MainActivity", "onStart: ");
         super.onStart();
     }
+
     @Override
     protected void onResume() {
         Log.d("MainActivity", "onResume: ");
         TextView id = (TextView) MainActivity.this.findViewById(R.id.아이디);
         TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         //온리줌에서 새로 데이터 받아왔을때 갱신해줘야함
-        if(아이디.size() > 0 && 비밀번호.size() > 0){
+        if (아이디.size() > 0 && 비밀번호.size() > 0) {
             id.setText(아이디.get(0));
             ps.setText(비밀번호.get(0));
         }

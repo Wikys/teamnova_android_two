@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<!--    진동-->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
+    <!-- 진동 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -17,17 +16,20 @@
         android:theme="@style/Theme.Teamnova_android_two"
         tools:targetApi="33">
         <activity
+            android:name=".test_activity"
+            android:exported="false" />
+        <activity
             android:name=".confirm_nick"
             android:exported="false"
-            android:theme="@android:style/Theme.Holo.Dialog"/>
+            android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
             android:name=".confirm_id"
             android:exported="false"
-            android:theme="@android:style/Theme.Holo.Dialog"/>
+            android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
             android:name=".sign_up"
             android:exported="false"
-            android:theme="@style/Theme.MyDialog"/>
+            android:theme="@style/Theme.MyDialog" />
 
         <receiver
             android:name=".alarm"
