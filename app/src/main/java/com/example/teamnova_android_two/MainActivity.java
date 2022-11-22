@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -16,6 +17,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -72,9 +74,31 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, test_activity.class);
-                startActivity(intent);
-            // 테스트용 액티비티
+                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("앱 끈다?")
+                        .setMessage("진짜 끈다?")
+                        .setPositiveButton("꺼라", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(MainActivity.this, "안 끔", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+                AlertDialog msgDlg = msgBuilder.create();
+                msgDlg.show();
+
+
+
+//                Intent intent = new Intent(MainActivity.this, test_activity.class);
+//                startActivity(intent);
+
             }
         });
 
@@ -118,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 receive_Id_Result.launch(intent);
             }
         });
-
     }
 
     @Override
