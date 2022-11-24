@@ -13,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.Lifecycle;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
     Uri uri; //이미지정보
+    Dialog dialog;
 
     ActivityResultLauncher<Intent> receive_Id_Result = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("MainActivity", "onCreate: ");
+        dialog = new Dialog(MainActivity.this);
 
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         Button sign_Up_Button = (Button) MainActivity.this.findViewById(R.id.sign_up_button);
         Button 테스트 = (Button) MainActivity.this.findViewById(R.id.테스트);
+        Button 테스트2 = (Button) MainActivity.this.findViewById(R.id.테스트2);
 
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,11 +97,15 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                 AlertDialog msgDlg = msgBuilder.create();
                 msgDlg.show();
-
-
-
 //                Intent intent = new Intent(MainActivity.this, test_activity.class);
 //                startActivity(intent);
+            }
+        });
+        테스트2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
 
             }
         });
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                 } else if (true) { //테스트용 (매번 계정만들기 힘듬)
                     Intent intent = new Intent(MainActivity.this, Main.class);
-                    아이디.add("ayc0812");
+                    아이디.add("안연창");
                     닉네임.add("팀노바");
                     intent.putExtra("아이디", 아이디);
                     intent.putExtra("닉네임", 닉네임);
@@ -189,5 +197,3 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 }
 
-//데이터 단방향전송할까하다가
-//그렇게되면 스타트액티비티로 다시 돌아와야하는데 생명주기꼬임

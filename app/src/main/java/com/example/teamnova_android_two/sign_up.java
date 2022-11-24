@@ -143,9 +143,9 @@ public class sign_up extends AppCompatActivity implements Serializable {
         사진등록.setOnClickListener(new View.OnClickListener() { //이미지가져오는 인텐트
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(); //암시적인텐트
+                intent.setType("image/*"); // 가져올 컨텐츠 타입
+                intent.setAction(Intent.ACTION_GET_CONTENT); //앨범호출액션
                 receive_Picture_Result.launch(intent);
 
             }

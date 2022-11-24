@@ -86,18 +86,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mulung_helper);
-
         Log.d("mulung_helper", "onCreate: ");
-
-//        Intent 저장목록 = getIntent(); // 스케쥴에서 등록해논 데이터 가져옴
-//
-//
-//        Map<String, String> 제목 = (HashMap<String, String>) 저장목록.getSerializableExtra("제목");
-//        Map<String, String> 메모 = (HashMap<String, String>) 저장목록.getSerializableExtra("메모");
-//        Map<String, String> 분 = (HashMap<String, String>) 저장목록.getSerializableExtra("분");
-//        Map<String, String> 초 = (HashMap<String, String>) 저장목록.getSerializableExtra("초");
-//        Map<String, String> 분초 = (HashMap<String, String>) 저장목록.getSerializableExtra("분초");
-
 
         TextView 타이머 = (TextView) mulung_helper.this.findViewById(R.id.타이머);
         Button 시작하기 = (Button) mulung_helper.this.findViewById(R.id.시작);
@@ -294,9 +283,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         }
 
 
-        //메모로 이동하는 클래스 만들고
-        //생명주기로 타이머 재시작 연동 (휴식타이머인지 타이머인지 구분하는 변수가 필요할거같음)
-
     }
 
 
@@ -315,11 +301,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         Log.d("mulung_helper", "onPause: ");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
         if (m_timer != null) {
             m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
             end = false;
@@ -337,6 +318,12 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         if(rt_timer != null){
             rt_timer.cancel();
         }
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+
         Log.d("mulung_helper", "onStop: ");
         super.onStop();
     }
@@ -362,8 +349,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                 초타이머 = 휴식;
                 rest_Timer();
             }
-
-
         }
         super.onRestart();
     }
