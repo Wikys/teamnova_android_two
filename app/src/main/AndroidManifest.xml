@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Teamnova_android_two"
         tools:targetApi="33">
         <activity
+            android:name=".recyclerview"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".test_activity"
             android:exported="false" />
         <activity
@@ -107,9 +114,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
     </application>
 
 </manifest>

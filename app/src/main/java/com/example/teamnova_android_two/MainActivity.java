@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         테스트2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent test2 = new Intent(MainActivity.this, recyclerview.class);
+                startActivity(test2);
 
 
 
@@ -168,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             id.setText(아이디.get(0));
             ps.setText(비밀번호.get(0));
         }
-
         super.onResume();
     }
 
