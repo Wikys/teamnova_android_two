@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -29,13 +31,14 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements Serializable {
     ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
     ArrayList<String> 닉네임목록 = new ArrayList<>(); //닉네임 저장리스트
     Uri uri; //이미지정보
@@ -126,10 +129,13 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.main);
         Log.d("Main", "onCreate: ");
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
+
+
         Intent data = getIntent();
         uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
         아이디목록 = (ArrayList<String>) data.getSerializableExtra("아이디");
         닉네임목록 = (ArrayList<String>) data.getSerializableExtra("닉네임");
+
 
         String id = 아이디목록.get(0);
         String nick = 닉네임목록.get(0);
@@ -169,7 +175,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent wqmove = new Intent(Main.this, weekly_quest.class);
-                wqmove.putExtra("주간퀘상태",주간퀘상태);
+                wqmove.putExtra("주간퀘상태", 주간퀘상태);
                 receive_Wq_State.launch(wqmove);
             }
         });
@@ -180,7 +186,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent wbmove = new Intent(Main.this, weekly_boss.class);
-                wbmove.putExtra("주간보스상태",주간보스상태);
+                wbmove.putExtra("주간보스상태", 주간보스상태);
                 receive_Wb_State.launch(wbmove);
             }
         });
@@ -296,5 +302,19 @@ public class Main extends AppCompatActivity {
     protected void onRestart() {
         Log.d("Main", "onRestart: ");
         super.onRestart();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.d("Main", "onSaveInstanceState: ");
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d("Main", "onRestoreInstanceState: ");
     }
 }

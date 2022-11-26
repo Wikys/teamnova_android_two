@@ -9,21 +9,22 @@
     <Button
         android:id="@+id/버튼타이틀"
         android:layout_width="60dp"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnwhite"
         android:fontFamily="@font/jalnan"
         android:gravity="center"
         android:textColor="@color/teal_700"
-        android:text="돌아가기"
+        android:text="시드 층"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드23"
-
+        app:layout_constraintVertical_weight="1"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드23"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbutton"
         android:fontFamily="@font/jalnan"
         android:text="23"
@@ -32,11 +33,13 @@
         app:layout_constraintTop_toBottomOf="@id/버튼타이틀"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드24"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드24"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="24"
@@ -45,11 +48,13 @@
         app:layout_constraintTop_toBottomOf="@id/시드23"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드36"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드36"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="36"
@@ -58,11 +63,13 @@
         app:layout_constraintTop_toBottomOf="@id/시드24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드39"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드39"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="39"
@@ -71,11 +78,13 @@
         app:layout_constraintTop_toBottomOf="@id/시드36"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드47"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드47"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="47"
@@ -84,11 +93,13 @@
         app:layout_constraintTop_toBottomOf="@id/시드39"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드48"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드48"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="48"
@@ -97,11 +108,13 @@
         app:layout_constraintTop_toBottomOf="@id/시드47"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/시드49"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <Button
         android:id="@+id/시드49"
         android:layout_width="60dp"
-        android:layout_height="94dp"
+        android:layout_height="0dp"
         android:background="@drawable/roundbtnviolet"
         android:fontFamily="@font/jalnan"
         android:text="49"
@@ -110,6 +123,8 @@
         app:layout_constraintTop_toBottomOf="@id/시드48"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="2"
+        android:layout_margin="2dp"
         />
     <TextView
         android:id="@+id/타이틀"

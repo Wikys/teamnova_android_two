@@ -21,6 +21,7 @@ public class seed_helper_36 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move23 = new Intent(seed_helper_36.this, seed_helper_23.class);
+                move23.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move23);
             }
         });
@@ -30,24 +31,26 @@ public class seed_helper_36 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move24 = new Intent(seed_helper_36.this, seed_helper_24.class);
+                move24.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move24);
             }
         });
-        Button main = (Button) findViewById(R.id.버튼타이틀);
-
-        main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mainmove = new Intent(seed_helper_36.this, Main.class);
-                startActivity(mainmove);
-            }
-        });
+//        Button main = (Button) findViewById(R.id.버튼타이틀);
+//
+//        main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mainmove = new Intent(seed_helper_36.this, Main.class);
+//                startActivity(mainmove);
+//            }
+//        });
         Button btn39 = (Button) findViewById(R.id.시드39);
 
         btn39.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent move39 = new Intent(seed_helper_36.this, seed_helper_39.class);
+                move39.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move39);
             }
         });
@@ -57,6 +60,7 @@ public class seed_helper_36 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move47 = new Intent(seed_helper_36.this, seed_helper_47.class);
+                move47.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move47);
             }
         });
@@ -66,6 +70,7 @@ public class seed_helper_36 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move48 = new Intent(seed_helper_36.this, seed_helper_48.class);
+                move48.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move48);
             }
         });
@@ -75,6 +80,7 @@ public class seed_helper_36 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move49 = new Intent(seed_helper_36.this, seed_helper_49.class);
+                move49.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move49);
 
             }

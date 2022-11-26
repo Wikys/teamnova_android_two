@@ -19,6 +19,7 @@ public class seed_helper_48 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move23 = new Intent(seed_helper_48.this, seed_helper_23.class);
+                move23.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move23);
             }
         });
@@ -28,6 +29,7 @@ public class seed_helper_48 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move24 = new Intent(seed_helper_48.this, seed_helper_24.class);
+                move24.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move24);
             }
         });
@@ -37,6 +39,7 @@ public class seed_helper_48 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move36 = new Intent(seed_helper_48.this, seed_helper_36.class);
+                move36.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move36);
             }
         });
@@ -46,6 +49,7 @@ public class seed_helper_48 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move39 = new Intent(seed_helper_48.this, seed_helper_39.class);
+                move39.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move39);
             }
         });
@@ -55,24 +59,26 @@ public class seed_helper_48 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move47 = new Intent(seed_helper_48.this, seed_helper_47.class);
+                move47.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move47);
             }
         });
-        Button main = (Button) findViewById(R.id.버튼타이틀);
-
-        main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent movemain = new Intent(seed_helper_48.this, Main.class);
-                startActivity(movemain);
-            }
-        });
+//        Button main = (Button) findViewById(R.id.버튼타이틀);
+//
+//        main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent movemain = new Intent(seed_helper_48.this, Main.class);
+//                startActivity(movemain);
+//            }
+//        });
         Button btn49 = (Button) findViewById(R.id.시드49);
 
         btn49.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent move49 = new Intent(seed_helper_48.this, seed_helper_49.class);
+                move49.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(move49);
 
             }

@@ -1,5 +1,7 @@
 package com.example.teamnova_android_two;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +21,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move23 = new Intent(seed_helper.this, seed_helper_23.class);
+                move23.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move23);
             }
         });
@@ -28,6 +32,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move24 = new Intent(seed_helper.this, seed_helper_24.class);
+                move24.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move24);
             }
         });
@@ -37,6 +43,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move36 = new Intent(seed_helper.this, seed_helper_36.class);
+                move36.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move36);
             }
         });
@@ -46,6 +54,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move39 = new Intent(seed_helper.this, seed_helper_39.class);
+                move39.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move39);
             }
         });
@@ -55,6 +65,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move47 = new Intent(seed_helper.this, seed_helper_47.class);
+                move47.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move47);
             }
         });
@@ -64,6 +76,8 @@ public class seed_helper extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent move48 = new Intent(seed_helper.this, seed_helper_48.class);
+                move48.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
                 startActivity(move48);
             }
         });
@@ -73,6 +87,8 @@ public class seed_helper extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent move49 = new Intent(seed_helper.this, seed_helper_49.class);
+            move49.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
             startActivity(move49);
 
                 }
