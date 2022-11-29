@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ToggleButton;
 
-public class test_activity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class test_activity<Public> extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_activity);
         Log.d("test_activity", "onCreate: ");
+
 
         ToggleButton 테스트 = (ToggleButton) test_activity.this.findViewById(R.id.테스트);
 

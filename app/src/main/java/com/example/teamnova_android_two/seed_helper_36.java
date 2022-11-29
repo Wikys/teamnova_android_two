@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.RadioGroup;
+
+import com.example.teamnova_android_two.seed_24.seed_helper_24;
 
 public class seed_helper_36 extends AppCompatActivity {
 

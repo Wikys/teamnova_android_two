@@ -67,7 +67,7 @@
             android:name=".seed_helper_36"
             android:exported="false" />
         <activity
-            android:name=".seed_helper_24"
+            android:name=".seed_24.seed_helper_24"
             android:exported="false" />
         <activity
             android:name=".seed_helper_23"

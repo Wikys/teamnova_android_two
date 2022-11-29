@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.teamnova_android_two.seed_24.seed_helper_24;
+
 public class seed_helper_47 extends AppCompatActivity {
 
     @Override

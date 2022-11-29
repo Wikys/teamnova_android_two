@@ -149,52 +149,16 @@
         app:layout_constraintLeft_toRightOf="@id/시드23"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/타이틀"
-        app:layout_constraintBottom_toTopOf="@id/리스항구"
+        app:layout_constraintBottom_toTopOf="@id/브금퀴즈"
         />
-    <View
-        android:id="@+id/리스항구"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/브금퀴즈"
         android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:background="@drawable/border"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@id/시드39"
         app:layout_constraintTop_toBottomOf="@id/검색"
-        app:layout_constraintLeft_toRightOf="@id/시드23"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/리스항구이미지"
-        />
-    <ImageView
-        android:id="@+id/리스항구이미지"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@drawable/less"
-        app:layout_constraintTop_toTopOf="@id/리스항구"
-        app:layout_constraintLeft_toRightOf="@id/시드23"
-        app:layout_constraintRight_toLeftOf="@id/리스항구텍스트"
-        app:layout_constraintBottom_toBottomOf="@id/리스항구"
-        />
-    <TextView
-        android:id="@+id/리스항구텍스트"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/jalnan"
-        android:textSize="10dp"
-        android:text="리스항구"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="@id/리스항구"
-        app:layout_constraintLeft_toRightOf="@id/리스항구이미지"
-        app:layout_constraintRight_toLeftOf="@id/리스항구설명"
-        app:layout_constraintBottom_toBottomOf="@id/리스항구"
-        />
-    <TextView
-        android:id="@+id/리스항구설명"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="푸른빛 바다가 보이는 부둣가에서 갈매기가 날아다니는 것을 바라보고 있는 느낌이 들어."
-        app:layout_constraintTop_toTopOf="@id/리스항구"
-        app:layout_constraintLeft_toRightOf="@id/리스항구텍스트"
-        app:layout_constraintRight_toRightOf="@id/리스항구"
-        app:layout_constraintBottom_toBottomOf="@id/리스항구"
+        app:layout_constraintBottom_toBottomOf="parent"
 
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,13 @@
 package com.example.teamnova_android_two;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.teamnova_android_two.seed_24.seed_helper_24;
 
 public class seed_helper extends AppCompatActivity {
 

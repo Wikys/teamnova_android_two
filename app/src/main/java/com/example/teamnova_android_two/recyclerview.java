@@ -7,12 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 public class recyclerview extends AppCompatActivity {
+    public static ArrayList<String> 이름;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
+        이름 = new ArrayList<String>();
+        이름.add("안연창");
+        이름.add("박상현");
+        이름.add("박상부");
 
         RecyclerView 리사이클러뷰 = (RecyclerView) this.findViewById(R.id.recn);
         //리사이클러뷰 선언하고 연결

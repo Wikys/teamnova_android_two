@@ -107,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 Intent test2 = new Intent(MainActivity.this, recyclerview.class);
                 startActivity(test2);
 
-
-
             }
         });
 

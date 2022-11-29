@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> {
 
 
     @NonNull
@@ -26,18 +26,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
-        if(position == 0) {
-            holder.textView.setText("안연창");
-        }
-        else {
-            holder.textView.setText("박상현");
-        }
+
+        holder.textView.setText(recyclerview.이름.get(position));
+
 
     }
 
     @Override
     public int getItemCount() { //아이템 몇개나 나오게할것인지
-        return 2;
+        return recyclerview.이름.size();
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
