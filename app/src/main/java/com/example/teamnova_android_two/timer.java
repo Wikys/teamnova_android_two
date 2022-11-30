@@ -165,7 +165,6 @@ public class timer extends AppCompatActivity {
                 timer();
             }
             // 저장된 변수(시간값)가 기본값이 아니면 타이머 도중 홈버튼을 눌렀다고 판단해 재시작
-            //온리줌에 넣게되면 버튼을 누르지도않았는데 자동으로 시작하게되서 트리거같은 느낌으로 리스타트에 넣었음
         }
         super.onRestart();
     }
