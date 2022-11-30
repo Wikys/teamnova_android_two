@@ -18,10 +18,10 @@ public class seed_helper_24_data {
         this.image_path = image_path;
     }
     public String getDescription(){
-        return getDescription();
+        return description;
     }
-    public void setDescription(){
-        this.setDescription();
+    public void setDescription(String description){
+        this.description = description;
     }
     public seed_helper_24_data(int image_path, String title, String description){
         this.image_path = image_path;
