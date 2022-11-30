@@ -60,7 +60,7 @@ public class BGM_Adapter extends RecyclerView.Adapter<BGM_Adapter.CustomViewHold
             마을설명 = (TextView) view.findViewById(R.id.마을설명);
         }
     }
-    public void itemfilter(ArrayList<seed_helper_24_data> filterlist){ //아이템필터 메소드
+    public void itemfilter(ArrayList<seed_helper_24_data> filterlist){ //여기서 변경내용 적용받고 새로고침
         data = filterlist;
         notifyDataSetChanged(); //새로고침
     }
