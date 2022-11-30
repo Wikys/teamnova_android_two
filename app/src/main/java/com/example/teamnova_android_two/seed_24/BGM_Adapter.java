@@ -58,9 +58,10 @@ public class BGM_Adapter extends RecyclerView.Adapter<BGM_Adapter.CustomViewHold
             마을이미지 = (ImageView) view.findViewById(R.id.마을이미지);
             마을이름 = (TextView) view.findViewById(R.id.마을이름);
             마을설명 = (TextView) view.findViewById(R.id.마을설명);
-
-
-
         }
+    }
+    public void itemfilter(ArrayList<seed_helper_24_data> filterlist){ //아이템필터 메소드
+        data = filterlist;
+        notifyDataSetChanged(); //새로고침
     }
 }
