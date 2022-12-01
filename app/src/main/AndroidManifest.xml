@@ -54,7 +54,9 @@
             android:theme="@style/Theme.MyDialog" />
         <activity
             android:name=".seed_helper_49"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".seed_helper_48"
             android:exported="false" />
@@ -63,13 +65,17 @@
             android:exported="false" />
         <activity
             android:name=".seed_helper_39"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".seed_helper_36"
             android:exported="false" />
         <activity
             android:name=".seed_24.seed_helper_24"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".seed_helper_23"
             android:exported="false" />

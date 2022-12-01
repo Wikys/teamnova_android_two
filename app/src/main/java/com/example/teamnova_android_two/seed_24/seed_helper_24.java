@@ -169,6 +169,7 @@ public class seed_helper_24 extends AppCompatActivity {
         for (int i = 0; i < data.size(); i++) {
             //아이템 전체목록 싹 훑어주고
             if (data.get(i).getTitle().toLowerCase().contains(searchText.toLowerCase())
+                    || data.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
                     ) {
 //                || data.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
 
