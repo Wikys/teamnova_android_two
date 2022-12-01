@@ -30,7 +30,7 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
     @Override
     public Quiz_Adapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.seed_helper_24_item,parent,false);
+                .inflate(R.layout.seed_helper_39_item,parent,false);
         Quiz_Adapter.CustomViewHolder viewHolder = new Quiz_Adapter.CustomViewHolder(view) ;
 
         return viewHolder;
@@ -49,7 +49,7 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
     public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
         private final TextView 질문;
