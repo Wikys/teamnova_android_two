@@ -64,7 +64,7 @@
             android:name=".seed_helper_47"
             android:exported="false" />
         <activity
-            android:name=".seed_helper_39"
+            android:name=".seed_39.seed_helper_39"
             android:exported="false"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"

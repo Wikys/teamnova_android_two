@@ -12,12 +12,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.seed_helper_23;
 import com.example.teamnova_android_two.seed_helper_36;
-import com.example.teamnova_android_two.seed_helper_39;
+import com.example.teamnova_android_two.seed_39.seed_helper_39;
 import com.example.teamnova_android_two.seed_helper_47;
 import com.example.teamnova_android_two.seed_helper_48;
 import com.example.teamnova_android_two.seed_helper_49;
