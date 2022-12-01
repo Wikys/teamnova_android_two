@@ -19,7 +19,7 @@ import com.example.teamnova_android_two.seed_helper_36;
 import com.example.teamnova_android_two.seed_39.seed_helper_39;
 import com.example.teamnova_android_two.seed_helper_47;
 import com.example.teamnova_android_two.seed_helper_48;
-import com.example.teamnova_android_two.seed_helper_49;
+import com.example.teamnova_android_two.seed_49.seed_helper_49;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.teamnova_android_two;
+package com.example.teamnova_android_two.seed_49;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.seed_24.seed_helper_24;
 import com.example.teamnova_android_two.seed_39.seed_helper_39;
+import com.example.teamnova_android_two.seed_helper_23;
+import com.example.teamnova_android_two.seed_helper_36;
+import com.example.teamnova_android_two.seed_helper_47;
+import com.example.teamnova_android_two.seed_helper_48;
 
 public class seed_helper_49 extends AppCompatActivity {
 

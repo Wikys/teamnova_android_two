@@ -15,14 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.teamnova_android_two.R;
-import com.example.teamnova_android_two.seed_24.BGM_Adapter;
 import com.example.teamnova_android_two.seed_24.seed_helper_24;
-import com.example.teamnova_android_two.seed_24.seed_helper_24_data;
 import com.example.teamnova_android_two.seed_helper_23;
 import com.example.teamnova_android_two.seed_helper_36;
 import com.example.teamnova_android_two.seed_helper_47;
 import com.example.teamnova_android_two.seed_helper_48;
-import com.example.teamnova_android_two.seed_helper_49;
+import com.example.teamnova_android_two.seed_49.seed_helper_49;
 
 import java.util.ArrayList;
 
@@ -94,30 +92,30 @@ public class seed_helper_39 extends AppCompatActivity {
         data.add(new seed_helper_39_data("다음 중 레지스탕스에 속하는 직업은?","1. 카이저","2. 엔젤릭버스터","3. 비숍","4. 데몬어벤져 ø"));
         data.add(new seed_helper_39_data("다음 중 레지스탕스에 속하는 직업은?","1. 히어로","2. 나이트로드","3. 나이트워커","4. 제논 ø"));
         data.add(new seed_helper_39_data("다음 중 메이플스토리에 거주하는 주민의 이름이 아닌 것은?","1. 벨더","2. 피아","3. 디제이쿠 ø"," 4. 돌고래"));
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());//ø
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
-        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());//ø
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
+//        data.add(new seed_helper_39_data());
 
 
 
@@ -239,7 +237,7 @@ public class seed_helper_39 extends AppCompatActivity {
             ) {
 //                || data.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
 
-                //설명으로 찾으면 지울때오류남..
+
 
 //                검색창에 써진 텍스트와 비교해서 제목,설명이랑 일치하는 아이템을 찾아서
                 filter.add(data.get(i));

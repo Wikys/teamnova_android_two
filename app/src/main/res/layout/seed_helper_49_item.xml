@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:weightSum="6"
+        android:background="@drawable/round_gray"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            android:background="@drawable/roundgray2"
+            android:layout_margin="4dp"
+            >
+            <TextView
+                android:id="@+id/등장장소"
+                android:fontFamily="@font/jalnan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에델슈타인"
+                android:textSize="15dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/round_icon_gray"
+
+                />
+            <ImageView
+                android:id="@+id/흑백그림"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/garodung"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/즐겨찾기"
+                android:background="@drawable/favorites_selector_states"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"/>
+
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/몬스터이름"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="가로등"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/jalnan"
+
+            />
+
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
