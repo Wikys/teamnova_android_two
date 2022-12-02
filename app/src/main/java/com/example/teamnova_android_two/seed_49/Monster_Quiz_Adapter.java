@@ -83,7 +83,9 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
                     }
                 }
             });
-
+            //이부분 오류남
+//            https://ryan94.tistory.com/27
+//            https://onlyfor-me-blog.tistory.com/282
 
 //            정답 = (Button) view.findViewById(R.id.답변4);
 
