@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.teamnova_android_two.R;
+import com.example.teamnova_android_two.recyclerView_height;
 import com.example.teamnova_android_two.seed_24.BGM_Adapter;
 import com.example.teamnova_android_two.seed_24.seed_helper_24;
 import com.example.teamnova_android_two.seed_39.Quiz_Adapter;
@@ -54,6 +55,9 @@ public class seed_helper_49 extends AppCompatActivity {
 
         리사이클러어댑터 = new Monster_Quiz_Adapter(this, data);//
         mQuizRv.setAdapter(리사이클러어댑터);
+
+        recyclerView_height decoration_height = new recyclerView_height(20);
+        mQuizRv.addItemDecoration(decoration_height); //데코레이션으로 높이 적용
 
 
 //        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);

@@ -33,6 +33,7 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
         Log.d("Monster_Quiz_Adapter", "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.seed_helper_49_item, parent, false);
+
         Monster_Quiz_Adapter.CustomViewHolder viewHolder = new Monster_Quiz_Adapter.CustomViewHolder(view);
 
         return viewHolder;
@@ -64,6 +65,7 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
             area = (TextView) view.findViewById(R.id.등장장소);
             monsterName = (TextView) view.findViewById(R.id.몬스터이름);
             monsterImage = (ImageView) view.findViewById(R.id.몬스터이미지);
+
 
 //            정답 = (Button) view.findViewById(R.id.답변4);
 
