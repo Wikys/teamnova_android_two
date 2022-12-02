@@ -126,12 +126,37 @@ public class seed_helper_49 extends AppCompatActivity {
         data.add(new seed_helper_49_data("엘리니아","페어리",임시이미지));
         data.add(new seed_helper_49_data("아쿠아리움","플라워 피쉬",임시이미지));
         data.add(new seed_helper_49_data("루디브리엄","핑크세이버",임시이미지));
-//        data.add(new seed_helper_49_data());
-//        data.add(new seed_helper_49_data());
-//        data.add(new seed_helper_49_data());
-//        data.add(new seed_helper_49_data());
-//        data.add(new seed_helper_49_data());
-//        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data("오르비스","스톤볼",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","씨코",임시이미지));
+        data.add(new seed_helper_49_data("페리온","아이언호그",임시이미지));
+        data.add(new seed_helper_49_data("페리온","우드 마스크",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","이상한 이정표",임시이미지));
+        data.add(new seed_helper_49_data("페리온","주니어 부기",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","짜증내는 좀비버섯",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","큰 바위베어먹기",임시이미지));
+        data.add(new seed_helper_49_data("마가티아","트리플 루모",임시이미지));
+        data.add(new seed_helper_49_data("에레브","티무",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","파란 리본돼지",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","포도주스병",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","플래툰 크로노스",임시이미지));
+        data.add(new seed_helper_49_data("페리온","히죽대는 고스텀프",임시이미지));
+        data.add(new seed_helper_49_data("엘리니아","슬라임",임시이미지));
+        data.add(new seed_helper_49_data("마가티아","아이언 뮤테",임시이미지));
+        data.add(new seed_helper_49_data("페리온","와일드보어",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","울트라 그레이",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","주니어 네키",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","주니어 씰",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","크라피",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","키요",임시이미지));
+        data.add(new seed_helper_49_data("에레브","티구르",임시이미지));
+        data.add(new seed_helper_49_data("에레브","티브",임시이미지));
+        data.add(new seed_helper_49_data("페리온","파이어보어",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","프리져",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","핀붐",임시이미지));
+
+
+
+
 
         //어레이리스트에 즐겨찾기 구분인자를 추가하고
         //즐겨찾기만 보는 토글버튼같은걸 만들어서
@@ -243,16 +268,7 @@ public class seed_helper_49 extends AppCompatActivity {
                 startActivity(move48);
             }
         });
-//        Button main = (Button) findViewById(R.id.버튼타이틀);
-//
-//        main.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent movemain = new Intent(seed_helper_49.this, Main.class);
-//                startActivity(movemain);
-//
-//            }
-//        });
+
     }
 
     public void searchFilter(String searchText) {
