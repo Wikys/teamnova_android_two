@@ -30,7 +30,7 @@
 
                 />
             <ImageView
-                android:id="@+id/흑백그림"
+                android:id="@+id/몬스터이미지"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
