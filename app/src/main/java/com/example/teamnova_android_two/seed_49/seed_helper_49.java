@@ -32,6 +32,7 @@ public class seed_helper_49 extends AppCompatActivity {
     ArrayList<seed_helper_49_data> data, filter; //데이터모델 타입을 저장하는 어레이리스트
     // 필터는 비어있는 리스트지만 검색할때 기존 리스트에서 삭제를하고 여기에 추가시켜 보여준다
     Monster_Quiz_Adapter 리사이클러어댑터;
+    int 임시이미지 = R.drawable.garodung;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,107 @@ public class seed_helper_49 extends AppCompatActivity {
         data = new ArrayList();
         filter = new ArrayList();
 
-        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
-        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
-        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
-        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
+        data.add(new seed_helper_49_data("에델슈타인", "가로등", R.drawable.garodung));
+        data.add(new seed_helper_49_data("마가티아", "강화된 아이언 뮤테", 임시이미지));
+        data.add(new seed_helper_49_data("페리온", "겁먹은 와일드보어", 임시이미지));
+        data.add(new seed_helper_49_data("페리온","고스텀프",임시이미지));
+        data.add(new seed_helper_49_data("오르비스","네펜데스",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","귀마개 프릴드",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","구렁이",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","나팔꽃 화분",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","더키 패밀리",임시이미지));
+        data.add(new seed_helper_49_data("오르비스","다크 네펜데스",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","늪진흙괴물",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","더스트 박스",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","레츠",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","라츠",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","돼지",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","레이스",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","리본 돼지",임시이미지));
+        data.add(new seed_helper_49_data("마가티아","루모",임시이미지));
+        data.add(new seed_helper_49_data("엘리니아","로얄 페어리",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","마스크피쉬",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","마티안",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","마스터 크로노스",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","마스터 로보",임시이미지));
+        data.add(new seed_helper_49_data("페리온","머미독",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","모래 두더지",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","메카티안",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","머신 MT-09",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","모래난쟁이",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","목도리 프릴드",임시이미지));
+        data.add(new seed_helper_49_data("리엔","무루",임시이미지));
+        data.add(new seed_helper_49_data("리엔","무루무루",임시이미지));
+        data.add(new seed_helper_49_data("리엔","무루쿤",임시이미지));
+        data.add(new seed_helper_49_data("리엔","무루피아",임시이미지));
+        data.add(new seed_helper_49_data("리엔","무루파",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","물 도둑",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","미요캐츠",임시이미지));
+        data.add(new seed_helper_49_data("엘리니아","버블링",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","바나드 그레이",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","버블피쉬",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","벨라모아",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","북치는 토끼",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","붉은 모래난쟁이",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","브라운테니",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","블랙 라츠",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","블록골렘",임시이미지));
+        data.add(new seed_helper_49_data("무릉","비급",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","블록퍼스",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","뿔버섯",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","새싹진흙괴물",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","순찰로봇",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","새싹 화분",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","순찰로봇S",임시이미지));
+        data.add(new seed_helper_49_data("페리온","스켈독",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","스콜피언",임시이미지));
+
+        data.add(new seed_helper_49_data("루디브리엄","스카이세이버",임시이미지));
+        data.add(new seed_helper_49_data("페리온","스톤 마스크",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","스파커",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","씨클",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","안전제일",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","원로 그레이",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","주니어 레이스",임시이미지));
+        data.add(new seed_helper_49_data("아리안트","주니어 카투스",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","크로노스",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","킹 블록골렘",임시이미지));
+        data.add(new seed_helper_49_data("에레브","티루",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","틱톡",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","포이즌 푸퍼",임시이미지));
+        data.add(new seed_helper_49_data("지구방위본부","플라티안",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","핑크테니",임시이미지));
+        data.add(new seed_helper_49_data("헤네시스","스포아",임시이미지));
+        data.add(new seed_helper_49_data("에델슈타인","아기 바위베어먹기",임시이미지));
+        data.add(new seed_helper_49_data("커닝시티","옥토퍼스",임시이미지));
+        data.add(new seed_helper_49_data("아랫마을","월묘",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","장난감 목마",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","치크세이버",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","크립",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","킹 블록퍼스",임시이미지));
+        data.add(new seed_helper_49_data("에레브","티노",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","티키",임시이미지));
+        data.add(new seed_helper_49_data("엘리니아","페어리",임시이미지));
+        data.add(new seed_helper_49_data("아쿠아리움","플라워 피쉬",임시이미지));
+        data.add(new seed_helper_49_data("루디브리엄","핑크세이버",임시이미지));
+        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data());
+        data.add(new seed_helper_49_data());
+
+
+
+
+
+
+//        data.add(new seed_helper_49_data());
 
         RecyclerView mQuizRv = (RecyclerView) this.findViewById(R.id.퀴즈);
 
         StaggeredGridLayoutManager staggeredGridLayoutManager
-                = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+                = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mQuizRv.setLayoutManager(staggeredGridLayoutManager); //불규칙 레이아웃 적용 스팬2
 
         리사이클러어댑터 = new Monster_Quiz_Adapter(this, data);//
@@ -62,7 +155,6 @@ public class seed_helper_49 extends AppCompatActivity {
 
 //        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
 //        mQuizRv.setLayoutManager(리니어매니저);
-
 
 
         EditText 검색창 = (EditText) this.findViewById(R.id.검색);
@@ -85,6 +177,7 @@ public class seed_helper_49 extends AppCompatActivity {
 
             }
         });
+
 
 
 
@@ -158,6 +251,7 @@ public class seed_helper_49 extends AppCompatActivity {
 //            }
 //        });
     }
+
     public void searchFilter(String searchText) {
 
         filter.clear(); //필터 일단 싹비워주고(전에 검색했던기록 안나오게)

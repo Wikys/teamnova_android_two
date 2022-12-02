@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adapter.CustomViewHolder> {
     ArrayList<seed_helper_49_data> data;
     Context context;
+    Boolean 상태 = false;
 
     public Monster_Quiz_Adapter(Context context, ArrayList<seed_helper_49_data> dataModels) {
         this.data = dataModels;
@@ -57,6 +58,7 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
         TextView area;
         TextView monsterName;
         ImageView monsterImage;
+        Button star;
 //        private final Button 정답;
 
         public CustomViewHolder(View view) { // 뷰홀더 뷰들 findviewid
@@ -65,6 +67,22 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
             area = (TextView) view.findViewById(R.id.등장장소);
             monsterName = (TextView) view.findViewById(R.id.몬스터이름);
             monsterImage = (ImageView) view.findViewById(R.id.몬스터이미지);
+            star = (Button) view.findViewById(R.id.즐겨찾기);
+
+            star.setOnClickListener(new View.OnClickListener() {
+                //즐겨찾기 별 클릭시 색깔변경
+                @Override
+                public void onClick(View view) {
+                    if(상태 == false) {
+                        star.setBackgroundResource(R.drawable.star_clicked);
+                        상태 = true;
+                    }
+                    else{
+                        star.setBackgroundResource(R.drawable.star);
+                        상태 = false;
+                    }
+                }
+            });
 
 
 //            정답 = (Button) view.findViewById(R.id.답변4);
