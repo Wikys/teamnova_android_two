@@ -126,13 +126,16 @@ public class seed_helper_49 extends AppCompatActivity {
         data.add(new seed_helper_49_data("엘리니아","페어리",임시이미지));
         data.add(new seed_helper_49_data("아쿠아리움","플라워 피쉬",임시이미지));
         data.add(new seed_helper_49_data("루디브리엄","핑크세이버",임시이미지));
-        data.add(new seed_helper_49_data());
-        data.add(new seed_helper_49_data());
-        data.add(new seed_helper_49_data());
-        data.add(new seed_helper_49_data());
-        data.add(new seed_helper_49_data());
-        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
+//        data.add(new seed_helper_49_data());
 
+        //어레이리스트에 즐겨찾기 구분인자를 추가하고
+        //즐겨찾기만 보는 토글버튼같은걸 만들어서
+        //누르면 구분인자를 걸러서 그거만 출력하게끔 로직만들기
 
 
 
