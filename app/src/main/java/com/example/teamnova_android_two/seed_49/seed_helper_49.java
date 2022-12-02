@@ -42,15 +42,19 @@ public class seed_helper_49 extends AppCompatActivity {
         filter = new ArrayList();
 
         data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
+        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
+        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
+        data.add(new seed_helper_49_data("에델슈타인","가로등",R.drawable.garodung));
 
         RecyclerView mQuizRv = (RecyclerView) this.findViewById(R.id.퀴즈);
+
+        StaggeredGridLayoutManager staggeredGridLayoutManager
+                = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        mQuizRv.setLayoutManager(staggeredGridLayoutManager); //불규칙 레이아웃 적용 스팬2
 
         리사이클러어댑터 = new Monster_Quiz_Adapter(this, data);//
         mQuizRv.setAdapter(리사이클러어댑터);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager
-                = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mQuizRv.setLayoutManager(staggeredGridLayoutManager); //불규칙 레이아웃 적용 스팬2
 
 //        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
 //        mQuizRv.setLayoutManager(리니어매니저);
@@ -59,7 +63,7 @@ public class seed_helper_49 extends AppCompatActivity {
 
         EditText 검색창 = (EditText) this.findViewById(R.id.검색);
 
-        검색창.addTextChangedListener(new TextWatcher() { //검색창에 스티링값 들어오면 결과변경
+        검색창.addTextChangedListener(new TextWatcher() { //검색창에 스트링값 들어오면 결과변경
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
