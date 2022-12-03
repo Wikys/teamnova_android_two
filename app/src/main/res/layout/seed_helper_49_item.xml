@@ -38,11 +38,12 @@
                 android:src="@drawable/garodung"
                 android:layout_weight="1"
                 />
-            <Button
+            <CheckBox
                 android:id="@+id/즐겨찾기"
-                android:background="@drawable/favorites_selector_states"
+                android:background="@drawable/checkbox_star"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:button="@null"
                 android:layout_margin="4dp"/>
 
 

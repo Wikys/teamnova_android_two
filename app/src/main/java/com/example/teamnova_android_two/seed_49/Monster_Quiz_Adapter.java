@@ -1,11 +1,13 @@
 package com.example.teamnova_android_two.seed_49;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +45,10 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
     @Override
     public void onBindViewHolder(@NonNull Monster_Quiz_Adapter.CustomViewHolder holder, int position) {
         Log.d("Monster_Quiz_Adapter", "onBindViewHolder: ");
+        final seed_helper_49_data checkbox_Status = data.get(position);
+        holder.star.setOnCheckedChangeListener(null);
+
+
         holder.area.setText(data.get(position).area);
         holder.monsterName.setText(data.get(position).monsterName);
         holder.monsterImage.setImageResource(data.get(position).image_path);
@@ -55,10 +61,10 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
         return data.size();
     }
     public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
-        TextView area;
-        TextView monsterName;
-        ImageView monsterImage;
-        Button star;
+        final TextView area;
+        final TextView monsterName;
+        final ImageView monsterImage;
+        final CheckBox star;
 //        private final Button 정답;
 
         public CustomViewHolder(View view) { // 뷰홀더 뷰들 findviewid
@@ -67,22 +73,22 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
             area = (TextView) view.findViewById(R.id.등장장소);
             monsterName = (TextView) view.findViewById(R.id.몬스터이름);
             monsterImage = (ImageView) view.findViewById(R.id.몬스터이미지);
-            star = (Button) view.findViewById(R.id.즐겨찾기);
-
-            star.setOnClickListener(new View.OnClickListener() {
-                //즐겨찾기 별 클릭시 색깔변경
-                @Override
-                public void onClick(View view) {
-                    if(상태 == false) {
-                        star.setBackgroundResource(R.drawable.star_clicked);
-                        상태 = true;
-                    }
-                    else{
-                        star.setBackgroundResource(R.drawable.star);
-                        상태 = false;
-                    }
-                }
-            });
+            star = (CheckBox) view.findViewById(R.id.즐겨찾기);
+//
+//            star.setOnClickListener(new View.OnClickListener() {
+//                //즐겨찾기 별 클릭시 색깔변경
+//                @Override
+//                public void onClick(View view) {
+//                    if(상태 == false) {
+//                        star.setBackgroundResource(R.drawable.star_clicked);
+//                        상태 = true;
+//                    }
+//                    else{
+//                        star.setBackgroundResource(R.drawable.star);
+//                        상태 = false;
+//                    }
+//                }
+//            });
             //이부분 오류남
 //            https://ryan94.tistory.com/27
 //            https://onlyfor-me-blog.tistory.com/282
