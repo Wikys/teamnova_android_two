@@ -4,6 +4,15 @@ public class seed_helper_49_data {
     String monsterName;
     String area;
     int image_path;
+    boolean ischecked;
+
+    public boolean getIschecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked) {
+        this.ischecked = ischecked;
+    }
 
     public String getMonsterName() {
         return monsterName;
@@ -29,9 +38,10 @@ public class seed_helper_49_data {
         this.image_path = image_path;
     }
 
-    public seed_helper_49_data(String area, String monsterName, int image_path){
+    public seed_helper_49_data(String area, String monsterName, int image_path, boolean ischecked){
         this.area = area;
         this.monsterName = monsterName;
         this.image_path = image_path;
+        this.ischecked = ischecked;
     }
 }
