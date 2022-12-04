@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +47,20 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
     public void onBindViewHolder(@NonNull Monster_Quiz_Adapter.CustomViewHolder holder, int position) {
         Log.d("Monster_Quiz_Adapter", "onBindViewHolder: ");
         final seed_helper_49_data checkbox_Status = data.get(position);
+        //체크박스 상태값 고정을 위해 상수선언
         holder.star.setOnCheckedChangeListener(null);
+        //리스너 초기화
+
+        holder.star.setChecked(checkbox_Status.getIschecked());
+        //모델클래스 체크상태값 가져오기
+
+        holder.star.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkbox_Status.setIschecked(isChecked);
+                //세터로 체크상태 변경
+            }
+        });
 
 
         holder.area.setText(data.get(position).area);
@@ -104,4 +118,11 @@ public class Monster_Quiz_Adapter extends RecyclerView.Adapter<Monster_Quiz_Adap
         data = filterlist;
         notifyDataSetChanged(); //새로고침
     }
+    public void original_Filter(ArrayList<seed_helper_49_data> filterlist) {
+        Log.d("Monster_Quiz_Adapter", "itemfilter: ");
+        //여기서 변경내용 데이터에 넣어주고 새로고침
+        data = filterlist;
+        notifyDataSetChanged(); //새로고침
+    }
+
 }

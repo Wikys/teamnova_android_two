@@ -12,6 +12,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.example.teamnova_android_two.R;
@@ -29,7 +31,8 @@ import com.example.teamnova_android_two.seed_helper_48;
 import java.util.ArrayList;
 
 public class seed_helper_49 extends AppCompatActivity {
-    ArrayList<seed_helper_49_data> data, filter; //데이터모델 타입을 저장하는 어레이리스트
+    ArrayList<seed_helper_49_data> data, filter,favorites_Filter,original_Data;
+    //데이터모델 타입을 저장하는 어레이리스트 일반데이터,검색필터,즐겨찾기필터,즐겨찾기에서 원래데이터를 볼때 쓰는 오리지널데이터
     // 필터는 비어있는 리스트지만 검색할때 기존 리스트에서 삭제를하고 여기에 추가시켜 보여준다
     Monster_Quiz_Adapter 리사이클러어댑터;
     int 임시이미지 = R.drawable.garodung;
@@ -42,6 +45,9 @@ public class seed_helper_49 extends AppCompatActivity {
 
         data = new ArrayList();
         filter = new ArrayList();
+        favorites_Filter = new ArrayList();
+        original_Data = new ArrayList();
+
 
         data.add(new seed_helper_49_data("에델슈타인", "가로등", R.drawable.garodung,false));
         data.add(new seed_helper_49_data("마가티아", "강화된 아이언 뮤테", 임시이미지,false));
@@ -160,9 +166,6 @@ public class seed_helper_49 extends AppCompatActivity {
         //조치를 해야될거같음
 
 
-
-
-
         //어레이리스트에 즐겨찾기 구분인자를 추가하고
         //즐겨찾기만 보는 토글버튼같은걸 만들어서
         //누르면 구분인자를 걸러서 그거만 출력하게끔 로직만들기
@@ -207,6 +210,18 @@ public class seed_helper_49 extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String searchText = 검색창.getText().toString(); //검색창에 들어온값을 스트링으로 형변환
                 searchFilter(searchText);
+
+            }
+        });
+        CheckBox 즐찾리스트 = (CheckBox) this.findViewById(R.id.즐찾리스트);
+        즐찾리스트.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true){
+                    favorites_List(isChecked);
+                }else if(isChecked == false){
+                    리사이클러어댑터.original_Filter(original_Data);
+                }
 
             }
         });
@@ -291,8 +306,25 @@ public class seed_helper_49 extends AppCompatActivity {
                 //아이템필터에 추가해주고
             }
         }
-
         리사이클러어댑터.itemfilter(filter); // 기존 어레이리스트 교체
+    }
+    public void favorites_List(boolean isChecked) {
+
+        favorites_Filter.clear(); //필터 일단 싹비워주고(전에 추가했던기록 안나오게)
+        original_Data.clear();//원본데이터 초기화
+
+        for (int i = 0; i < data.size(); i++) {
+            //아이템 전체목록 싹 훑어주고
+            original_Data.add(data.get(i)); // 원본데이터에 모든데이터 일단추가
+            if (data.get(i).getIschecked() == true) {
+
+//                검색창에 써진 텍스트와 비교해서 몬스터이름,지역명 이랑 일치하는 아이템을 찾아서
+                favorites_Filter.add(data.get(i));
+                //아이템필터에 추가해주고
+            }
+        }
+        리사이클러어댑터.itemfilter(favorites_Filter); // 기존 어레이리스트 교체
+        //원래대로 되돌리는로직 짜야함
 
     }
 }
