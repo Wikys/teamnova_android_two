@@ -9,19 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import org.w3c.dom.Text;
+import com.example.teamnova_android_two.mulung_helper_scedule.mulung_helper_schedule;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -134,7 +130,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         memo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent m_Move = new Intent(mulung_helper.this, mulung_helper_scedule.class);
+                Intent m_Move = new Intent(mulung_helper.this, mulung_helper_schedule.class);
                 //데이터리스트(해시맵)을 주고 디테일 액티비티에서 받아서 정보를 담아주고 다시 여기로 넘겨주게됨
                 //풋데이터 작성하기
                 if (제목 != null && 분 != null && 초 != null && 분초 != null && 메모 != null) {
