@@ -103,7 +103,6 @@ public class seed_helper_49 extends AppCompatActivity {
         data.add(new seed_helper_49_data("에델슈타인","순찰로봇S",임시이미지,false));
         data.add(new seed_helper_49_data("페리온","스켈독",임시이미지,false));
         data.add(new seed_helper_49_data("아리안트","스콜피언",임시이미지,false));
-
         data.add(new seed_helper_49_data("루디브리엄","스카이세이버",임시이미지,false));
         data.add(new seed_helper_49_data("페리온","스톤 마스크",임시이미지,false));
         data.add(new seed_helper_49_data("아쿠아리움","스파커",임시이미지,false));
@@ -165,17 +164,6 @@ public class seed_helper_49 extends AppCompatActivity {
         //로컬Db 과제 진행할때 재실행시엔 로컬디비에있는 자료 기반으로 실행시키게 하던가
         //조치를 해야될거같음
 
-
-        //어레이리스트에 즐겨찾기 구분인자를 추가하고
-        //즐겨찾기만 보는 토글버튼같은걸 만들어서
-        //누르면 구분인자를 걸러서 그거만 출력하게끔 로직만들기
-
-
-
-
-
-//        data.add(new seed_helper_49_data());
-
         RecyclerView mQuizRv = (RecyclerView) this.findViewById(R.id.퀴즈);
 
         StaggeredGridLayoutManager staggeredGridLayoutManager
@@ -225,9 +213,6 @@ public class seed_helper_49 extends AppCompatActivity {
 
             }
         });
-
-
-
 
         Button btn23 = (Button) findViewById(R.id.시드23);
         btn23.setOnClickListener(new View.OnClickListener() {

@@ -86,7 +86,7 @@
             android:name=".seed_helper"
             android:exported="false" />
         <activity
-            android:name=".schedule"
+            android:name=".schedule.schedule"
             android:exported="false" />
         <activity
             android:name=".timer"

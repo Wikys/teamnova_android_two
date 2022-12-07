@@ -17,6 +17,7 @@
             android:layout_weight="5"
             android:background="@drawable/roundgray2"
             android:layout_margin="4dp"
+
             >
             <TextView
                 android:id="@+id/등장장소"
@@ -27,6 +28,7 @@
                 android:textSize="15dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/round_icon_gray"
+
 
                 />
             <ImageView
@@ -44,7 +46,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:button="@null"
-                android:layout_margin="4dp"/>
+                android:layout_margin="4dp"
+                />
 
 
 

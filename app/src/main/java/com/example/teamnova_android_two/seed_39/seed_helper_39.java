@@ -304,16 +304,6 @@ public class seed_helper_39 extends AppCompatActivity {
         data.add(new seed_helper_39_data("황금사원의 잡화 상인 이름은?","1. 케리","2. 키무","3. 탕따완 ø","4. 다니카"));
 
 
-
-
-
-
-
-
-
-
-
-
 //        data.add(new seed_helper_39_data());
 
         RecyclerView QuizRv = (RecyclerView) this.findViewById(R.id.퀴즈);

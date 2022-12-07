@@ -170,9 +170,7 @@ public class seed_helper_24 extends AppCompatActivity {
             if (data.get(i).getTitle().toLowerCase().contains(searchText.toLowerCase())
                     || data.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
                     ) {
-//                || data.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
 
-                //설명으로 찾으면 지울때오류남..
 
 //                검색창에 써진 텍스트와 비교해서 제목,설명이랑 일치하는 아이템을 찾아서
                 filter.add(data.get(i));
