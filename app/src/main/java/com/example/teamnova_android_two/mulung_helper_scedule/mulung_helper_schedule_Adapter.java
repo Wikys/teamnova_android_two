@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,25 +21,70 @@ import java.util.ArrayList;
 public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_helper_schedule_Adapter.CustomViewHolder>{
     ArrayList<mulung_helper_schedule_data> data;
     Context context;
+    private int checkPosition = -1; //포지션 체크하는변수
 
     public mulung_helper_schedule_Adapter(Context context, ArrayList<mulung_helper_schedule_data> dataModels){
         this.data = dataModels;
         this.context = context;
     }
 
+    //커스텀리스너 인터페이스 (외부에서 클릭효과주기위해서 작성)
+    public interface OnItemClickListener {
+        void onItemClick(int position) ;
+        //클릭한뷰의포지션정보를 가짐
+    }
+
+
+    private OnItemClickListener itemClickListener = new OnItemClickListener() {
+        //커스텀 리스너
+        @Override
+        public void onItemClick(int position) {
+            notifyItemChanged(checkPosition, null);
+            checkPosition = position;
+            //클릭했을때 아이템의 포지션정보를 체크포지션에 넣어줌
+            notifyItemChanged(position, null);
+        }
+    };
+//    // 리스너 객체 참조를 저장하는 변수
+//    private OnItemClickListener mListener;
+//
+//    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+//    public void setOnItemClickListener(OnItemClickListener listener) {
+//        mListener = listener ;
+//    }
+
     @NonNull
     @Override
     public mulung_helper_schedule_Adapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.mulung_helper_scedule_item,parent,false);
-        CustomViewHolder viewHolder = new CustomViewHolder(view) ;
-
+        CustomViewHolder viewHolder = new CustomViewHolder(view, itemClickListener) ;
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.메모저장버튼.setText(data.get(position).제목);
+        final mulung_helper_schedule_data item = data.get(position);
+        holder.메모저장버튼.setText(item.제목);
+
+
+
+    }
+    public mulung_helper_schedule_data getSelected(){
+        if(checkPosition > -1){
+            //포지션체크변수가 -1보다크면
+         return data.get(checkPosition);
+//         포지션체크번째의 데이터 출력
+        }
+        return null;
+        //아니면 널값리턴
+    }
+    public int getCheckedPosition() {
+        return checkPosition;
+    }
+    //포지션번호찾는 메소드
+    public void clearSelected(){
+        checkPosition = -1;
     }
 
 
@@ -56,12 +102,24 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
     public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
         private final Button 메모저장버튼;
 
-
-
-        public CustomViewHolder(View view) {
+        public CustomViewHolder(View view, final OnItemClickListener itemClickListener) {
             super(view);
             메모저장버튼 = (Button) view.findViewById(R.id.메모저장버튼);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        itemClickListener.onItemClick(position);
+                        //포지션이 있으면 포지션번호넣어주고
+
+                    }
+                }
+            });
+
+
 
         }
+
     }
 }

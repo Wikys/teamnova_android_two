@@ -64,18 +64,17 @@ public class mulung_helper_schedule extends AppCompatActivity implements Seriali
         TextView 제목 = (TextView) findViewById(R.id.제목);
         TextView 준비 = (TextView) findViewById(R.id.준비);
 
-        String 제목변환 = 제목.getText().toString();
-        String 메모변환 = 준비.getText().toString();
+
 //        int 분변환 = Integer.parseInt(분.getText().toString());
 //        int 초변환 = Integer.parseInt(초.getText().toString());
-
 
 
         저장버튼.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(분.getText().toString().equals("")) && !(초.getText().toString().equals(""))) {
-
+                if (!(분.getText().toString().equals("")) && !(초.getText().toString().equals(""))) {
+                    String 제목변환 = 제목.getText().toString();
+                    String 메모변환 = 준비.getText().toString();
 
                     int 분변환 = Integer.parseInt(분.getText().toString());
                     int 초변환 = Integer.parseInt(초.getText().toString());
@@ -85,12 +84,32 @@ public class mulung_helper_schedule extends AppCompatActivity implements Seriali
                     //형변환이 잘못된건지 읽지를못하고 버튼이 하나이상 추가가안됨
 //                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
                     data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
-                    리사이클러어댑터.notifyDataSetChanged();
-                }else{
+                    리사이클러어댑터.notifyItemChanged(data.size());
+                } else {
                     Toast.makeText(mulung_helper_schedule.this, "전부 입력후 저장해주세요", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
+        삭제버튼.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final mulung_helper_schedule_data item = 리사이클러어댑터.getSelected();
+                if (item == null) {
+//                    데이터모델이 비어있으면
+                    Toast.makeText(mulung_helper_schedule.this, "지울 저장목록을 선택해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                    //작동안하게처리
+                }
+                data.remove(item);
+                //선택한 아이템 리스트에서삭제
 
+                final int checkedPosition = 리사이클러어댑터.getCheckedPosition();
+                //포지션번호 받아와서
+                리사이클러어댑터.notifyItemRemoved(checkedPosition);
+                //포지션에 맞는 아이템 리무브
+                리사이클러어댑터.clearSelected();
+                //아이템 하나 빠졌으니 만든 포지션변수 포지션값 하나 줄여줌
             }
         });
 
