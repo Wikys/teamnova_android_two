@@ -10,13 +10,21 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.mulung_helper;
+import com.example.teamnova_android_two.recyclerView_height;
+import com.example.teamnova_android_two.seed_24.BGM_Adapter;
+import com.example.teamnova_android_two.seed_24.seed_helper_24_data;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,24 +32,81 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class mulung_helper_schedule extends AppCompatActivity implements Serializable {
+    ArrayList<mulung_helper_schedule_data> data, filter;
+    RecyclerView mhSchedule;
+    mulung_helper_schedule_Adapter 리사이클러어댑터;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mulung_helper_scedule);
 
+        data = new ArrayList();
+        filter = new ArrayList();
+
+        mhSchedule = (RecyclerView) this.findViewById(R.id.저장목록);
+
+        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
+        mhSchedule.setLayoutManager(리니어매니저);
+
+        리사이클러어댑터 = new mulung_helper_schedule_Adapter(this, data);//
+        mhSchedule.setAdapter(리사이클러어댑터);
+
+        recyclerView_height decoration_height = new recyclerView_height(20);
+        mhSchedule.addItemDecoration(decoration_height); //데코레이션으로 높이 적용
+
+        Button 저장버튼 = (Button) findViewById(R.id.저장버튼);
+        Button 삭제버튼 = (Button) findViewById(R.id.삭제버튼);
+        TextView 분 = (TextView) findViewById(R.id.분);
+        TextView 초 = (TextView) findViewById(R.id.초);
+        TextView 제목 = (TextView) findViewById(R.id.제목);
+        TextView 준비 = (TextView) findViewById(R.id.준비);
+
+        String 제목변환 = 제목.getText().toString();
+        String 메모변환 = 준비.getText().toString();
+//        int 분변환 = Integer.parseInt(분.getText().toString());
+//        int 초변환 = Integer.parseInt(초.getText().toString());
+
+
+
+        저장버튼.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!(분.getText().toString().equals("")) && !(초.getText().toString().equals(""))) {
+
+
+                    int 분변환 = Integer.parseInt(분.getText().toString());
+                    int 초변환 = Integer.parseInt(초.getText().toString());
+                    //데이터모델에 넣기위해 형변환
+
+//                    mulung_helper_schedule_data save = new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환);
+                    //형변환이 잘못된건지 읽지를못하고 버튼이 하나이상 추가가안됨
+//                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
+                    data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
+                    리사이클러어댑터.notifyDataSetChanged();
+                }else{
+                    Toast.makeText(mulung_helper_schedule.this, "전부 입력후 저장해주세요", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
     }
 
 
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            //바깥레이어 클릭시 안닫히게
-            if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                return false;
-            }
-            return true;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //바깥레이어 클릭시 안닫히게
+        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+            return false;
         }
-        @Override
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
         //안드로이드 백버튼 막기
         return;

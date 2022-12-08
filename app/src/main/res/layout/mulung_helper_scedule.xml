@@ -8,25 +8,16 @@
     android:background="@drawable/border"
 
     >
-    <ScrollView
-        android:id="@+id/저장목록스크롤"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/저장목록"
         android:layout_width="80dp"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
-
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
-    <LinearLayout
-        android:id="@+id/저장목록"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        />
 
-
-        android:background="@drawable/border"
-
-        >
 <!--        저장해논 메모목록-->
 <!--        <Button-->
 <!--            android:layout_width="match_parent"-->
@@ -34,8 +25,8 @@
 <!--            android:text="준비"-->
 <!--            />-->
 <!--        코드로 추가-->
-    </LinearLayout>
-    </ScrollView>
+
+
 
         <EditText
             android:id="@+id/분"
@@ -44,7 +35,7 @@
             android:hint="분"
             android:inputType="number"
             android:maxLength="2"
-            app:layout_constraintLeft_toRightOf="@id/저장목록스크롤"
+            app:layout_constraintLeft_toRightOf="@id/저장목록"
             app:layout_constraintRight_toLeftOf="@id/콜론"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/제목"
@@ -85,7 +76,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/콜론"
         app:layout_constraintBottom_toTopOf="@id/준비"
-        app:layout_constraintLeft_toRightOf="@id/저장목록스크롤"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
         app:layout_constraintRight_toRightOf="parent"
 
         />
@@ -98,7 +89,7 @@
         android:textSize="20dp"
         android:textColor="@color/teal_700"
         app:layout_constraintTop_toBottomOf="@id/제목"
-        app:layout_constraintLeft_toRightOf="@id/저장목록스크롤"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/저장버튼"
         />
@@ -109,7 +100,7 @@
         android:text="저장"
         app:layout_constraintTop_toBottomOf="@id/준비"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/저장목록스크롤"
+        app:layout_constraintLeft_toRightOf="@id/저장목록"
         app:layout_constraintRight_toLeftOf="@id/삭제버튼"
         />
     <Button
