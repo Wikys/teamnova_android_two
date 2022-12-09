@@ -113,6 +113,10 @@ public class mulung_helper_schedule extends AppCompatActivity implements Seriali
             }
         });
 
+        리사이클러어댑터.
+
+
+
     }
 
 

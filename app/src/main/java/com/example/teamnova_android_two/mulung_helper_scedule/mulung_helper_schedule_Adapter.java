@@ -27,18 +27,32 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
         this.data = dataModels;
         this.context = context;
     }
+//    public void deleteItem(int position) {
+//        data.remove(position);
+//        notifyItemRemoved(position);
+//        notifyItemRangeChanged(position, data.size());
+//    }
+
 
     //커스텀리스너 인터페이스 (외부에서 클릭효과주기위해서 작성)
     public interface OnItemClickListener {
-        void onItemClick(int position) ;
+        void onItemClick(View v, int position) ;
         //클릭한뷰의포지션정보를 가짐
     }
+    private OnItemClickListener ItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(View v, int position) {
+            notifyItemChanged(checkPosition, null);
+            checkPosition = position;
+            notifyItemChanged(position, null);
+        }
+    };
 
 
     private OnItemClickListener itemClickListener = new OnItemClickListener() {
         //커스텀 리스너
         @Override
-        public void onItemClick(int position) {
+        public void onItemClick(View v, int position) {
             notifyItemChanged(checkPosition, null);
             checkPosition = position;
             //클릭했을때 아이템의 포지션정보를 체크포지션에 넣어줌
@@ -80,6 +94,7 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
         //아니면 널값리턴
     }
     public int getCheckedPosition() {
+
         return checkPosition;
     }
     //포지션번호찾는 메소드
@@ -99,7 +114,7 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
 
 
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
+    public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 뷰홀더
         private final Button 메모저장버튼;
 
         public CustomViewHolder(View view, final OnItemClickListener itemClickListener) {
@@ -110,7 +125,7 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
                 public void onClick(View v) {
                     final int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION){
-                        itemClickListener.onItemClick(position);
+                        itemClickListener.onItemClick(v,position);
                         //포지션이 있으면 포지션번호넣어주고
 
                     }
