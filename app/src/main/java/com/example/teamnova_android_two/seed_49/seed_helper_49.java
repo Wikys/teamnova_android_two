@@ -303,6 +303,7 @@ public class seed_helper_49 extends AppCompatActivity {
             original_Data.add(data.get(i)); // 원본데이터에 모든데이터 일단추가
             if (data.get(i).getIschecked() == true) {
 
+
 //                검색창에 써진 텍스트와 비교해서 몬스터이름,지역명 이랑 일치하는 아이템을 찾아서
                 favorites_Filter.add(data.get(i));
                 //아이템필터에 추가해주고
