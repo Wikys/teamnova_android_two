@@ -98,6 +98,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
 //                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
                     data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
                     리사이클러어댑터.notifyItemChanged(data.size());
+
                     Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -116,7 +117,9 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                 int 초변환 = Integer.parseInt(초.getText().toString());
 
                 data.set(포지션,new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
+                //포지션번호에 있는 데이터 수정해서 추가
                 리사이클러어댑터.notifyItemChanged(포지션);
+                //어댑터 특정포지션 아이템목록 변경
                 Toast.makeText(mulung_helper_schedule.this, "수정완료", Toast.LENGTH_SHORT).show();
 
             }
@@ -129,7 +132,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                 리사이클러어댑터.notifyItemRemoved(포지션);
                 //삭제된 데이터 어댑터에서도 적용
                 리사이클러어댑터.notifyItemRangeChanged(포지션,data.size());
-                //리스트 재정렬
+                //아이템의 포지션이 싹다변경되야하므로 변경된아이템의 위치와 아이템의갯수를 넣어서 호출
 
                 Toast.makeText(mulung_helper_schedule.this, "삭제완료", Toast.LENGTH_SHORT).show();
             }
@@ -241,7 +244,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
     }
 
     @Override//커스텀온클릭리스너 리사이클러뷰 아이템클릭시 작동
-    public void onClick(View v, mulung_helper_schedule_data data, int position) {
+    public void onClick(View v, mulung_helper_schedule_data data) {
         포지션 = (int) v.getTag();
         Toast.makeText(this,  포지션 +" : "+ data, Toast.LENGTH_SHORT).show();
 //        분초제목준비

@@ -20,7 +20,7 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
     int 포지션;
 
     public interface OnItemClickListener {
-        void onClick(View v,mulung_helper_schedule_data data ,int position); //
+        void onClick(View v,mulung_helper_schedule_data data ); //
     }
     //인터페이스
     private OnItemClickListener mListener;
@@ -74,15 +74,12 @@ public class mulung_helper_schedule_Adapter extends RecyclerView.Adapter<mulung_
             @Override
             public void onClick(View v) {
                 if(mListener != null){
-                    mListener.onClick(v,item, holder.getAdapterPosition());
+                    mListener.onClick(v,item);
                 }
-//                Toast.makeText(context, "포지션 확인용: " , Toast.LENGTH_SHORT).show();
-//                setExportPosition(holder.getAdapterPosition());
-//                Toast.makeText(context, "제목 확인용 : "+item.제목, Toast.LENGTH_SHORT).show();
-//                exportData(item);
-                //정보 내보내는것까진 좋은데 메인뷰조작을 어떻게할지..
+//
+
             }
-            //아이템을 클릭하면 아이템의 정보를 메소드를통해 내보냄 (메인으로)
+
         });
 
 
