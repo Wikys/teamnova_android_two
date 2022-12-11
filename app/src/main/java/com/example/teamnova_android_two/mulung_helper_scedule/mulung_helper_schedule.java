@@ -45,6 +45,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
     TextView 초;
     TextView 제목;
     TextView 준비;
+    Button 종료;
     int 포지션; //아이템번호 알아내기위해서 포지션값 받아온거 저장
 
 
@@ -53,6 +54,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mulung_helper_scedule);
+        Log.d("mulung_helper_schedule", "onCreate: ");
 
         data = new ArrayList();
         filter = new ArrayList();
@@ -75,6 +77,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
          초 = (TextView) this.findViewById(R.id.초);
          제목 = (TextView) this.findViewById(R.id.제목);
          준비 = (TextView) this.findViewById(R.id.준비);
+         종료 = (Button) this.findViewById(R.id.종료버튼);
 
 
 //        int 분변환 = Integer.parseInt(분.getText().toString());
@@ -84,6 +87,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         저장버튼.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("mulung_helper_schedule", "onClick: ");
                 if (!(분.getText().toString().equals("")) && !(초.getText().toString().equals(""))) {
 
                     String 제목변환 = 제목.getText().toString();
@@ -110,6 +114,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         수정버튼.setOnClickListener(new View.OnClickListener() { //수정기능
             @Override
             public void onClick(View v) {
+                Log.d("mulung_helper_schedule", "onClick: ");
 
                 String 제목변환 = 제목.getText().toString();
                 String 메모변환 = 준비.getText().toString();
@@ -127,6 +132,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         삭제버튼.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("mulung_helper_schedule", "onClick: ");
                 data.remove(포지션);
                 //데이터목록삭제
                 리사이클러어댑터.notifyItemRemoved(포지션);
@@ -135,6 +141,13 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                 //아이템의 포지션이 싹다변경되야하므로 변경된아이템의 위치와 아이템의갯수를 넣어서 호출
 
                 Toast.makeText(mulung_helper_schedule.this, "삭제완료", Toast.LENGTH_SHORT).show();
+            }
+        });
+        종료.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("mulung_helper_schedule", "onClick: ");
+                finish();
             }
         });
 
@@ -245,6 +258,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
 
     @Override//커스텀온클릭리스너 리사이클러뷰 아이템클릭시 작동
     public void onClick(View v, mulung_helper_schedule_data data) {
+        Log.d("mulung_helper_schedule", "onClick: ");
         포지션 = (int) v.getTag();
         Toast.makeText(this,  포지션 +" : "+ data, Toast.LENGTH_SHORT).show();
 //        분초제목준비
@@ -255,8 +269,9 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         초.setText(String.valueOf(data.초));
         준비.setText(data.메모);
     }
-    //작동성공
+
 }
+
 
 //    private final int id = 0x8000; //버튼아이디 변수
 //    private Integer numButton = 0; // 버튼의 개수
