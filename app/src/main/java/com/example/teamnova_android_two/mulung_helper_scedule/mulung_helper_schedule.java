@@ -102,7 +102,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
 //                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
                     data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
                     리사이클러어댑터.notifyItemInserted(data.size());
-                    //특정위치의 아이템 변경(int)
+                    //데이터에 새로 삽입된 데이터의 위치(int)
 
                     Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
                 } else {
