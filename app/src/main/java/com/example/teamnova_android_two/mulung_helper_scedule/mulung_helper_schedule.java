@@ -101,7 +101,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                     //형변환이 잘못된건지 읽지를못하고 버튼이 하나이상 추가가안됨
 //                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
                     data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
-                    리사이클러어댑터.notifyItemChanged(data.size());
+                    리사이클러어댑터.notifyItemInserted(data.size());
                     //특정위치의 아이템 변경(int)
 
                     Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
