@@ -29,7 +29,7 @@ public class BGM_Adapter extends RecyclerView.Adapter<BGM_Adapter.CustomViewHold
     public BGM_Adapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.seed_helper_24_item,parent,false);
-        CustomViewHolder viewHolder = new CustomViewHolder(view) ;
+        CustomViewHolder viewHolder = new CustomViewHolder(view);
 
         return viewHolder;
     }

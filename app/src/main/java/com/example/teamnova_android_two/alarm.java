@@ -12,13 +12,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Vibrator;
-import android.util.Log;
-import android.widget.Toast;
 
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.example.teamnova_android_two.회원가입.MainActivity;
 
 import java.util.Calendar;
 

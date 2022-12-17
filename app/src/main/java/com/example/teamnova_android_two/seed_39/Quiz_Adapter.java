@@ -2,6 +2,7 @@ package com.example.teamnova_android_two.seed_39;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
     @NonNull
     @Override
     public Quiz_Adapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("Quiz_Adapter", "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.seed_helper_39_item, parent, false);
         Quiz_Adapter.CustomViewHolder viewHolder = new Quiz_Adapter.CustomViewHolder(view);
@@ -39,15 +41,12 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
 
     @Override
     public void onBindViewHolder(@NonNull Quiz_Adapter.CustomViewHolder holder, int position) {
+        Log.d("Quiz_Adapter", "onBindViewHolder: ");
 
 //        holder.정답.setBackgroundColor(Color.rgb(178, 204, 255));
 
         holder.질문.setText(data.get(position).question);
-//
-//        holder.답변4.setText(data.get(position).answer4);
-//        holder.답변3.setText(data.get(position).answer3);
-//        holder.답변2.setText(data.get(position).answer2);
-//        holder.답변1.setText(data.get(position).answer1);
+
         for(int i=0; i <= data.size(); i++){ //특수문자 포함된(정답)것들 전부 색상변경
             holder.답변1.setBackgroundColor(Color.rgb(255, 102, 255));
             holder.답변2.setBackgroundColor(Color.rgb(255, 102, 255));
@@ -87,10 +86,12 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
 
     @Override
     public int getItemCount() {
+        Log.d("Quiz_Adapter", "getItemCount: ");
         return data.size();
+//        return 1;
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스 //(새로띄우고싶은)바꾸고싶은정보?
+    public class CustomViewHolder extends RecyclerView.ViewHolder { //이너클래스로 구현
         private final TextView 질문;
         private final Button 답변1;
         private final Button 답변2;
@@ -100,6 +101,7 @@ public class Quiz_Adapter extends RecyclerView.Adapter<Quiz_Adapter.CustomViewHo
 
         public CustomViewHolder(View view) { // 뷰홀더 뷰들 findviewid
             super(view);
+            Log.d("Quiz_Adapter", "CustomViewHolder: ");
             질문 = (TextView) view.findViewById(R.id.질문);
             답변1 = (Button) view.findViewById(R.id.답변1);
             답변2 = (Button) view.findViewById(R.id.답변2);

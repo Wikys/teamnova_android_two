@@ -1,4 +1,4 @@
-package com.example.teamnova_android_two;
+package com.example.teamnova_android_two.회원가입;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -20,11 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.teamnova_android_two.R;
+
+import org.json.JSONArray;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class sign_up extends AppCompatActivity implements Serializable {
     //    Map<String, String> 아이디 = new HashMap<>();
@@ -34,6 +35,7 @@ public class sign_up extends AppCompatActivity implements Serializable {
     ArrayList<String> 아이디 = new ArrayList<>();//아이디 저장리스트
     ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
+
 
 
 
@@ -62,6 +64,7 @@ public class sign_up extends AppCompatActivity implements Serializable {
                     }
                 }
             });
+
 
 
 

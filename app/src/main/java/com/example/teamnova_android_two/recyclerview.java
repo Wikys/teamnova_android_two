@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -32,6 +34,18 @@ public class recyclerview extends AppCompatActivity {
         MyAdapter 리사이클러어댑터 = new MyAdapter();
         리사이클러뷰.setAdapter(리사이클러어댑터);
         //안에 표시되는것, 몇개표시되는지등을 관리해주는 "어댑터" 선언
+
+        //로컬디비비
+       Context context = this;
+        SharedPreferences 셰어드 = context.getSharedPreferences(
+                "nope", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor 에디터 = 셰어드.edit();
+        에디터.putString("학생1","안연창");
+        에디터.putString("학생2","박상현");
+        에디터.apply();
+        //커밋과 어플라이의 차이
+        //
 
 
 

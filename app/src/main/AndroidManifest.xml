@@ -27,15 +27,15 @@
             android:name=".test_activity"
             android:exported="false" />
         <activity
-            android:name=".confirm_nick"
+            android:name=".회원가입.confirm_nick"
             android:exported="false"
             android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
-            android:name=".confirm_id"
+            android:name=".회원가입.confirm_id"
             android:exported="false"
             android:theme="@android:style/Theme.Holo.Dialog" />
         <activity
-            android:name=".sign_up"
+            android:name=".회원가입.sign_up"
             android:exported="false"
             android:theme="@style/Theme.MyDialog" />
 
@@ -112,7 +112,7 @@
             android:name=".Main"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".회원가입.MainActivity"
             android:exported="true"
             android:label=".MainActivity">
             <intent-filter>

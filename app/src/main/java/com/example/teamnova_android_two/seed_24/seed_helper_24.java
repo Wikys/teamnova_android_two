@@ -66,6 +66,7 @@ public class seed_helper_24 extends AppCompatActivity {
 
         RecyclerView bgmRv = (RecyclerView) this.findViewById(R.id.브금퀴즈);
 
+
         LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
         bgmRv.setLayoutManager(리니어매니저);
 
