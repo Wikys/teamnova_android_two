@@ -46,6 +46,4 @@ public class Account_Data {
         this.nick = nick;
         this.image = image;
     }
-
-
 }

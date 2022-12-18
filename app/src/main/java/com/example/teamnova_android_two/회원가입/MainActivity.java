@@ -28,15 +28,18 @@ import com.example.teamnova_android_two.Main;
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.recyclerview;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.Reader;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
     private BroadcastReceiver alarm;
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     SharedPreferences 셰어드;
     SharedPreferences.Editor 에디터;
     ArrayList<Account_Data> 계정;
+    Gson gson;
+    String contect_Account;
 
 
     ActivityResultLauncher<Intent> receive_Id_Result = registerForActivityResult(
@@ -66,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         String stringUri = uri.toString();
                         //uri객체 스트링으로 형변환 (제이슨으로 변환이안되서)
                         //나중에 다시 돌려놓을떄 Uri.parse();
+
                         계정.add(new Account_Data(
                                 아이디.get(아이디.size() - 1), 비밀번호.get(비밀번호.size() - 1), 닉네임.get(닉네임.size() - 1), stringUri));
-//                        에디터.putString("계정",gson.)
-                        SaveData(계정);
-                        //제이슨으로 변환해서 저장
-                        계정 = ReadData();
-                        //다시 풀어서 어레이리스트에 저장
+//                        //미리 한번 저장(당장에 로그인할떄 반영되어야하니까)
+                        saved_Data(아이디.get(아이디.size() - 1), 비밀번호.get(비밀번호.size() - 1), 닉네임.get(닉네임.size() - 1), stringUri);
+                        //만들어진 객체 저장하는메소드 (어플껏다킬때 불러오는용도)
+
 
                     }
                 }
@@ -85,8 +90,22 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_main);
         Log.d("MainActivity", "onCreate: ");
         dialog = new Dialog(MainActivity.this);
-//        계정 = getStringArrayPref(context,"계정");
+
         계정 = new ArrayList();
+        셰어드 = getSharedPreferences("계정DB", MODE_PRIVATE);
+        //SharedPreferences 생성
+        gson = new GsonBuilder().create();
+        //gson 생성
+        contect_Account = 셰어드.getString("ayc0812", "");
+        //DB안의 데이터 불러오기
+        //이부분이 문젠데 한번도 아이디 생성한적없는폰에서는 디비가 안불러와질것임.. (공디비를 하나 인위적으로 넣는것은 어떨까? : 그럼 리드데이터부분에서 팅김)
+
+
+        if (!contect_Account.equals("")) {
+            //디폴트값이 아닐때만 실행
+            read_Data();
+
+        }
 
 
 
@@ -101,27 +120,27 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("앱 끈다?")
-                        .setMessage("진짜 끈다?")
-                        .setPositiveButton("꺼라", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(MainActivity.this, "안 끔", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("앱 끈다?")
+//                        .setMessage("진짜 끈다?")
+//                        .setPositiveButton("꺼라", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                finish();
+//                            }
+//                        })
+//                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                Toast.makeText(MainActivity.this, "안 끔", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//
+//                AlertDialog msgDlg = msgBuilder.create();
+//                msgDlg.show();
+                read_Data();
 
-
-                AlertDialog msgDlg = msgBuilder.create();
-                msgDlg.show();
-//                Intent intent = new Intent(MainActivity.this, test_activity.class);
-//                startActivity(intent);
             }
         });
         테스트2.setOnClickListener(new View.OnClickListener() {
@@ -142,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 Uri 이미지;
                 int 인덱스 = -998;
 
-                for (int i = 0; i < 계정.size(); i++){
-                    if(계정.get(i).id.contains(id_Input.getText().toString())){
+                for (int i = 0; i < 계정.size(); i++) {
+                    if (계정.get(i).id.contains(id_Input.getText().toString())) {
                         //입력한값과 아이디쪽 db 대조
                         아이디 = id_Input.getText().toString();
                         인덱스 = i;
@@ -152,16 +171,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     }
 
                 }
-                if(인덱스 != -998){
-                    if(계정.get(인덱스).ps.equals(ps_Input.getText().toString())){
+                if (인덱스 != -998) {
+                    if (계정.get(인덱스).ps.equals(ps_Input.getText().toString())) {
                         //인텐트로넘김 인덱스값(다음액티비티에서 디비불러올때 몇번쨰에있는건지 확인용)
                         Intent intent = new Intent(MainActivity.this, Main.class);
                         startActivity(intent);
-                    }else {
+                    } else {
                         Toast.makeText(MainActivity.this, "비밀번호를 확인 해주세요.", Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(MainActivity.this, "비밀번호 : "+계정.get(인덱스).ps, Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Toast.makeText(MainActivity.this, "아이디를 확인 해주세요.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -250,73 +269,69 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onRestart();
     }
 
-//    private void setStringArrayPref(Context context, String Key, ArrayList<Account_Data> values) {
-//        //어레이리스트를 json으로 변환하여 sharedpreferences에 string을 저장하는 코드
-//        셰어드 = context.getSharedPreferences("계정", Context.MODE_PRIVATE);
-//        //"계정"이라는 이름의 디비를 생성
-//        SharedPreferences.Editor editor = 셰어드.edit();
-//        //만든 디비를 에디터와 연결
-//        JSONArray a = new JSONArray();
-//        for (int i = 0; i < values.size(); i++) {
-//            a.put(values.get(i));
-//            //인자로 받아온 어레이리스트의 요소를 제이슨어레이에 추가
-//        }
-//        if (!values.isEmpty()) {
-//            //인자로 받아온 어레이리스트가 비어있지않으면
-//            editor.putString(Key, a.toString());
-//            //인자로 받아온 Key를 키값으로 넣고 제이슨어레이를 스트링으로 형변환해서 디비에 저장
-//        } else {
-//            editor.putString(Key, null);
-//        }
-//        editor.apply();
-//        //저장
-//    }
+    public void saved_Data(String ID, String PS, String Nick, String Image_Path) {
+        contect_Account = "";
+        Account_Data a = new Account_Data(ID, PS, Nick, Image_Path);
 
-//    private ArrayList<String> getStringArrayPref(Context context, String Key) {
-//        //Json 형식의 String을 가져와서 다시 Arraylist로 변환
-//        셰어드 = context.getSharedPreferences("계정", Context.MODE_PRIVATE);
-//        String json = 셰어드.getString(Key, null);
-//        ArrayList<String> urls = new ArrayList<String>();
-//        //임시 어레이리스트 만들어서
-//        if(json != null){
-//            //json이 null이 아니면
-//            try{
-//                JSONArray a = new JSONArray(json);
-//                for(int i =0; i < a.length(); i++){
-//                    String url = a.optString(i);
-//                    //optString < "" 빈문자열 반환
-//                    urls.add(url);
-//                }
-//            }catch (JSONException e){
-//                e.printStackTrace();
-//            }
-//        }
-//        return urls;
-//    }
-    private void SaveData(ArrayList<Account_Data> 계정){ //db 저장메소드
-        context = this;
-//        셰어드 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); // db이름,선언
-        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
-        SharedPreferences.Editor 에디터 = 셰어드.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(계정);
-        에디터.putString(계정.get(계정.size()-1).id,json); //방금 추가된 아이디를 키값으로 줌
-        에디터.apply();
-    }
-    private ArrayList<Account_Data> ReadData(){ //json으로 저장해놨던거 다시변환하는 메소드
-        context = this;
-        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-//        String json = 셰어드.getString("계정","EMPTY");
-        String json = 셰어드.getString(계정.get(계정.size()-1).id,"EMPTY");
-        //키값때메 하나씩밖에 못가져옴
-        Type type = new TypeToken<ArrayList<Account_Data>>(){
-        }.getType();
+        contect_Account = gson.toJson(a, Account_Data.class);
+        //gson.toJson을 이용해 클래스를 String으로 변환
+        //첫번째 인자에는 변경되는 클래스변수이름, 두번째에는 클래스의 형식
 
-        ArrayList<Account_Data> 계정 = gson.fromJson(json,type);
-        return 계정;
+        SharedPreferences.Editor editor = 셰어드.edit();
+        editor.putString(계정.get(계정.size()-1).id, contect_Account);
+        editor.apply();
+        //SharedPreferences에 String으로 변환된 클래스 저장
+
     }
 
-    //머지해봤자 의미가없는게 껏다키면 기록사라지고 리드데이터 메소드는 여전히 하나씩만 불러올수있음..
+    public void read_Data() {
+
+        Map<String, ?> allEntries = 셰어드.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            //DB에 저장된 모든값을 차례대로 꺼내오는 메소드
+            Account_Data a = gson.fromJson(entry.getValue().toString(), Account_Data.class);
+            //저장된 모든값을 차례대로 꺼내와서 객체에 변환해서담고
+            계정.add(a);
+            //어레이리스트에 다시담음
+//            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+        }
+    }
+//    contect_Account = 셰어드.getString("계정DB", "");
+//    //DB안의 데이터 불러오기
+//
+//        if (!contect_Account.equals("")) {
+//        //디폴트값이 아닐때만 실행
+//        Account_Data a = gson.fromJson(contect_Account, Account_Data.class);
+//        //다시 변환해서 넣음
+//
+//        //이제 이걸 어레이리스트에 추가해야하는데 저장데이터 한번에 불러오는 메소드 참고해서 만들면될듯
+//        계정.add(a);
+//        //임시테스트용용
+//    }
+
+    //어레이리스트 저장방식은 못쓸거같아서 일단 폐기
+//    private void SaveData(ArrayList<Account_Data> 계정){ //db 저장메소드
+//        context = this;
+////        셰어드 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); // db이름,선언
+//        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
+//        SharedPreferences.Editor 에디터 = 셰어드.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(계정);
+//        에디터.putString(계정.get(계정.size()-1).id,json); //방금 추가된 아이디를 키값으로 줌
+//        에디터.apply();
+//    }
+//    private ArrayList<Account_Data> ReadData(){ //json으로 저장해놨던거 다시변환하는 메소드
+//        context = this;
+//        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
+//        Gson gson = new Gson();
+////        String json = 셰어드.getString("계정","EMPTY");
+//        String json = 셰어드.getString(계정.get(계정.size()-1).id,"EMPTY");
+//        //키값때메 하나씩밖에 못가져옴
+//        Type type = new TypeToken<ArrayList<Account_Data>>(){
+//        }.getType();
+//        ArrayList<Account_Data> 계정 = gson.fromJson(json,type);
+//        return 계정;
+//    }
+
 }
 
