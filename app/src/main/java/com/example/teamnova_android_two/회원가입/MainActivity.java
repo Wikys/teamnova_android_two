@@ -4,40 +4,30 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.impl.model.Preference;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.teamnova_android_two.Main;
+import com.example.teamnova_android_two.Main.Main;
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.recyclerview;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.Reader;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -50,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     Dialog dialog;
     Context context;
     SharedPreferences 셰어드;
+    SharedPreferences 계정기억DB;
     SharedPreferences.Editor 에디터;
     ArrayList<Account_Data> 계정;
     Gson gson;
@@ -91,11 +82,15 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         계정 = new ArrayList();
         셰어드 = getSharedPreferences("계정DB", MODE_PRIVATE);
+        계정기억DB = getSharedPreferences("계정기억DB", MODE_PRIVATE);
         //SharedPreferences 생성
         gson = new GsonBuilder().create();
         //gson 생성
 
         read_Data();
+//        editor.putBoolean("계정기억상태",true);
+//        editor.putString("ID기억",계정.get(인덱스).id);
+//        editor.putString("PS기억",계정.get(인덱스).ps);
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
         TextView id_Input = (TextView) MainActivity.this.findViewById(R.id.아이디);
@@ -103,33 +98,29 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Button sign_Up_Button = (Button) MainActivity.this.findViewById(R.id.sign_up_button);
         Button 테스트 = (Button) MainActivity.this.findViewById(R.id.테스트);
         Button 테스트2 = (Button) MainActivity.this.findViewById(R.id.테스트2);
+        CheckBox 계정기억 = (CheckBox) MainActivity.this.findViewById(R.id.계정기억);
+        Boolean 계정저장상태 = 계정기억DB.getBoolean("계정기억상태",false);
+        String 저장id불러오기 = 계정기억DB.getString("ID기억","");
+        String 저장ps불러오기 = 계정기억DB.getString("PS기억","");
+
+        계정기억.setChecked(계정저장상태);
+        //디비에 저장돼있는 체크박스 체크상태를 가져와서 등록
+
+        if(계정저장상태 = true){
+            //계정기억버튼을 누른상태에서 껏으면
+            //텍스트뷰에 전에 저장했던 아이디 비번 자동으로 입력
+            id_Input.setText(저장id불러오기);
+            ps_Input.setText(저장ps불러오기);
+        }
 
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
-//                        .setTitle("앱 끈다?")
-//                        .setMessage("진짜 끈다?")
-//                        .setPositiveButton("꺼라", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                finish();
-//                            }
-//                        })
-//                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                Toast.makeText(MainActivity.this, "안 끔", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//
-//
-//                AlertDialog msgDlg = msgBuilder.create();
-//                msgDlg.show();
                 read_Data();
 
             }
         });
+
         테스트2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
             }
         });
+
 
         login_button.setOnClickListener(new View.OnClickListener() {//로그인버튼 눌렀을때
             @Override
@@ -154,14 +146,41 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         아이디 = id_Input.getText().toString();
                         인덱스 = i;
 
-                        //인텐트로 넘기려고 인덱스번호로 사용하기위해 저장 또는 비밀번호
+                        //인텐트로 넘기기위해서 요소가 어디에 위치해있는지 찾아야하는데
+                        //그걸 위해서 인덱스라는 변수를만듬
                     }
 
                 }
                 if (인덱스 != -998) {
+
                     if (계정.get(인덱스).ps.equals(ps_Input.getText().toString())) {
-                        //인텐트로넘김 인덱스값(다음액티비티에서 디비불러올때 몇번쨰에있는건지 확인용)
                         Intent intent = new Intent(MainActivity.this, Main.class);
+                        //인텐트로넘김 인덱스값(다음액티비티에서 디비불러올때 몇번쨰에있는건지 확인용)
+                        //여기서는 이미지 그냥 스트링으로 넘기고 다음화면에서 변환하기
+                        //인텐트로 그냥 아이디 닉네임 이미지 넘기고 다음화면에서 아이디값으로 db만들어서 정보구분
+                        Uri 사진변환 = Uri.parse(계정.get(인덱스).image);
+                        intent.putExtra("아이디", 계정.get(인덱스).id);
+                    intent.putExtra("닉네임", 계정.get(인덱스).nick);
+                    intent.putExtra("사진", 사진변환);
+                        if(계정기억.isChecked()){
+                            계정기억DB = getSharedPreferences("계정기억DB", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = 계정기억DB.edit();
+                            editor.putBoolean("계정기억상태",true);
+                            editor.putString("ID기억",계정.get(인덱스).id);
+                            editor.putString("PS기억",계정.get(인덱스).ps);
+                            editor.apply();
+                            //계정기억 체크박스 누르면 현재 로그인성공한 아이디 비밀번호 디비에저장후
+                            //온크리에이트에서 불러와서 자동입력
+
+                        }else{
+                            계정기억DB = getSharedPreferences("계정기억DB", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = 계정기억DB.edit();
+                            editor.putBoolean("계정기억상태",false);
+                            editor.putString("ID기억","");
+                            editor.putString("PS기억","");
+                            editor.apply();
+                        }
+
                         startActivity(intent);
                     } else {
                         Toast.makeText(MainActivity.this, "비밀번호를 확인 해주세요.", Toast.LENGTH_SHORT).show();
@@ -171,30 +190,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     Toast.makeText(MainActivity.this, "아이디를 확인 해주세요.", Toast.LENGTH_SHORT).show();
                 }
 
-
-//                if (아이디.contains(id.getText().toString()) && 비밀번호.contains(ps.getText().toString())) {
-//                    Toast.makeText(MainActivity.this, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(MainActivity.this, Main.class);
-//                    //사진정보나 계정정보 넘기기 //
-//                    //단방향
-//                    intent.putExtra("아이디", 아이디);
-//                    intent.putExtra("닉네임", 닉네임);
-//                    intent.putExtra("사진", uri);
-//                    startActivity(intent);
-//
-//                }
-//                else if (true) { //테스트용 (매번 계정만들기 힘듬)
-//                    Intent intent = new Intent(MainActivity.this, Main.class);
-//                    아이디.add("안연창");
-//                    닉네임.add("팀노바");
-//                    intent.putExtra("아이디", 아이디);
-//                    intent.putExtra("닉네임", 닉네임);
-//                    intent.putExtra("사진", uri);
-//                    startActivity(intent);
-//                }
-//                else {
-//                    Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인 해주세요", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
 

@@ -1,10 +1,11 @@
-package com.example.teamnova_android_two;
+package com.example.teamnova_android_two.Main;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,18 +22,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.teamnova_android_two.R;
+import com.example.teamnova_android_two.alarm;
+import com.example.teamnova_android_two.daily_boss;
+import com.example.teamnova_android_two.daily_quest;
+import com.example.teamnova_android_two.mulung_helper;
 import com.example.teamnova_android_two.schedule.schedule;
+import com.example.teamnova_android_two.seed_helper;
+import com.example.teamnova_android_two.timer;
+import com.example.teamnova_android_two.weekly_boss;
+import com.example.teamnova_android_two.weekly_quest;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Main extends AppCompatActivity implements Serializable {
-    ArrayList<String> 아이디목록 = new ArrayList<>(); //아이디 저장리스트
-    ArrayList<String> 닉네임목록 = new ArrayList<>(); //닉네임 저장리스트
+    String 아이디; //아이디
+    String 닉네임; //닉네임
     Uri uri; //이미지정보
     static boolean dq_Reset = false; //일간퀘스트 초기화 변수
     static boolean db_Reset = false; //일간보스 초기화 변수
@@ -43,8 +52,9 @@ public class Main extends AppCompatActivity implements Serializable {
     HashMap<String, Boolean> 일간보스상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간퀘상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간보스상태 = new HashMap<>(); // 버튼상태정보
-    int 재획타이머_분;
-    int 재획타이머_초;
+
+    SharedPreferences 사용자정보;
+
 
 
     ActivityResultLauncher<Intent> receive_Dq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -56,7 +66,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일퀘정보 = result.getData();
                         일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Log.d("Main", "onActivityResult: ");
+                        Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
             }); //일퀘런쳐
@@ -70,7 +80,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일보정보 = result.getData();
                         일간보스상태 = (HashMap<String, Boolean>) 일보정보.getSerializableExtra("일보버튼");
                         //일보버튼 체크상태정보 받아옴
-                        Log.d("Main", "onActivityResult: ");
+                        Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
             }); //일보런쳐
@@ -83,7 +93,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간퀘정보 = result.getData();
                         주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Log.d("Main", "onActivityResult: ");
+                        Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
             }); //주간퀘런쳐
@@ -96,7 +106,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간보스정보 = result.getData();
                         주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Log.d("Main", "onActivityResult: ");
+                        Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
             }); //주간보스런쳐
@@ -109,7 +119,7 @@ public class Main extends AppCompatActivity implements Serializable {
 //                        Intent 주간보스정보 = result.getData();
 //                        주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
                         //타이머 시간정보 받아옴
-                        Log.d("Main", "onActivityResult: ");
+                        Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
             }); //타이머
@@ -119,18 +129,19 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Log.d("Main", "onCreate: ");
+        Log.d("com/example/teamnova_android_two/Main", "onCreate: ");
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
 
 
         Intent data = getIntent();
         uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
-        아이디목록 = (ArrayList<String>) data.getSerializableExtra("아이디");
-        닉네임목록 = (ArrayList<String>) data.getSerializableExtra("닉네임");
+        아이디 =  data.getStringExtra("아이디");
+        닉네임 =  data.getStringExtra("닉네임");
 
 
-        String id = 아이디목록.get(0);
-        String nick = 닉네임목록.get(0);
+
+        String id = 아이디;
+        String nick = 닉네임;
 
 
         resetAlarm(this);// 알람실행
@@ -256,43 +267,43 @@ public class Main extends AppCompatActivity implements Serializable {
         //테스트코드
         SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
         String setResetTime = format.format(new Date(resetCal.getTimeInMillis() + AlarmManager.INTERVAL_DAY));
-        Log.d("Main", "ResetHour : " + setResetTime);
+        Log.d("com/example/teamnova_android_two/Main", "ResetHour : " + setResetTime);
 
     }
 
     @Override
     protected void onStart() {
-        Log.d("Main", "onStart: ");
+        Log.d("com/example/teamnova_android_two/Main", "onStart: ");
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        Log.d("Main", "onResume: ");
+        Log.d("com/example/teamnova_android_two/Main", "onResume: ");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        Log.d("Main", "onPause: ");
+        Log.d("com/example/teamnova_android_two/Main", "onPause: ");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.d("Main", "onStop: ");
+        Log.d("com/example/teamnova_android_two/Main", "onStop: ");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d("Main", "onDestroy: ");
+        Log.d("com/example/teamnova_android_two/Main", "onDestroy: ");
         super.onDestroy();
     }
 
     @Override
     protected void onRestart() {
-        Log.d("Main", "onRestart: ");
+        Log.d("com/example/teamnova_android_two/Main", "onRestart: ");
         super.onRestart();
     }
 
@@ -300,13 +311,13 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        Log.d("Main", "onSaveInstanceState: ");
+        Log.d("com/example/teamnova_android_two/Main", "onSaveInstanceState: ");
 
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d("Main", "onRestoreInstanceState: ");
+        Log.d("com/example/teamnova_android_two/Main", "onRestoreInstanceState: ");
     }
 }

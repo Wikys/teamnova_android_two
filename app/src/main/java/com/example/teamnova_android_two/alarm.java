@@ -1,9 +1,9 @@
 package com.example.teamnova_android_two;
 
-import static com.example.teamnova_android_two.Main.db_Reset;
-import static com.example.teamnova_android_two.Main.dq_Reset;
-import static com.example.teamnova_android_two.Main.wb_Reset;
-import static com.example.teamnova_android_two.Main.wq_Reset;
+import static com.example.teamnova_android_two.Main.Main.db_Reset;
+import static com.example.teamnova_android_two.Main.Main.dq_Reset;
+import static com.example.teamnova_android_two.Main.Main.wb_Reset;
+import static com.example.teamnova_android_two.Main.Main.wq_Reset;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

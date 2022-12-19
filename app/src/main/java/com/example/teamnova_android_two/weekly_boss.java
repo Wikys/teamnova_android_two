@@ -1,7 +1,6 @@
 package com.example.teamnova_android_two;
 
-import static com.example.teamnova_android_two.Main.wb_Reset;
-import static com.example.teamnova_android_two.Main.wq_Reset;
+import static com.example.teamnova_android_two.Main.Main.wb_Reset;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
+
+import com.example.teamnova_android_two.Main.Main;
 
 import java.util.HashMap;
 

@@ -109,7 +109,7 @@
             android:name=".daily_quest"
             android:exported="false" />
         <activity
-            android:name=".Main"
+            android:name=".Main.Main"
             android:exported="false" />
         <activity
             android:name=".회원가입.MainActivity"

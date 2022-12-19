@@ -6,6 +6,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/mainimage">
 
+    <CheckBox
+        android:id="@+id/일일퀘스트상태"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/이미지"
+        app:layout_constraintBottom_toTopOf="@+id/주간퀘스트상태"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="일일 퀘스트"
+        android:fontFamily="@font/jalnan"
+        android:clickable="false"
+        app:layout_constraintVertical_chainStyle="spread"
+        />
+    <CheckBox
+        android:id="@+id/주간퀘스트상태"
+        app:layout_constraintTop_toBottomOf="@id/일일퀘스트상태"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/이미지"
+        app:layout_constraintBottom_toTopOf="@id/일일보스상태"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="일일 퀘스트"
+        android:fontFamily="@font/jalnan"
+        android:clickable="false"
+        />
+    <CheckBox
+        android:id="@+id/일일보스상태"
+        app:layout_constraintTop_toBottomOf="@id/주간퀘스트상태"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/이미지"
+        app:layout_constraintBottom_toTopOf="@id/주간보스상태"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="일일 보스"
+        android:fontFamily="@font/jalnan"
+        android:clickable="false"
+        />
+    <CheckBox
+        android:id="@+id/주간보스상태"
+        app:layout_constraintTop_toBottomOf="@id/일일보스상태"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/이미지"
+        app:layout_constraintBottom_toTopOf="@id/환영인사"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="주간 보스"
+        android:fontFamily="@font/jalnan"
+        android:clickable="false"
+        />
+
+
+
+
+
     <ImageView
         android:id="@+id/이미지"
         android:layout_width="150dp"

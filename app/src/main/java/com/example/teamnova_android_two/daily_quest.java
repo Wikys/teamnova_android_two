@@ -1,21 +1,19 @@
 package com.example.teamnova_android_two;
 
-import static com.example.teamnova_android_two.Main.dq_Reset;
+import static com.example.teamnova_android_two.Main.Main.dq_Reset;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.teamnova_android_two.Main.Main;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class daily_quest extends AppCompatActivity implements Serializable {
