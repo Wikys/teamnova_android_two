@@ -35,6 +35,7 @@ public class sign_up extends AppCompatActivity implements Serializable {
     ArrayList<String> 아이디 = new ArrayList<>();//아이디 저장리스트
     ArrayList<String> 닉네임 = new ArrayList<>(); //닉네임 저장리스트
     ArrayList<String> 비밀번호 = new ArrayList<>(); //비밀번호 저장리스트
+    ArrayList<Account_Data> 계정;
 
 
 
@@ -67,10 +68,6 @@ public class sign_up extends AppCompatActivity implements Serializable {
 
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +85,9 @@ public class sign_up extends AppCompatActivity implements Serializable {
         Button 닉중복 = (Button) sign_up.this.findViewById(R.id.닉중복); //닉네임중복확인버튼
 
 
+        Intent 계정전달 = getIntent(); // 인텐트에 저장한 데이터 받아오기
+        계정 = (ArrayList<Account_Data>) 계정전달.getSerializableExtra("계정");
+        //계정어레이리스트에 받아온 Account_Data 타입의 어레이리스트 전달
 
 
         ID중복.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +100,10 @@ public class sign_up extends AppCompatActivity implements Serializable {
                         Intent id전달 = new Intent(sign_up.this, confirm_id.class);
                         //입력한 아이디값을 중복확인 액티비티에 넘김
                         Intent 아이디값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
-                        아이디 = (ArrayList<String>) 아이디값.getSerializableExtra("닉네임");
+
+                        saved_Id_List(아이디,계정);
                         //입력한 닉네임값을 중복확인 액티비티에 넘김
-                        id전달.putExtra("id", 비교값); //에딧텍스트값 저장
+                        id전달.putExtra("id", 비교값); //에딧텍스트값 저장해서 보내고
                         id전달.putExtra("id_list", 아이디);
 
                         startActivityForResult(id전달, REQUEST_ID); // 중복확인 액티비티로 이동
@@ -126,8 +127,8 @@ public class sign_up extends AppCompatActivity implements Serializable {
 
                     if (비교값.length() != 0) {
                         Intent 닉전달 = new Intent(sign_up.this, confirm_nick.class);
-                        Intent 닉값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
-                        닉네임 = (ArrayList<String>) 닉값.getSerializableExtra("아이디");
+                        saved_Nick_List(닉네임,계정);
+
                         //입력한 닉네임값을 중복확인 액티비티에 넘김
                         닉전달.putExtra("nick", 비교값); //에딧텍스트값 저장
                         닉전달.putExtra("nick_list", 닉네임);
@@ -267,6 +268,20 @@ public class sign_up extends AppCompatActivity implements Serializable {
     protected void onDestroy() {
         Log.d("sign_up", "onDestroy: ");
         super.onDestroy();
+    }
+    public void saved_Id_List(ArrayList<String> received_List, ArrayList<Account_Data> add_List){
+        //데이터모델에서 id만 빼와서 add해주는 메소드
+
+        for (int i = 0; i < add_List.size(); i++){
+            received_List.add(add_List.get(i).id);
+//            Log.d("saved_Id_List", "saved_Id_List: ");
+        }
+    }
+    public void saved_Nick_List(ArrayList<String> received_List, ArrayList<Account_Data> add_List){
+        //데이터모델에서 닉네임만 빼와서 add해주는 메소드
+        for (int i = 0; i < add_List.size(); i++){
+            received_List.add(add_List.get(i).nick);
+        }
     }
 }
 

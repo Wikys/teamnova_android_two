@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +36,7 @@ public class confirm_id extends Activity {
         Button 확인버튼 = findViewById(R.id.확인버튼);
         Intent 텍스트값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
         ArrayList<String> 아이디 = (ArrayList<String>)텍스트값.getSerializableExtra("id_list");
+
 
 
 

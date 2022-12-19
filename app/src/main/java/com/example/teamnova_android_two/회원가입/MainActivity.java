@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //                        //미리 한번 저장(당장에 로그인할떄 반영되어야하니까)
                         saved_Data(아이디.get(아이디.size() - 1), 비밀번호.get(비밀번호.size() - 1), 닉네임.get(닉네임.size() - 1), stringUri);
                         //만들어진 객체 저장하는메소드 (어플껏다킬때 불러오는용도)
-
-
                     }
                 }
             });
@@ -96,18 +94,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         //SharedPreferences 생성
         gson = new GsonBuilder().create();
         //gson 생성
-        contect_Account = 셰어드.getString("ayc0812", "");
-        //DB안의 데이터 불러오기
-        //이부분이 문젠데 한번도 아이디 생성한적없는폰에서는 디비가 안불러와질것임.. (공디비를 하나 인위적으로 넣는것은 어떨까? : 그럼 리드데이터부분에서 팅김)
 
-
-        if (!contect_Account.equals("")) {
-            //디폴트값이 아닐때만 실행
-            read_Data();
-
-        }
-
-
+        read_Data();
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
         TextView id_Input = (TextView) MainActivity.this.findViewById(R.id.아이디);
@@ -115,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Button sign_Up_Button = (Button) MainActivity.this.findViewById(R.id.sign_up_button);
         Button 테스트 = (Button) MainActivity.this.findViewById(R.id.테스트);
         Button 테스트2 = (Button) MainActivity.this.findViewById(R.id.테스트2);
-
 
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,12 +198,13 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             }
         });
 
-        sign_Up_Button.setOnClickListener(new View.OnClickListener() {
+        sign_Up_Button.setOnClickListener(new View.OnClickListener() { //회원가입 액티비티로 넘어가는 리스너
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, sign_up.class);
-                intent.putExtra("아이디", 아이디);
-                intent.putExtra("닉네임", 닉네임);
+//                intent.putExtra("아이디", 아이디);
+//                intent.putExtra("닉네임", 닉네임);
+                intent.putExtra("계정", 계정); // 중복확인을 위해 계정정보가 담겨있는 어레이리스트 전송
                 receive_Id_Result.launch(intent);
             }
         });
@@ -296,42 +284,5 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 //            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
         }
     }
-//    contect_Account = 셰어드.getString("계정DB", "");
-//    //DB안의 데이터 불러오기
-//
-//        if (!contect_Account.equals("")) {
-//        //디폴트값이 아닐때만 실행
-//        Account_Data a = gson.fromJson(contect_Account, Account_Data.class);
-//        //다시 변환해서 넣음
-//
-//        //이제 이걸 어레이리스트에 추가해야하는데 저장데이터 한번에 불러오는 메소드 참고해서 만들면될듯
-//        계정.add(a);
-//        //임시테스트용용
-//    }
-
-    //어레이리스트 저장방식은 못쓸거같아서 일단 폐기
-//    private void SaveData(ArrayList<Account_Data> 계정){ //db 저장메소드
-//        context = this;
-////        셰어드 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); // db이름,선언
-//        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
-//        SharedPreferences.Editor 에디터 = 셰어드.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(계정);
-//        에디터.putString(계정.get(계정.size()-1).id,json); //방금 추가된 아이디를 키값으로 줌
-//        에디터.apply();
-//    }
-//    private ArrayList<Account_Data> ReadData(){ //json으로 저장해놨던거 다시변환하는 메소드
-//        context = this;
-//        셰어드 = context.getSharedPreferences("계정",Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-////        String json = 셰어드.getString("계정","EMPTY");
-//        String json = 셰어드.getString(계정.get(계정.size()-1).id,"EMPTY");
-//        //키값때메 하나씩밖에 못가져옴
-//        Type type = new TypeToken<ArrayList<Account_Data>>(){
-//        }.getType();
-//        ArrayList<Account_Data> 계정 = gson.fromJson(json,type);
-//        return 계정;
-//    }
-
 }
 

@@ -2,7 +2,9 @@ package com.example.teamnova_android_two.회원가입;
 
 import android.net.Uri;
 
-public class Account_Data {
+import java.io.Serializable;
+
+public class Account_Data implements Serializable {
 
 
     String id;
