@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class schedule extends AppCompatActivity {
-        Map<String, String> 메모리스트 = new HashMap<>();
+    Map<String, String> 메모리스트 = new HashMap<>();
     Map<String, String> 키리스트 = new HashMap<>();
-    schedule_Adapter 리사이클러어댑터;
-//    ArrayList<schedule_data> data, filter;
-//    String 메모;
-//    int 년;
-//    int 월;
-//    int 일;
+    SharedPreferences 메모저장;
 
 
     @Override
@@ -34,21 +30,6 @@ public class schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule);
 
-//        data = new ArrayList(); // (동적)날짜저장
-//        filter = new ArrayList(); // 메모랑 대조하기위한 날짜저장 리스트
-
-
-        //데이터모델 추가
-
-//        RecyclerView scRv = (RecyclerView) this.findViewById(R.id.요약);
-//
-//        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
-//        scRv.setLayoutManager(리니어매니저);
-//
-//        리사이클러어댑터 = new schedule_Adapter(this, data);//
-//        scRv.setAdapter(리사이클러어댑터);
-
-        //누른뷰의 이어,몬스,데이오브몬스가 같으면 리사이클러뷰에서 찾아서 출력 이런느낌으로 짜보기?
 
         Button 저장 = (Button) findViewById(R.id.저장); //저장버튼
         Button 삭제 = (Button) findViewById(R.id.삭제); //삭제버튼
@@ -64,12 +45,8 @@ public class schedule extends AppCompatActivity {
 //                월 = month;
 //                일 = dayOfMonth;
 //                data.add(new schedule_data(메모,년,월,일));
-//
-//
-//
 //            }
 //        });
-
 
 
         일정.setOnDateChangeListener(new CalendarView.OnDateChangeListener() { //달력 날짜클릭하면 반응하는 리스너
