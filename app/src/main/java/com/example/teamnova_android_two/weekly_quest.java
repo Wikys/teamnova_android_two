@@ -5,6 +5,7 @@ import static com.example.teamnova_android_two.Main.Main.wq_Reset;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +13,14 @@ import android.widget.Button;
 import android.widget.ToggleButton;
 
 import com.example.teamnova_android_two.Main.Main;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
 public class weekly_quest extends AppCompatActivity {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
+    String 아이디; //아이디
+    SharedPreferences 사용자정보;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class weekly_quest extends AppCompatActivity {
         ToggleButton 버튼4 = (ToggleButton) weekly_quest.this.findViewById(R.id.타락한세계수버튼);
 
         Intent 불러오기 = getIntent();
+        아이디 = 불러오기.getStringExtra("아이디");
         버튼상태확인 = (HashMap<String, Boolean>) 불러오기.getSerializableExtra("주간퀘상태");
         if(버튼상태확인.size() != 0) {
             버튼1.setChecked(버튼상태확인.get("버튼1"));
@@ -90,6 +95,7 @@ public class weekly_quest extends AppCompatActivity {
     protected void onStop() {
         Log.d("weekly_quest", "onStop: ");
         super.onStop();
+        Assignment_Save(버튼상태확인,아이디);
     }
 
     @Override
@@ -102,5 +108,13 @@ public class weekly_quest extends AppCompatActivity {
     protected void onRestart() {
         Log.d("weekly_quest", "onRestart: ");
         super.onRestart();
+    }
+    public void Assignment_Save(HashMap<String, Boolean> Data, String Type) {
+        //각종 숙제 상태저장메소드
+        String jsonString = new Gson().toJson(Data);
+        사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
+        SharedPreferences.Editor editor = 사용자정보.edit();
+        editor.putString(Type, jsonString);
+        editor.apply();
     }
 }

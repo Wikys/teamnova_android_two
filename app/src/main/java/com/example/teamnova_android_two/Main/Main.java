@@ -53,7 +53,7 @@ public class Main extends AppCompatActivity implements Serializable {
     String 닉네임; //닉네임
     Uri uri; //이미지정보
     Gson gson;
-//    String id;
+    //    String id;
 //    String nick;
     CheckBox 일퀘체크박스;
     CheckBox 주간퀘체크박스;
@@ -61,6 +61,7 @@ public class Main extends AppCompatActivity implements Serializable {
     CheckBox 주보체크박스;
     TextView 오늘의메모; //메모표시될 텍스트뷰
     String input_Memo; //디비에 저장된 메모값 받을 변수
+    Calendar today = Calendar.getInstance(); //메모리스트 키값을 날짜포맷으로 저장해놔서 불러오려면 캘린더클래스 쓰는게 간편
 
     public static boolean dq_Reset = false; //일간퀘스트 초기화 변수
     public static boolean db_Reset = false; //일간보스 초기화 변수
@@ -71,6 +72,8 @@ public class Main extends AppCompatActivity implements Serializable {
     HashMap<String, Boolean> 일간보스상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간퀘상태 = new HashMap<>(); // 버튼상태정보
     HashMap<String, Boolean> 주간보스상태 = new HashMap<>(); // 버튼상태정보
+
+    HashMap<String, String> 메모목록 = new HashMap<>(); // 스케쥴클래스에서 가져오는 메모목록
 
     SharedPreferences 사용자정보;
 
@@ -84,7 +87,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일퀘정보 = result.getData();
                         일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(일퀘상태,"일퀘상태");
+                        Assignment_Save(일퀘상태, "일퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -100,7 +103,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일보정보 = result.getData();
                         일간보스상태 = (HashMap<String, Boolean>) 일보정보.getSerializableExtra("일보버튼");
                         //일보버튼 체크상태정보 받아옴
-                        Assignment_Save(일간보스상태,"일간보스상태");
+                        Assignment_Save(일간보스상태, "일간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -115,7 +118,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간퀘정보 = result.getData();
                         주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(주간퀘상태,"주간퀘상태");
+                        Assignment_Save(주간퀘상태, "주간퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -130,7 +133,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간보스정보 = result.getData();
                         주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(주간보스상태,"주간보스상태");
+                        Assignment_Save(주간보스상태, "주간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -164,18 +167,15 @@ public class Main extends AppCompatActivity implements Serializable {
         아이디 = data.getStringExtra("아이디");
         닉네임 = data.getStringExtra("닉네임");
 
-//        id = 아이디;
-//        nick = 닉네임;
-
-
         resetAlarm(this);// 알람실행
 
         ImageView 프사 = (ImageView) Main.this.findViewById(R.id.이미지);
         TextView 환영인사 = (TextView) Main.this.findViewById(R.id.환영인사);
-         일퀘체크박스 = (CheckBox) Main.this.findViewById(R.id.일일퀘스트상태);
-         주간퀘체크박스 = (CheckBox) Main.this.findViewById(R.id.주간퀘스트상태);
-         일보체크박스 = (CheckBox) Main.this.findViewById(R.id.일일보스상태);
-         주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
+        일퀘체크박스 = (CheckBox) Main.this.findViewById(R.id.일일퀘스트상태);
+        주간퀘체크박스 = (CheckBox) Main.this.findViewById(R.id.주간퀘스트상태);
+        일보체크박스 = (CheckBox) Main.this.findViewById(R.id.일일보스상태);
+        주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
+        오늘의메모 = (TextView) Main.this.findViewById(R.id.오늘의메모);
 
 
         Glide.with(Main.this).load(uri).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
@@ -185,10 +185,15 @@ public class Main extends AppCompatActivity implements Serializable {
         일퀘상태 = Assignment_load("일퀘상태");
         주간퀘상태 = Assignment_load("주간퀘상태");
         주간보스상태 = Assignment_load("주간보스상태");
+        메모목록 = Memolist_load("메모리스트");
 
-
-
-
+        String key = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        if (메모목록.containsKey(key)) {
+            String input = 메모목록.get(key);
+            오늘의메모.setText(input);
+        }
+        //캘린더클래스를 참조하여 오늘날짜의 메모가 있으면 불러와서 출력해줌
+        Log.d("String", "값 : " + 메모목록.get(key));
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +202,8 @@ public class Main extends AppCompatActivity implements Serializable {
                 Intent dqmove = new Intent(Main.this, daily_quest.class);
 //                dqmove.putExtra("날짜변경",dq_Reset ); // 날짜변경 변수 넘김
                 dqmove.putExtra("일퀘상태", 일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
+                dqmove.putExtra("아이디", 아이디);
+                //사용자정보 구분을 위해 아이디넘김
                 receive_Dq_State.launch(dqmove);
             }
         });
@@ -207,6 +214,8 @@ public class Main extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent dbmove = new Intent(Main.this, daily_boss.class);
                 dbmove.putExtra("일보상태", 일간보스상태);
+                dbmove.putExtra("아이디", 아이디);
+                //사용자정보 구분을 위해 아이디넘김
                 receive_Db_State.launch(dbmove);
             }
         });
@@ -217,6 +226,8 @@ public class Main extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent wqmove = new Intent(Main.this, weekly_quest.class);
                 wqmove.putExtra("주간퀘상태", 주간퀘상태);
+                wqmove.putExtra("아이디", 아이디);
+                //사용자정보 구분을 위해 아이디넘김
                 receive_Wq_State.launch(wqmove);
             }
         });
@@ -228,6 +239,8 @@ public class Main extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent wbmove = new Intent(Main.this, weekly_boss.class);
                 wbmove.putExtra("주간보스상태", 주간보스상태);
+                wbmove.putExtra("아이디", 아이디);
+                //사용자정보 구분을 위해 아이디넘김
                 receive_Wb_State.launch(wbmove);
             }
         });
@@ -248,6 +261,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent schemove = new Intent(Main.this, schedule.class);
+                schemove.putExtra("아이디", 아이디);
                 startActivity(schemove);
             }
         });
@@ -274,7 +288,6 @@ public class Main extends AppCompatActivity implements Serializable {
         //+일정표까지 신호날려줌
         //각각 클래스에서 받아서 상황에맞게 처리 (체크박스의경우엔 체크를 푼다던가)
         //일정표에서는 날짜가 바뀌면 메모내용이 해당날짜에 맞게 바뀐다던가 하는식으로
-        //
 
         //알람매니저의 역할은 그냥 앱이 꺼져있어도 지정된 시간대에 신호(이벤트)를주는 역할뿐
         //이 신호를 받아서 브로드캐스트리시버가 작동한다
@@ -320,35 +333,35 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onResume() {
         Log.d("com/example/teamnova_android_two/Main", "onResume: ");
         super.onResume();
-        if(!(일간보스상태.containsValue(false))){
+        if (!(일간보스상태.containsValue(false))) {
             //값중에 false가 없으면
             일보체크박스.setChecked(true);
             //체크박스체크
-        }else {
+        } else {
             일보체크박스.setChecked(false);
             //아니면 해제
         }
-        if(!(주간퀘상태.containsValue(false))){
+        if (!(주간퀘상태.containsValue(false))) {
             //값중에 false가 없으면
             주간퀘체크박스.setChecked(true);
             //체크박스체크
-        }else {
+        } else {
             주간퀘체크박스.setChecked(false);
             //아니면 해제
         }
-        if(!(일퀘상태.containsValue(false))){
+        if (!(일퀘상태.containsValue(false))) {
             //값중에 false가 없으면
             일퀘체크박스.setChecked(true);
             //체크박스체크
-        }else {
+        } else {
             일퀘체크박스.setChecked(false);
             //아니면 해제
         }
-        if(!(주간보스상태.containsValue(false))){
+        if (!(주간보스상태.containsValue(false))) {
             //값중에 false가 없으면
             주보체크박스.setChecked(true);
             //체크박스체크
-        }else {
+        } else {
             주보체크박스.setChecked(false);
             //아니면 해제
         }
@@ -413,10 +426,28 @@ public class Main extends AppCompatActivity implements Serializable {
         사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
         String defValue = new Gson().toJson(new HashMap<String, Boolean>());
         //불러올정보가 없을때 디폴트값
-        String json= 사용자정보.getString(Type,defValue);
-        TypeToken<HashMap<String, Boolean>> type = new TypeToken<HashMap<String, Boolean>>(){};
+        String json = 사용자정보.getString(Type, defValue);
+        TypeToken<HashMap<String, Boolean>> type = new TypeToken<HashMap<String, Boolean>>() {
+        };
         //암시적 형변환해주는 클래스
-        HashMap<String, Boolean> returnMap = new Gson().fromJson(json,type.getType());
+        HashMap<String, Boolean> returnMap = new Gson().fromJson(json, type.getType());
+        //첫번째인자 : 불러온 데이터 , 두번째인자 : 불러온 데이터의 타입
+        return returnMap;
+    }
+
+    public HashMap<String, String> Memolist_load(String Type) {
+        //스케쥴메모 상태저장 불러오는 메소드
+        //해쉬맵 변환하여 불러오는 메소드
+        HashMap<String, String> outputMap = new HashMap<String, String>();
+        //배출용 해쉬맵 선언
+        사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
+        String defValue = new Gson().toJson(new HashMap<String, String>());
+        //불러올정보가 없을때 디폴트값
+        String json = 사용자정보.getString(Type, defValue);
+        TypeToken<HashMap<String, String>> type = new TypeToken<HashMap<String, String>>() {
+        };
+        //암시적 형변환해주는 클래스
+        HashMap<String, String> returnMap = new Gson().fromJson(json, type.getType());
         //첫번째인자 : 불러온 데이터 , 두번째인자 : 불러온 데이터의 타입
         return returnMap;
     }
