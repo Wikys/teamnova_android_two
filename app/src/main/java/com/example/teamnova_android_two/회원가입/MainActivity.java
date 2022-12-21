@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }
             });
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 read_Data();
-
             }
         });
 
@@ -126,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent test2 = new Intent(MainActivity.this, recyclerview.class);
                 startActivity(test2);
-
             }
         });
 
@@ -189,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 } else {
                     Toast.makeText(MainActivity.this, "아이디를 확인 해주세요.", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

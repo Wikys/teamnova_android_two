@@ -178,10 +178,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                             String 키 = 키분석.result(); // 분석된 키값을 변수에저장
                             String 메모수정 = 메모.get(키); // 키값을 인자로주고 저장된 메모받아오기
 //                                    준비.setText(메모수정); //텍스트뷰 메모수정인데 핸들러없어서 안됨
-
                         }
                     }
-
 
                     초타이머--;
                     if (초타이머 < 0 && 분타이머 > 0) {
@@ -191,10 +189,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
                 } else {
                     timer_Stop();
-
-
                 }
-
             }
 
         };
@@ -275,12 +270,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
         } else {
             Toast.makeText(this, "우선 타이머를 실행시켜주세요", Toast.LENGTH_SHORT).show();
-
         }
-
-
     }
-
 
     @Override
     protected void onStart() {

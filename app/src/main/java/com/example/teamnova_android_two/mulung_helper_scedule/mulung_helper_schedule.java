@@ -1,8 +1,8 @@
 package com.example.teamnova_android_two.mulung_helper_scedule;
 
 
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -25,6 +25,9 @@ import com.example.teamnova_android_two.mulung_helper;
 import com.example.teamnova_android_two.recyclerView_height;
 import com.example.teamnova_android_two.seed_24.BGM_Adapter;
 import com.example.teamnova_android_two.seed_24.seed_helper_24_data;
+import com.example.teamnova_android_two.회원가입.Account_Data;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.w3c.dom.Text;
 
@@ -45,7 +48,12 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
     TextView 초;
     TextView 제목;
     TextView 준비;
+    String contect_Account;
+    Gson gson;
     int 포지션; //아이템번호 알아내기위해서 포지션값 받아온거 저장
+
+    SharedPreferences 사용자정보;
+
 
 
     @Override
@@ -62,19 +70,28 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
         mhSchedule.setLayoutManager(리니어매니저);
 
+        //리사이클러 어댑터 추가하기전에 디비에서 데이터정보 넣어줘야할듯
+
         리사이클러어댑터 = new mulung_helper_schedule_Adapter(this, data);//
         mhSchedule.setAdapter(리사이클러어댑터);
 
         recyclerView_height decoration_height = new recyclerView_height(20);
         mhSchedule.addItemDecoration(decoration_height); //데코레이션으로 높이 적용
 
-         저장버튼 = (Button) this.findViewById(R.id.저장버튼);
-         삭제버튼 = (Button) this.findViewById(R.id.삭제버튼);
+        저장버튼 = (Button) this.findViewById(R.id.저장버튼);
+        삭제버튼 = (Button) this.findViewById(R.id.삭제버튼);
         수정버튼 = (Button) this.findViewById(R.id.수정버튼);
-         분 = (TextView) this.findViewById(R.id.분);
-         초 = (TextView) this.findViewById(R.id.초);
-         제목 = (TextView) this.findViewById(R.id.제목);
-         준비 = (TextView) this.findViewById(R.id.준비);
+        분 = (TextView) this.findViewById(R.id.분);
+        초 = (TextView) this.findViewById(R.id.초);
+        제목 = (TextView) this.findViewById(R.id.제목);
+        준비 = (TextView) this.findViewById(R.id.준비);
+
+        아이디받아오기
+
+        사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
+        gson = new GsonBuilder().create();
+
+        read_Data();
 
 
 //        int 분변환 = Integer.parseInt(분.getText().toString());
@@ -86,20 +103,65 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
             public void onClick(View view) {
                 if (!(분.getText().toString().equals("")) && !(초.getText().toString().equals(""))) {
 
-                    String 제목변환 = 제목.getText().toString();
-                    String 메모변환 = 준비.getText().toString();
+                    int 분인트캐스팅 = Integer.valueOf(String.valueOf(분.getText()));
+                    int 초인트캐스팅 = Integer.valueOf(String.valueOf(초.getText()));
+                    if(!(분인트캐스팅 > 14) && !(초인트캐스팅 > 60)) {
+                        //여기서 포문으로 중복거름
+                        boolean 중복 = false;
+//                        Log.d("log", "데이터 사이즈 : "+data.size());
 
-                    int 분변환 = Integer.parseInt(분.getText().toString());
-                    int 초변환 = Integer.parseInt(초.getText().toString());
-                    //데이터모델에 넣기위해 형변환
+                        if(data.size() > 0){
+                            //데이터의 사이즈가 0이아닐때만 포문돌림
 
-//                    mulung_helper_schedule_data save = new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환);
-                    //형변환이 잘못된건지 읽지를못하고 버튼이 하나이상 추가가안됨
-//                    mulung_helper_schedule_data save = new mulung_helper_schedule_data("ㅇㅇ", "ㅇㅇ", 1, 1);
-                    data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
-                    리사이클러어댑터.notifyItemChanged(data.size());
+                            for(int i=0; i < data.size(); i++){
 
-                    Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
+                                //이구문까지는 들어오나 포문실행안되고 바로 아래이프문으로 넘어감
+                                //a변수에 중복값을 넣어주고 a가 1이면 토스트로 경고띄우기
+                                if (분인트캐스팅 == data.get(i).분 && 초인트캐스팅 == data.get(i).초) {
+                                    중복 = true;
+                                }
+
+                            }
+                            if(!(중복 == true)){
+                                //이미 존재하는 시간대면 예외처리
+                                //이 조건으로 안됨
+                                //포문으로 정보찾아보고 없으면 저장하게하기?
+                                String 제목변환 = 제목.getText().toString();
+                                String 메모변환 = 준비.getText().toString();
+
+                                int 분변환 = Integer.parseInt(분.getText().toString());
+                                int 초변환 = Integer.parseInt(초.getText().toString());
+                                //데이터모델에 넣기위해 형변환
+
+                                data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
+                                saved_Data(제목변환, 메모변환, 분변환, 초변환);
+                                리사이클러어댑터.notifyItemChanged(data.size());
+
+                                Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(mulung_helper_schedule.this, "시간이 겹칩니다", Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            //처음 앱을 실행한유저(저장된 데이터가 없으면)
+                            //시간중복 처리 안하고 바로저장
+                            String 제목변환 = 제목.getText().toString();
+                            String 메모변환 = 준비.getText().toString();
+
+                            int 분변환 = Integer.parseInt(분.getText().toString());
+                            int 초변환 = Integer.parseInt(초.getText().toString());
+                            //데이터모델에 넣기위해 형변환
+
+                            data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
+                            saved_Data(제목변환, 메모변환, 분변환, 초변환);
+                            리사이클러어댑터.notifyItemChanged(data.size());
+
+                            Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }else {
+                        Toast.makeText(mulung_helper_schedule.this, "14분 60초를 초과할수없습니다", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
 
                     Toast.makeText(mulung_helper_schedule.this, "전부 입력후 저장해주세요", Toast.LENGTH_SHORT).show();
@@ -116,7 +178,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                 int 분변환 = Integer.parseInt(분.getText().toString());
                 int 초변환 = Integer.parseInt(초.getText().toString());
 
-                data.set(포지션,new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
+                data.set(포지션, new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
                 //포지션번호에 있는 데이터 수정해서 추가
                 리사이클러어댑터.notifyItemChanged(포지션);
                 //어댑터 특정포지션 아이템목록 변경
@@ -131,7 +193,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                 //데이터목록삭제
                 리사이클러어댑터.notifyItemRemoved(포지션);
                 //삭제된 데이터 어댑터에서도 적용
-                리사이클러어댑터.notifyItemRangeChanged(포지션,data.size());
+                리사이클러어댑터.notifyItemRangeChanged(포지션, data.size());
                 //아이템의 포지션이 싹다변경되야하므로 변경된아이템의 위치와 아이템의갯수를 넣어서 호출
 
                 Toast.makeText(mulung_helper_schedule.this, "삭제완료", Toast.LENGTH_SHORT).show();
@@ -200,9 +262,6 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
 //        }
 
 
-
-
-
 //        삭제버튼.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -246,7 +305,8 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
     @Override//커스텀온클릭리스너 리사이클러뷰 아이템클릭시 작동
     public void onClick(View v, mulung_helper_schedule_data data) {
         포지션 = (int) v.getTag();
-        Toast.makeText(this,  포지션 +" : "+ data, Toast.LENGTH_SHORT).show();
+        //포지션번호 저장
+        Toast.makeText(this, 포지션 + " : " + data, Toast.LENGTH_SHORT).show();
 //        분초제목준비
 
 
@@ -256,6 +316,33 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         준비.setText(data.메모);
     }
     //작동성공
+    public void saved_Data(String 제목, String 메모, int 분, int 초) {
+        contect_Account = "";
+        mulung_helper_schedule_data a = new mulung_helper_schedule_data(제목,메모,분,초);
+
+        contect_Account = gson.toJson(a, mulung_helper_schedule_data.class);
+        //gson.toJson을 이용해 클래스를 String으로 변환
+        //첫번째 인자에는 변경되는 클래스변수이름, 두번째에는 클래스의 형식
+
+        SharedPreferences.Editor editor = 사용자정보.edit();
+        editor.putString(data.get(data.size()-1).제목, contect_Account);
+        editor.apply();
+        //SharedPreferences에 String으로 변환된 클래스 저장
+
+    }
+
+    public void read_Data() {
+
+        Map<String, ?> allEntries = 사용자정보.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            //DB에 저장된 모든값을 차례대로 꺼내오는 메소드
+            mulung_helper_schedule_data a = gson.fromJson(entry.getValue().toString(), mulung_helper_schedule_data.class);
+            //저장된 모든값을 차례대로 꺼내와서 객체에 변환해서담고
+            data.add(a);
+            //어레이리스트에 다시담음
+//            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+        }
+    }
 }
 
 //    private final int id = 0x8000; //버튼아이디 변수

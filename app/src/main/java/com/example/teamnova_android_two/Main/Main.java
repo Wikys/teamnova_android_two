@@ -185,15 +185,6 @@ public class Main extends AppCompatActivity implements Serializable {
         일퀘상태 = Assignment_load("일퀘상태");
         주간퀘상태 = Assignment_load("주간퀘상태");
         주간보스상태 = Assignment_load("주간보스상태");
-        메모목록 = Memolist_load("메모리스트");
-
-        String key = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
-        if (메모목록.containsKey(key)) {
-            String input = 메모목록.get(key);
-            오늘의메모.setText(input);
-        }
-        //캘린더클래스를 참조하여 오늘날짜의 메모가 있으면 불러와서 출력해줌
-        Log.d("String", "값 : " + 메모목록.get(key));
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
@@ -280,6 +271,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent mumove = new Intent(Main.this, mulung_helper.class);
+                mumove.putExtra("아이디",아이디);
                 startActivity(mumove);
             }
         });
@@ -368,6 +360,14 @@ public class Main extends AppCompatActivity implements Serializable {
         //생명주기상 어플을 시작할때나 일일퀘스트 액티비티에서 전부 체크하고 나왔을때
         //유연한처리를 위해 리줌에 배치
         //온스타트에 해봤으나 온스타트 시간이너무짧아서 제대로 작동을안함(됐다안됐다함)
+        메모목록 = Memolist_load("메모리스트");
+
+        String key = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        if (메모목록.containsKey(key)) {
+            String input = 메모목록.get(key);
+            오늘의메모.setText(input);
+        }
+        //캘린더클래스를 참조하여 오늘날짜의 메모가 있으면 불러와서 출력해줌
     }
 
     @Override
