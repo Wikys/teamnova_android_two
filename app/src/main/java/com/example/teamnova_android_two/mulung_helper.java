@@ -41,6 +41,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     int 디폴트초 = 2; // 기본값
     int 휴식 = 3; // 휴식타이머용
     int 디폴트휴식 = 3; // 기본값
+    String 아이디;
 
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
@@ -92,6 +93,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
         Button memo = (Button) findViewById(R.id.메모);
 
+        Intent idget = getIntent();
+        아이디 = idget.getStringExtra("아이디");
 
         시작하기.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +143,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     m_Move.putExtra("분초", (Serializable) 분초);
                     m_Move.putExtra("메모", (Serializable) 메모);
                 }
+                //리사이클러뷰 적용된시점에서 무쓸모?
+                m_Move.putExtra("아이디",아이디);
                 receive_Memo_State.launch(m_Move);
 
             }

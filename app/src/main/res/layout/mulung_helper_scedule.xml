@@ -112,6 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/준비"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/삭제버튼"
+        android:visibility="invisible"
         />
     <Button
         android:id="@+id/삭제버튼"
