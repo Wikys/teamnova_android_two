@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     Context context;
     SharedPreferences 셰어드;
     SharedPreferences 계정기억DB;
+    SharedPreferences 최종로그인; // 알람매니저와 연동해서 사용할값 (알람매니저 노티피 누르면 메인으로가니까.. 만듬)
     SharedPreferences.Editor 에디터;
     ArrayList<Account_Data> 계정;
     Gson gson;
@@ -98,14 +99,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Button 테스트 = (Button) MainActivity.this.findViewById(R.id.테스트);
         Button 테스트2 = (Button) MainActivity.this.findViewById(R.id.테스트2);
         CheckBox 계정기억 = (CheckBox) MainActivity.this.findViewById(R.id.계정기억);
-        Boolean 계정저장상태 = 계정기억DB.getBoolean("계정기억상태",false);
-        String 저장id불러오기 = 계정기억DB.getString("ID기억","");
-        String 저장ps불러오기 = 계정기억DB.getString("PS기억","");
+        Boolean 계정저장상태 = 계정기억DB.getBoolean("계정기억상태", false);
+        String 저장id불러오기 = 계정기억DB.getString("ID기억", "");
+        String 저장ps불러오기 = 계정기억DB.getString("PS기억", "");
 
         계정기억.setChecked(계정저장상태);
         //디비에 저장돼있는 체크박스 체크상태를 가져와서 등록
 
-        if(계정저장상태 = true){
+        if (계정저장상태 = true) {
             //계정기억버튼을 누른상태에서 껏으면
             //텍스트뷰에 전에 저장했던 아이디 비번 자동으로 입력
             id_Input.setText(저장id불러오기);
@@ -153,28 +154,37 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     if (계정.get(인덱스).ps.equals(ps_Input.getText().toString())) {
                         Intent intent = new Intent(MainActivity.this, Main.class);
                         //인텐트로넘김 인덱스값(다음액티비티에서 디비불러올때 몇번쨰에있는건지 확인용)
-                        //여기서는 이미지 그냥 스트링으로 넘기고 다음화면에서 변환하기
+                        //여기서는 이미지 스트링으로 넘기고 다음화면에서 변환
                         //인텐트로 그냥 아이디 닉네임 이미지 넘기고 다음화면에서 아이디값으로 db만들어서 정보구분
-                        Uri 사진변환 = Uri.parse(계정.get(인덱스).image);
-                        intent.putExtra("아이디", 계정.get(인덱스).id);
-                    intent.putExtra("닉네임", 계정.get(인덱스).nick);
-                    intent.putExtra("사진", 사진변환);
-                        if(계정기억.isChecked()){
+
+//                        intent.putExtra("아이디", 계정.get(인덱스).id);
+//                        intent.putExtra("닉네임", 계정.get(인덱스).nick);
+//                        intent.putExtra("사진", 계정.get(인덱스).image);
+                        최종로그인 = getSharedPreferences("최종로그인",MODE_PRIVATE);
+                        SharedPreferences.Editor 에디터 = 최종로그인.edit();
+
+                        에디터.putString("아이디",계정.get(인덱스).id);
+                        에디터.putString("닉네임",계정.get(인덱스).nick);
+                        에디터.putString("사진",계정.get(인덱스).image);
+
+                        에디터.apply();
+
+                        if (계정기억.isChecked()) {
                             계정기억DB = getSharedPreferences("계정기억DB", MODE_PRIVATE);
                             SharedPreferences.Editor editor = 계정기억DB.edit();
-                            editor.putBoolean("계정기억상태",true);
-                            editor.putString("ID기억",계정.get(인덱스).id);
-                            editor.putString("PS기억",계정.get(인덱스).ps);
+                            editor.putBoolean("계정기억상태", true);
+                            editor.putString("ID기억", 계정.get(인덱스).id);
+                            editor.putString("PS기억", 계정.get(인덱스).ps);
                             editor.apply();
                             //계정기억 체크박스 누르면 현재 로그인성공한 아이디 비밀번호 디비에저장후
                             //온크리에이트에서 불러와서 자동입력
 
-                        }else{
+                        } else {
                             계정기억DB = getSharedPreferences("계정기억DB", MODE_PRIVATE);
                             SharedPreferences.Editor editor = 계정기억DB.edit();
-                            editor.putBoolean("계정기억상태",false);
-                            editor.putString("ID기억","");
-                            editor.putString("PS기억","");
+                            editor.putBoolean("계정기억상태", false);
+                            editor.putString("ID기억", "");
+                            editor.putString("PS기억", "");
                             editor.apply();
                         }
 
@@ -257,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         //첫번째 인자에는 변경되는 클래스변수이름, 두번째에는 클래스의 형식
 
         SharedPreferences.Editor editor = 셰어드.edit();
-        editor.putString(계정.get(계정.size()-1).id, contect_Account);
+        editor.putString(계정.get(계정.size() - 1).id, contect_Account);
         editor.apply();
         //SharedPreferences에 String으로 변환된 클래스 저장
 

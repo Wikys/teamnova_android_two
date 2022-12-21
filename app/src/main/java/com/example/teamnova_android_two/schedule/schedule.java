@@ -90,6 +90,8 @@ public class schedule extends AppCompatActivity {
                         메모리스트.remove(key);
                         키리스트.remove(key);
                         메모.setText(null);//삭제하고 메모비워주기
+                        Assignment_Save(메모리스트,"메모리스트");
+                        //삭제된 해쉬맵을 저장하는것으로 삭제구현
                         Toast.makeText(schedule.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
                     }
                 });

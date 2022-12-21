@@ -44,6 +44,7 @@ public class alarm extends BroadcastReceiver {
             wq_Reset = true;
             wb_Reset = true;
 
+
         }else {
             builder.setContentTitle("초기화알림 (일간)"); // 제목
             builder.setContentText("날짜가 바뀌어 일정이 초기화 되었습니다"); //내용

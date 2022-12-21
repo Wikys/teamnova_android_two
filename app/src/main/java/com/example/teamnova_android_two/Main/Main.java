@@ -51,7 +51,7 @@ import java.util.Map;
 public class Main extends AppCompatActivity implements Serializable {
     String 아이디; //아이디
     String 닉네임; //닉네임
-    Uri uri; //이미지정보
+    String uri; //이미지정보
     Gson gson;
     //    String id;
 //    String nick;
@@ -76,6 +76,7 @@ public class Main extends AppCompatActivity implements Serializable {
     HashMap<String, String> 메모목록 = new HashMap<>(); // 스케쥴클래스에서 가져오는 메모목록
 
     SharedPreferences 사용자정보;
+    SharedPreferences 최종로그인;
 
 
     ActivityResultLauncher<Intent> receive_Dq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -161,12 +162,6 @@ public class Main extends AppCompatActivity implements Serializable {
         Log.d("com/example/teamnova_android_two/Main", "onCreate: ");
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
 
-
-        Intent data = getIntent();
-        uri = data.getParcelableExtra("사진"); // paracelable -> 객체전달
-        아이디 = data.getStringExtra("아이디");
-        닉네임 = data.getStringExtra("닉네임");
-
         resetAlarm(this);// 알람실행
 
         ImageView 프사 = (ImageView) Main.this.findViewById(R.id.이미지);
@@ -177,14 +172,47 @@ public class Main extends AppCompatActivity implements Serializable {
         주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
         오늘의메모 = (TextView) Main.this.findViewById(R.id.오늘의메모);
 
+        사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
+        SharedPreferences.Editor 상태 = 사용자정보.edit();
+        최종로그인 = getSharedPreferences("최종로그인",MODE_PRIVATE);
+//        SharedPreferences.Editor 로그인정보 = 최종로그인.edit();
 
-        Glide.with(Main.this).load(uri).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
+        uri = 최종로그인.getString("사진","");
+        아이디 = 최종로그인.getString("아이디","");
+        닉네임 = 최종로그인.getString("닉네임","");
+        Uri 사진변환 = Uri.parse(uri);
+
+
+        Glide.with(Main.this).load(사진변환).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
         환영인사.setText(아이디 + "(" + 닉네임 + ") 님 어서오세요");
 
-        일간보스상태 = Assignment_load("일간보스상태");
-        일퀘상태 = Assignment_load("일퀘상태");
-        주간퀘상태 = Assignment_load("주간퀘상태");
-        주간보스상태 = Assignment_load("주간보스상태");
+        if (wq_Reset) {
+            //주간리셋 작동하면 모든 관련디비 삭제
+
+            상태.remove("주간퀘상태");
+            상태.remove("주간보스상태");
+            상태.remove("일퀘상태");
+            상태.remove("일간보스상태");
+            상태.apply();
+            wq_Reset = false;
+
+        } else if (dq_Reset) {
+            주간퀘상태 = Assignment_load("주간퀘상태");
+            주간보스상태 = Assignment_load("주간보스상태");
+
+            상태.remove("일퀘상태");
+            상태.remove("일간보스상태");
+            상태.apply();
+            dq_Reset = false;
+
+            //데이리셋 작동하면 주간숙제 상태만 불러오고 일간디비는 삭제
+        } else {
+            일간보스상태 = Assignment_load("일간보스상태");
+            일퀘상태 = Assignment_load("일퀘상태");
+            주간퀘상태 = Assignment_load("주간퀘상태");
+            주간보스상태 = Assignment_load("주간보스상태");
+            //아무것도 작동하지않으면 모든상태 불러옴
+        }
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {
@@ -271,7 +299,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent mumove = new Intent(Main.this, mulung_helper.class);
-                mumove.putExtra("아이디",아이디);
+                mumove.putExtra("아이디", 아이디);
                 startActivity(mumove);
             }
         });
@@ -310,7 +338,7 @@ public class Main extends AppCompatActivity implements Serializable {
         //테스트코드
         SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
         String setResetTime = format.format(new Date(resetCal.getTimeInMillis() + AlarmManager.INTERVAL_DAY));
-        Log.d("com/example/teamnova_android_two/Main", "ResetHour : " + setResetTime);
+        Log.d("resetAlarm", "ResetHour : " + setResetTime);
 
     }
 
@@ -421,12 +449,13 @@ public class Main extends AppCompatActivity implements Serializable {
     public HashMap<String, Boolean> Assignment_load(String Type) {
         //각종 숙제 상태저장 불러오는 메소드
         //해쉬맵 변환하여 불러오는 메소드
-        HashMap<String, Boolean> outputMap = new HashMap<String, Boolean>();
-        //배출용 해쉬맵 선언
+//        HashMap<String, Boolean> outputMap = new HashMap<String, Boolean>();
+
         사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
         String defValue = new Gson().toJson(new HashMap<String, Boolean>());
-        //불러올정보가 없을때 디폴트값
+
         String json = 사용자정보.getString(Type, defValue);
+        //인자 : Type:내가쓴 스트링값을 제목으로, defvalue:json으로 변환된 해시맵
         TypeToken<HashMap<String, Boolean>> type = new TypeToken<HashMap<String, Boolean>>() {
         };
         //암시적 형변환해주는 클래스
@@ -438,11 +467,11 @@ public class Main extends AppCompatActivity implements Serializable {
     public HashMap<String, String> Memolist_load(String Type) {
         //스케쥴메모 상태저장 불러오는 메소드
         //해쉬맵 변환하여 불러오는 메소드
-        HashMap<String, String> outputMap = new HashMap<String, String>();
-        //배출용 해쉬맵 선언
+//        HashMap<String, String> outputMap = new HashMap<String, String>();
+//        //배출용 해쉬맵 선언
         사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
         String defValue = new Gson().toJson(new HashMap<String, String>());
-        //불러올정보가 없을때 디폴트값
+
         String json = 사용자정보.getString(Type, defValue);
         TypeToken<HashMap<String, String>> type = new TypeToken<HashMap<String, String>>() {
         };
