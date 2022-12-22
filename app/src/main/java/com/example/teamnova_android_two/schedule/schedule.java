@@ -38,7 +38,6 @@ public class schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule);
 
-
         Button 저장 = (Button) findViewById(R.id.저장); //저장버튼
         Button 삭제 = (Button) findViewById(R.id.삭제); //삭제버튼
         TextView 메모 = (TextView) findViewById(R.id.요약); // 메모장

@@ -357,7 +357,7 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onResume() {
         Log.d("com/example/teamnova_android_two/Main", "onResume: ");
         super.onResume();
-        if (!(일간보스상태.containsValue(false))) {
+        if (!(일간보스상태.containsValue(false))&& !(일간보스상태.isEmpty())) {
             //값중에 false가 없으면
             일보체크박스.setChecked(true);
             //체크박스체크
@@ -365,7 +365,7 @@ public class Main extends AppCompatActivity implements Serializable {
             일보체크박스.setChecked(false);
             //아니면 해제
         }
-        if (!(주간퀘상태.containsValue(false))) {
+        if (!(주간퀘상태.containsValue(false)) && !(주간퀘상태.isEmpty())) {
             //값중에 false가 없으면
             주간퀘체크박스.setChecked(true);
             //체크박스체크
@@ -373,7 +373,7 @@ public class Main extends AppCompatActivity implements Serializable {
             주간퀘체크박스.setChecked(false);
             //아니면 해제
         }
-        if (!(일퀘상태.containsValue(false))) {
+        if (!(일퀘상태.containsValue(false))&& !(일퀘상태.isEmpty())) {
             //값중에 false가 없으면
             일퀘체크박스.setChecked(true);
             //체크박스체크
@@ -381,7 +381,7 @@ public class Main extends AppCompatActivity implements Serializable {
             일퀘체크박스.setChecked(false);
             //아니면 해제
         }
-        if (!(주간보스상태.containsValue(false))) {
+        if (!(주간보스상태.containsValue(false))&& !(주간보스상태.isEmpty())) {
             //값중에 false가 없으면
             주보체크박스.setChecked(true);
             //체크박스체크
