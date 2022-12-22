@@ -203,8 +203,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, sign_up.class);
-//                intent.putExtra("아이디", 아이디);
-//                intent.putExtra("닉네임", 닉네임);
+
                 intent.putExtra("계정", 계정); // 중복확인을 위해 계정정보가 담겨있는 어레이리스트 전송
                 receive_Id_Result.launch(intent);
             }
@@ -223,13 +222,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         TextView id = (TextView) MainActivity.this.findViewById(R.id.아이디);
         TextView ps = (TextView) MainActivity.this.findViewById(R.id.비밀번호);
         //온리줌에서 새로 데이터 받아왔을때 갱신해줘야함
-//        if (계정.size() >0) {
-//            id.setText(계정.get(0).id);
-//            ps.setText(계정.get(0).ps);
-        //테스트코드
-//        }
 
-        //어레이리스트가 안비어있으면 디비 변환한거 추가..?
         super.onResume();
     }
 

@@ -161,7 +161,7 @@ public class weekly_boss extends AppCompatActivity {
     protected void onStop() {
         Log.d("weekly_boss", "onStop: ");
         super.onStop();
-        Assignment_Save(버튼상태확인,아이디);
+        Assignment_Save(버튼상태확인,"주간보스상태");
         //팅기거나 해당 액티비티에서 앱 강제종료를 대비한 저장
     }
 

@@ -88,7 +88,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일퀘정보 = result.getData();
                         일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(일퀘상태, "일퀘상태");
+//                        Assignment_Save(일퀘상태, "일퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -104,7 +104,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 일보정보 = result.getData();
                         일간보스상태 = (HashMap<String, Boolean>) 일보정보.getSerializableExtra("일보버튼");
                         //일보버튼 체크상태정보 받아옴
-                        Assignment_Save(일간보스상태, "일간보스상태");
+//                        Assignment_Save(일간보스상태, "일간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -119,7 +119,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간퀘정보 = result.getData();
                         주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(주간퀘상태, "주간퀘상태");
+//                        Assignment_Save(주간퀘상태, "주간퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -134,7 +134,7 @@ public class Main extends AppCompatActivity implements Serializable {
                         Intent 주간보스정보 = result.getData();
                         주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
                         //일퀘버튼 체크상태정보 받아옴
-                        Assignment_Save(주간보스상태, "주간보스상태");
+//                        Assignment_Save(주간보스상태, "주간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
@@ -186,33 +186,37 @@ public class Main extends AppCompatActivity implements Serializable {
         Glide.with(Main.this).load(사진변환).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
         환영인사.setText(아이디 + "(" + 닉네임 + ") 님 어서오세요");
 
-        if (wq_Reset) {
-            //주간리셋 작동하면 모든 관련디비 삭제
-
-            상태.remove("주간퀘상태");
-            상태.remove("주간보스상태");
-            상태.remove("일퀘상태");
-            상태.remove("일간보스상태");
-            상태.apply();
-            wq_Reset = false;
-
-        } else if (dq_Reset) {
-            주간퀘상태 = Assignment_load("주간퀘상태");
-            주간보스상태 = Assignment_load("주간보스상태");
-
-            상태.remove("일퀘상태");
-            상태.remove("일간보스상태");
-            상태.apply();
-            dq_Reset = false;
-
-            //데이리셋 작동하면 주간숙제 상태만 불러오고 일간디비는 삭제
-        } else {
-            일간보스상태 = Assignment_load("일간보스상태");
-            일퀘상태 = Assignment_load("일퀘상태");
-            주간퀘상태 = Assignment_load("주간퀘상태");
-            주간보스상태 = Assignment_load("주간보스상태");
-            //아무것도 작동하지않으면 모든상태 불러옴
-        }
+//        if (wq_Reset) {
+//            //주간리셋 작동하면 모든 관련디비 삭제
+//
+//            상태.remove("주간퀘상태");
+//            상태.remove("주간보스상태");
+//            상태.remove("일퀘상태");
+//            상태.remove("일간보스상태");
+//            상태.apply();
+//            wq_Reset = false;
+//
+//        } else if (dq_Reset) {
+//            주간퀘상태 = Assignment_load("주간퀘상태");
+//            주간보스상태 = Assignment_load("주간보스상태");
+//
+//            상태.remove("일퀘상태");
+//            상태.remove("일간보스상태");
+//            상태.apply();
+//            dq_Reset = false;
+//
+//            //데이리셋 작동하면 주간숙제 상태만 불러오고 일간디비는 삭제
+//        } else {
+//            일간보스상태 = Assignment_load("일간보스상태");
+//            일퀘상태 = Assignment_load("일퀘상태");
+//            주간퀘상태 = Assignment_load("주간퀘상태");
+//            주간보스상태 = Assignment_load("주간보스상태");
+//            //아무것도 작동하지않으면 모든상태 불러옴
+//        }
+        일간보스상태 = Assignment_load("일간보스상태");
+        일퀘상태 = Assignment_load("일퀘상태");
+        주간퀘상태 = Assignment_load("주간퀘상태");
+        주간보스상태 = Assignment_load("주간보스상태");
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {

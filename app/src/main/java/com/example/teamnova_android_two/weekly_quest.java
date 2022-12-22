@@ -95,7 +95,7 @@ public class weekly_quest extends AppCompatActivity {
     protected void onStop() {
         Log.d("weekly_quest", "onStop: ");
         super.onStop();
-        Assignment_Save(버튼상태확인,아이디);
+        Assignment_Save(버튼상태확인,"주간퀘상태");
     }
 
     @Override

@@ -45,6 +45,7 @@ public class daily_quest extends AppCompatActivity implements Serializable {
             Intent 불러오기 = getIntent();
         아이디 = 불러오기.getStringExtra("아이디");
             버튼상태확인 = (HashMap<String, Boolean>) 불러오기.getSerializableExtra("일퀘상태");
+//        Log.d("아이디", "onCreate: "+아이디);
             if(버튼상태확인.size() != 0) {
                 버튼1.setChecked(버튼상태확인.get("버튼1"));
                 버튼2.setChecked(버튼상태확인.get("버튼2"));
@@ -93,8 +94,10 @@ public class daily_quest extends AppCompatActivity implements Serializable {
     @Override
     protected void onStop() {
         Log.d("daily_quest", "onStop: ");
+        Assignment_Save(버튼상태확인,"일퀘상태");
+        Log.d("daily_quest", "onStop: "+버튼상태확인+" , "+아이디);
         super.onStop();
-        Assignment_Save(버튼상태확인,아이디);
+
     }
 
     @Override

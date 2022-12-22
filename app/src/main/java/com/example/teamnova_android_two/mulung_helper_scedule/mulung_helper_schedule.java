@@ -56,8 +56,6 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
 
     SharedPreferences 사용자정보;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,8 +177,6 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                             //여기서 포문으로 중복거름
                             boolean 중복 = false;
 //                        Log.d("log", "데이터 사이즈 : "+data.size());
-
-
                             //데이터의 사이즈가 0이아닐때만 포문돌림
 
                             for (int i = 0; i < data.size(); i++) {

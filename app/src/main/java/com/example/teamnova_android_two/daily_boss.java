@@ -141,7 +141,7 @@ public class daily_boss extends AppCompatActivity implements Serializable {
     protected void onStop() {
         Log.d("daily_boss", "onStop: ");
         super.onStop();
-        Assignment_Save(버튼상태확인,아이디);
+        Assignment_Save(버튼상태확인,"일간보스상태");
     }
 
     @Override
