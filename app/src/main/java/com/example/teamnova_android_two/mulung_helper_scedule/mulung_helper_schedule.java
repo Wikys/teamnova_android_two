@@ -75,8 +75,6 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
         mhSchedule.setLayoutManager(리니어매니저);
 
-        //리사이클러 어댑터 추가하기전에 디비에서 데이터정보 넣어줘야할듯
-
         리사이클러어댑터 = new mulung_helper_schedule_Adapter(this, data);//
         mhSchedule.setAdapter(리사이클러어댑터);
 
