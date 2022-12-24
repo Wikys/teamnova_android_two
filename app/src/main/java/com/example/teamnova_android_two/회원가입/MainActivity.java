@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.teamnova_android_two.Main.Main;
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.recyclerview;
+import com.example.teamnova_android_two.test_activity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("MainActivity", "onCreate: ");
+
+
+
+
         dialog = new Dialog(MainActivity.this);
 
         계정 = new ArrayList();
@@ -116,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                read_Data();
+                Intent intent = new Intent(MainActivity.this, test_activity.class);
+                startActivity(intent);
             }
         });
 

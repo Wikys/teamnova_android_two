@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -19,7 +20,18 @@ public class test_activity<Public> extends AppCompatActivity {
         Log.d("test_activity", "onCreate: ");
 
 
-        ToggleButton 테스트 = (ToggleButton) test_activity.this.findViewById(R.id.테스트);
+        Thread thread = new Thread(){
+            @Override
+            public void run(){
+                try{
+                    Toast.makeText(test_activity.this, "메세지", Toast.LENGTH_SHORT).show();
+
+                }catch (Exception e){
+                  e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
 
 
 
