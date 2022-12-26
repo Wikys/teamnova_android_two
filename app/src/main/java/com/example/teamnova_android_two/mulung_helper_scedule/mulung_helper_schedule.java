@@ -68,7 +68,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         data = new ArrayList();
         filter = new ArrayList();
         data = Assignment_load("무릉DB");
-        Log.d("데이터", "size : "+data.size());
+
 
         mhSchedule = (RecyclerView) this.findViewById(R.id.저장목록);
 

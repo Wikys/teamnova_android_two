@@ -78,7 +78,15 @@ public class confirm_nick extends Activity {
             }
         });
         //아이디 입력하고 확인누르면 액티비티가 꺼지면서 정보이동 -> 사인업으로
+
+        종료버튼.setOnClickListener(new View.OnClickListener() { //x버튼 누르면 저장이나 별도의 로직없이 그냥 화면꺼줌
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

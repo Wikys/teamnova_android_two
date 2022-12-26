@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -18,8 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teamnova_android_two.mulung_helper_scedule.mulung_helper_schedule;
+import com.example.teamnova_android_two.mulung_helper_scedule.mulung_helper_schedule_data;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -42,6 +47,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     int 휴식 = 3; // 휴식타이머용
     int 디폴트휴식 = 3; // 기본값
     String 아이디;
+    ArrayList<mulung_helper_schedule_data> schedule;
+    SharedPreferences 사용자정보;
 
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
@@ -66,11 +73,12 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
                         Intent 스케쥴 = result.getData();
-                        제목 = (HashMap<String, String>) 스케쥴.getSerializableExtra("제목");
-                        메모 = (HashMap<String, String>) 스케쥴.getSerializableExtra("메모");
-                        분 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분");
-                        초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("초");
-                        분초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분초");
+//                        제목 = (HashMap<String, String>) 스케쥴.getSerializableExtra("제목");
+//                        메모 = (HashMap<String, String>) 스케쥴.getSerializableExtra("메모");
+//                        분 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분");
+//                        초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("초");
+//                        분초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분초");
+
 
                         //스케쥴 등록해논거 가져옴
                         Log.d("mulung_helper", "onActivityResult: ");
@@ -92,6 +100,9 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         TextView 휴식하기 = (TextView) mulung_helper.this.findViewById(R.id.휴식);
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
         Button memo = (Button) findViewById(R.id.메모);
+        schedule = new ArrayList();
+        schedule = Assignment_load("무릉DB");
+
 
         Intent idget = getIntent();
         아이디 = idget.getStringExtra("아이디");
@@ -131,20 +142,11 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
 
         memo.setOnClickListener(new View.OnClickListener() {
+            //메모설정화면으로 넘어가는 버튼
             @Override
             public void onClick(View view) {
                 Intent m_Move = new Intent(mulung_helper.this, mulung_helper_schedule.class);
-                //데이터리스트(해시맵)을 주고 디테일 액티비티에서 받아서 정보를 담아주고 다시 여기로 넘겨주게됨
-                //풋데이터 작성하기
-                if (제목 != null && 분 != null && 초 != null && 분초 != null && 메모 != null) {
-                    m_Move.putExtra("제목", (Serializable) 제목);
-                    m_Move.putExtra("분", (Serializable) 분);
-                    m_Move.putExtra("초", (Serializable) 초);
-                    m_Move.putExtra("분초", (Serializable) 분초);
-                    m_Move.putExtra("메모", (Serializable) 메모);
-                }
-                //리사이클러뷰 적용된시점에서 무쓸모?
-                m_Move.putExtra("아이디",아이디);
+
                 receive_Memo_State.launch(m_Move);
 
             }
@@ -343,6 +345,23 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             }
         }
         super.onRestart();
+    }
+    public ArrayList<mulung_helper_schedule_data> Assignment_load(String Type) {
+        //인자: 디비에저장된이름(불러오기용)
+        //각종 숙제 상태저장 불러오는 메소드
+        //해쉬맵 변환하여 불러오는 메소드
+        ArrayList<mulung_helper_schedule_data> outputList = new ArrayList<mulung_helper_schedule_data>();
+        //배출용 해쉬맵 선언
+        사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
+        String defValue = new Gson().toJson(new ArrayList<mulung_helper_schedule_data>());
+        //불러올정보가 없을때 디폴트값
+        String json = 사용자정보.getString(Type, defValue);
+        TypeToken<ArrayList<mulung_helper_schedule_data>> type = new TypeToken<ArrayList<mulung_helper_schedule_data>>() {
+        };
+        //암시적 형변환해주는 클래스
+        ArrayList<mulung_helper_schedule_data> returnMap = new Gson().fromJson(json, type.getType());
+        //첫번째인자 : 불러온 데이터 , 두번째인자 : 불러온 데이터의 타입
+        return returnMap;
     }
 
 }
