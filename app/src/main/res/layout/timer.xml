@@ -29,7 +29,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/타이틀"
-
         />
 
 
@@ -79,14 +78,30 @@
         app:layout_constraintBottom_toTopOf="@id/아이콘그룹2"
         />
     <ImageView
-        android:id="@+id/정펜"
+        android:id="@+id/익골"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/exp_pendent"
+        android:src="@drawable/extreme_gold"
         app:layout_constraintLeft_toLeftOf="@id/아이콘그룹1"
         app:layout_constraintRight_toLeftOf="@id/경축비"
         app:layout_constraintTop_toTopOf="@id/아이콘그룹1"
         app:layout_constraintBottom_toBottomOf="@id/아이콘그룹1"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/익골타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/익골"
+        app:layout_constraintRight_toRightOf="@id/익골"
+        app:layout_constraintTop_toTopOf="@id/익골"
+        app:layout_constraintBottom_toBottomOf="@id/익골"
+        android:visibility="invisible"
         />
     <ImageView
         android:id="@+id/경축비"
@@ -95,8 +110,24 @@
         android:src="@drawable/exp_postion"
         app:layout_constraintTop_toTopOf="@id/아이콘그룹1"
         app:layout_constraintBottom_toBottomOf="@id/아이콘그룹1"
-        app:layout_constraintLeft_toRightOf="@id/정펜"
+        app:layout_constraintLeft_toRightOf="@id/익골"
         app:layout_constraintRight_toLeftOf="@id/경뿌"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/경축비타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/경축비"
+        app:layout_constraintRight_toRightOf="@id/경축비"
+        app:layout_constraintTop_toTopOf="@id/경축비"
+        app:layout_constraintBottom_toBottomOf="@id/경축비"
+        android:visibility="invisible"
         />
     <ImageView
         android:id="@+id/경뿌"
@@ -107,6 +138,22 @@
         app:layout_constraintBottom_toBottomOf="@id/아이콘그룹1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/경축비"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/경뿌타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/경뿌"
+        app:layout_constraintRight_toRightOf="@id/경뿌"
+        app:layout_constraintTop_toTopOf="@id/경뿌"
+        app:layout_constraintBottom_toBottomOf="@id/경뿌"
+        android:visibility="invisible"
         />
 
     <View
@@ -126,17 +173,75 @@
         app:layout_constraintLeft_toLeftOf="@id/아이콘그룹2"
         app:layout_constraintBottom_toBottomOf="@id/아이콘그룹2"
         app:layout_constraintTop_toTopOf="@id/아이콘그룹2"
-        app:layout_constraintRight_toLeftOf="@id/홀심"
+        app:layout_constraintRight_toLeftOf="@id/유부"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/경쿠타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/경쿠"
+        app:layout_constraintRight_toRightOf="@id/경쿠"
+        app:layout_constraintTop_toTopOf="@id/경쿠"
+        app:layout_constraintBottom_toBottomOf="@id/경쿠"
+        android:visibility="invisible"
         />
     <ImageView
-        android:id="@+id/홀심"
+        android:id="@+id/유부"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/holy_symbol"
+        android:src="@drawable/unions_wealth"
         app:layout_constraintLeft_toRightOf="@id/경쿠"
+        app:layout_constraintBottom_toBottomOf="@id/아이콘그룹2"
+        app:layout_constraintTop_toTopOf="@id/아이콘그룹2"
+        app:layout_constraintRight_toLeftOf="@id/유행"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/유부타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/유부"
+        app:layout_constraintRight_toRightOf="@id/유부"
+        app:layout_constraintTop_toTopOf="@id/유부"
+        app:layout_constraintBottom_toBottomOf="@id/유부"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/유행"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/unions_luck"
+        app:layout_constraintLeft_toRightOf="@id/유부"
         app:layout_constraintTop_toTopOf="@id/아이콘그룹2"
         app:layout_constraintBottom_toBottomOf="@id/아이콘그룹2"
         app:layout_constraintRight_toRightOf="@id/아이콘그룹2"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/유행타이머"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30분 0초"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/유행"
+        app:layout_constraintRight_toRightOf="@id/유행"
+        app:layout_constraintTop_toTopOf="@id/유행"
+        app:layout_constraintBottom_toBottomOf="@id/유행"
+        android:visibility="invisible"
         />
 
 

@@ -135,16 +135,16 @@ public class timer extends AppCompatActivity {
     @Override
     protected void onPause() { //필요없는 리소스 정리
         Log.d("timer", "onPause: ");
-        if (m_timer != null) {
-            m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
-            end = false; // 타이머종료 구분 변수 초기화
-        }
-        if (mt_timer != null) {
-            mt_timer.cancel();
-        }
-
-        //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
-        //앱이 종료되기전에 타이머가 꺼지게함
+//        if (m_timer != null) {
+//            m_timer.cancel();//팅기거나 뒤로가기눌렀을때 타이머중단
+//            end = false; // 타이머종료 구분 변수 초기화
+//        }
+//        if (mt_timer != null) {
+//            mt_timer.cancel();
+//        }
+//
+//        //나중에 서비스나 핸들러 적용할떄 화면안보고있어도 타이머 자동으로 돌아가게 해두기
+//        //앱이 종료되기전에 타이머가 꺼지게함
         super.onPause();
     }
 
