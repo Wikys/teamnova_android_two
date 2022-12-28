@@ -105,12 +105,12 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         TextView 휴식하기 = (TextView) mulung_helper.this.findViewById(R.id.휴식);
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
         Button memo = (Button) findViewById(R.id.메모);
-        schedule = new ArrayList();
-        schedule = Assignment_load("무릉DB");
+
 
 
         Intent idget = getIntent();
         아이디 = idget.getStringExtra("아이디");
+
 
 //        memoHandler = new Handler(Looper.getMainLooper()){
 //            @Override
@@ -177,6 +177,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent m_Move = new Intent(mulung_helper.this, mulung_helper_schedule.class);
+                m_Move.putExtra("아이디",아이디);
 
                 receive_Memo_State.launch(m_Move);
 
@@ -232,10 +233,15 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                         memoHandler.post(new Runnable() { //핸들러
                             @Override
                             public void run() {
+//                                Log.d("run", "run: "+분타이머+"분 "+초타이머+"초");
 
-                                준비.setText(분타이머 + "분 " + 초타이머 + "초");
+                                for (int i = 0; i < schedule.size(); i++){
+                                    if(분타이머 == schedule.get(i).get분() && 초타이머 == schedule.get(i).get초()){
+                                        준비.setText(schedule.get(i).get메모());
+                                        Log.d("run", "run: "+schedule.get(i).get메모());
+                                    }
 
-
+                                }
 
                             }
                         });
@@ -347,6 +353,9 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     protected void onResume() {
         Log.d("mulung_helper", "onResume: ");
         super.onResume();
+        schedule = new ArrayList();
+        schedule = Assignment_load("무릉DB");
+
     }
 
     @Override

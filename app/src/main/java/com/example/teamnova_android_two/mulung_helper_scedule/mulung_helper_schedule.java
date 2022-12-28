@@ -68,6 +68,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
         data = new ArrayList();
         filter = new ArrayList();
         data = Assignment_load("무릉DB");
+//        Log.d("run", "onCreate: "+아이디);
 
 
         mhSchedule = (RecyclerView) this.findViewById(R.id.저장목록);
@@ -148,6 +149,7 @@ public class mulung_helper_schedule extends AppCompatActivity implements mulung_
                             data.add(new mulung_helper_schedule_data(제목변환, 메모변환, 분변환, 초변환));
                             리사이클러어댑터.notifyItemChanged(data.size());
                             Assignment_Save(data,"무릉DB");
+//                            Log.d("dd", "onClick: "+data.get(data.size()-1).get메모());
 
                             Toast.makeText(mulung_helper_schedule.this, "저장완료", Toast.LENGTH_SHORT).show();
                         }
