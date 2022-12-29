@@ -32,19 +32,15 @@ public class timer extends AppCompatActivity {
 
     private Timer m_timer; //타이머
     private TimerTask mt_timer;
+    private Timer eg_Timer; //익골타이머
+    private TimerTask egt_Timer;
+
     Boolean end = false;
-    ImageView 익골;
-    ImageView 경축비;
-    ImageView 경뿌;
-    ImageView 경쿠;
-    ImageView 유부;
-    ImageView 유행;
-    TextView 익골타이머;
-    TextView 경축비타이머;
-    TextView 경뿌타이머;
-    TextView 경쿠타이머;
-    TextView 유부타이머;
-    TextView 유행타이머;
+    Boolean extremeEnd = false;
+    ImageView 익골,경축비,경뿌,경쿠,유부,유행;
+
+    TextView 익골타이머,경축비타이머,경뿌타이머,경쿠타이머,유부타이머,유행타이머,알림;
+
 
 
     @Override
@@ -68,41 +64,23 @@ public class timer extends AppCompatActivity {
         경쿠타이머 = (TextView) this.findViewById(R.id.경쿠타이머);
         유부타이머 = (TextView) this.findViewById(R.id.유부타이머);
         유행타이머 = (TextView) this.findViewById(R.id.유행타이머);
+        알림 = (TextView) this.findViewById(R.id.알림);
 
 
         익골.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(익골타이머.getVisibility() == v.VISIBLE) {
+                if(익골타이머.getVisibility() == v.VISIBLE && extremeEnd == true) {
                     익골타이머.setVisibility(v.INVISIBLE);
-                    if (end == false) {
-                        end = true;
-                        TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
-                        m_timer = new Timer();
-                        mt_timer = new TimerTask() {
-                            @Override
-                            public void run() {
+                    //중단코드 작성
+                        Extreme_Gold_Timer_Stop();
 
-                                if (초타이머 > 0 || 분타이머 > 0) {
-                                    초타이머--;
-                                    if (초타이머 < 0 && 분타이머 > 0) {
-                                        초타이머--;
-                                        초타이머 = 디폴트초; // 59
-                                    }
-                                    타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
-                                } else {
-                                    timer_Stop(타이머,분타이머,초타이머,디폴트분,디폴트초);
-                                }
 
-                            }
-
-                        };
-                        m_timer.schedule(mt_timer, 1000, 1000);
-                    } else {
-                        Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
-                    }
-                }else if(익골타이머.getVisibility() != v.VISIBLE){
+                }else if(익골타이머.getVisibility() != v.VISIBLE && extremeEnd == false){
+                    //시작코드
                     익골타이머.setVisibility(v.VISIBLE);
+                        extremeEnd = true;
+                        Extreme_Gold_Timer();
                 }
 
 
@@ -114,9 +92,9 @@ public class timer extends AppCompatActivity {
             public void onClick(View view) {
                 if (end == false) {
                     end = true;
-                    timer(타이머,분타이머,초타이머,디폴트분,디폴트초);
+                    timer();
                 } else {
-                    Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(timer.this, "(메인타이머)이미 작동중 입니다", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -127,7 +105,7 @@ public class timer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(m_timer != null && mt_timer != null){
-                    timer_Stop(타이머,분타이머,초타이머,디폴트분,디폴트초);
+                    timer_Stop();
                 }
                 else {
                     Toast.makeText(timer.this, "실행중인 타이머가 없습니다", Toast.LENGTH_SHORT).show();
@@ -136,7 +114,7 @@ public class timer extends AppCompatActivity {
         });
     }
 
-    private void timer(View view,int Minutes, int Seconds, int default_Minutes, int default_Seconds) { //타이머 생성 메소드
+    private void timer() { //타이머 생성 메소드
 
         TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
         m_timer = new Timer();
@@ -152,7 +130,7 @@ public class timer extends AppCompatActivity {
                     }
                     타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
                 } else {
-                    timer_Stop(타이머,분타이머,초타이머,디폴트분,디폴트초);
+                    timer_Stop();
                 }
 
             }
@@ -162,7 +140,7 @@ public class timer extends AppCompatActivity {
 
     }
 
-    private void timer_Stop(View view,int Minutes, int Seconds, int default_Minutes, int default_Seconds) { //타이머 중단 메소드
+    private void timer_Stop() { //타이머 중단 메소드
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
 
         TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
@@ -176,13 +154,60 @@ public class timer extends AppCompatActivity {
         timer.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(timer.this, "재획타이머가 종료되었습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(timer.this, "(재화획득의 비약)타이머가 종료되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
         m_timer.cancel();
         mt_timer.cancel();
         m_timer = null;
         mt_timer = null;
+    }
+    private void Extreme_Gold_Timer() { //타이머 생성 메소드
+
+        익골타이머 = (TextView) findViewById(R.id.익골타이머);
+        eg_Timer = new Timer();
+        egt_Timer = new TimerTask() {
+            @Override
+            public void run() {
+
+                if (익골초 > 0 || 익골분 > 0) {
+                    익골초--;
+                    if (익골초 < 0 && 익골분 > 0) {
+                        익골초--;
+                        익골초 = 익골디폴트초; // 59
+                    }
+                    익골타이머.setText(익골분 + "분" + " " + 익골초 + "초");
+                } else {
+                    알림.setText("익스트림 골드 종료");
+                    Extreme_Gold_Timer_Stop();
+                }
+
+            }
+
+        };
+        eg_Timer.schedule(egt_Timer, 1000, 1000);
+    }
+    private void Extreme_Gold_Timer_Stop() { //타이머 중단 메소드
+        Vibrator 익골진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
+
+        익골타이머 = (TextView) findViewById(R.id.익골타이머);
+
+        extremeEnd = false;
+
+        익골분 = 익골디폴트분;
+        익골초 = 익골디폴트초;
+        익골타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
+        익골진동.vibrate(500);
+        timer.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(timer.this, "(익스트림골드)타이머가 종료되었습니다", Toast.LENGTH_SHORT).show();
+            }
+        });
+        eg_Timer.cancel();
+        egt_Timer.cancel();
+        eg_Timer = null;
+        egt_Timer = null;
     }
 
 
