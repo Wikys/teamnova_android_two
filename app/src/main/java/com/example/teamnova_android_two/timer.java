@@ -75,6 +75,32 @@ public class timer extends AppCompatActivity {
             public void onClick(View v) {
                 if(익골타이머.getVisibility() == v.VISIBLE) {
                     익골타이머.setVisibility(v.INVISIBLE);
+                    if (end == false) {
+                        end = true;
+                        TextView 타이머 = (TextView) findViewById(R.id.타이머토글);
+                        m_timer = new Timer();
+                        mt_timer = new TimerTask() {
+                            @Override
+                            public void run() {
+
+                                if (초타이머 > 0 || 분타이머 > 0) {
+                                    초타이머--;
+                                    if (초타이머 < 0 && 분타이머 > 0) {
+                                        초타이머--;
+                                        초타이머 = 디폴트초; // 59
+                                    }
+                                    타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
+                                } else {
+                                    timer_Stop(타이머,분타이머,초타이머,디폴트분,디폴트초);
+                                }
+
+                            }
+
+                        };
+                        m_timer.schedule(mt_timer, 1000, 1000);
+                    } else {
+                        Toast.makeText(timer.this, "이미 작동중 입니다", Toast.LENGTH_SHORT).show();
+                    }
                 }else if(익골타이머.getVisibility() != v.VISIBLE){
                     익골타이머.setVisibility(v.VISIBLE);
                 }
