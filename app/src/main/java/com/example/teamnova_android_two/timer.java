@@ -41,6 +41,8 @@ public class timer extends AppCompatActivity {
 
     TextView 익골타이머,경축비타이머,경뿌타이머,경쿠타이머,유부타이머,유행타이머,알림;
 
+    Thread 알림쓰레드;
+
 
 
     @Override
@@ -127,6 +129,7 @@ public class timer extends AppCompatActivity {
                     if (초타이머 < 0 && 분타이머 > 0) {
                         초타이머--;
                         초타이머 = 디폴트초; // 59
+                        분타이머--;
                     }
                     타이머.setText(분타이머 + "분" + " " + 초타이머 + "초");
                 } else {
@@ -175,10 +178,14 @@ public class timer extends AppCompatActivity {
                     if (익골초 < 0 && 익골분 > 0) {
                         익골초--;
                         익골초 = 익골디폴트초; // 59
+                        익골분--;
                     }
                     익골타이머.setText(익골분 + "분" + " " + 익골초 + "초");
+//                    알림.setText(익골분+" 분"+익골초+" 초 남았습니다");
                 } else {
-                    알림.setText("익스트림 골드 종료");
+//                   알림.setText("익스트림 골드 종료");
+//                    Log.d("run", "run:종료");
+//                   알림.setText("익스트림 골드 종료");
                     Extreme_Gold_Timer_Stop();
                 }
 
@@ -208,13 +215,13 @@ public class timer extends AppCompatActivity {
         egt_Timer.cancel();
         eg_Timer = null;
         egt_Timer = null;
-    }
+        익골타이머.setVisibility(View.INVISIBLE);
 
+    }
 
     @Override
     protected void onStop() {
         Log.d("timer", "onStop: ");
-
         super.onStop();
     }
 
