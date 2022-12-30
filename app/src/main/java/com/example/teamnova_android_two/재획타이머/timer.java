@@ -1,10 +1,8 @@
-package com.example.teamnova_android_two;
+package com.example.teamnova_android_two.재획타이머;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -14,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.teamnova_android_two.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -67,6 +65,32 @@ public class timer extends AppCompatActivity {
         유부타이머 = (TextView) this.findViewById(R.id.유부타이머);
         유행타이머 = (TextView) this.findViewById(R.id.유행타이머);
         알림 = (TextView) this.findViewById(R.id.알림);
+
+        //        memoHandler = new Handler(Looper.getMainLooper()){
+//            @Override
+//            public void handleMessage(android.os.Message msg){
+//                //서비스랑 연동해서 사용가능
+//                //서비스로 24시간 감시하면서 시간에따라 일정초기화 하는식으로 이용할수있을듯? (UI쪽)
+//                super.handleMessage(msg);
+//                //이곳에 이벤트를 모이게끔해서
+//                //이안에서 ui변경처리를 하게됨 (리스너같은느낌)
+//                if(msg.what == 1) { // 1번일경우 정상메세지
+//
+//                    Toast.makeText(mulung_helper.this, "", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(msg.what == 2){ // 2번인경우 이미지파일 뭐 이런식으로 처리가능
+//
+//                }
+//
+//            }
+//        };
+//        //핸들러로 데이터 전달(데이터가 순차적으로 처리될 수 있도록)
+//        Message msg = memoHandler.obtainMessage();
+//        msg.what = 1; //일련번호처럼 사용 (구분자느낌?)
+//        msg.obj = "메세지당!!";
+//        memoHandler.sendMessage(msg);
+//        //여기서 샌드메세지를 하면 위에 핸들메세지에서 잡힘
+//        //이거쓸라면 스레드에 넣어서 써야할거같은데
 
 
         익골.setOnClickListener(new View.OnClickListener() {

@@ -9,7 +9,7 @@
         android:id="@+id/타이틀"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:fontFamily="@font/jalnan"
         android:gravity="center"
         android:text="재획 타이머"
         android:textColor="#FC86D1"
@@ -23,11 +23,13 @@
         android:id="@+id/알림"
         android:layout_width="350dp"
         android:layout_height="200dp"
+        android:fontFamily="@font/jalnan"
         app:layout_constraintTop_toBottomOf="@id/타이틀"
         app:layout_constraintBottom_toTopOf="@id/재획비"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/border"
+
         />
 
     <ImageView

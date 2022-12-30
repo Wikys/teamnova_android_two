@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -31,22 +30,17 @@ import com.example.teamnova_android_two.daily_quest;
 import com.example.teamnova_android_two.mulung_helper;
 import com.example.teamnova_android_two.schedule.schedule;
 import com.example.teamnova_android_two.seed_helper;
-import com.example.teamnova_android_two.timer;
+import com.example.teamnova_android_two.재획타이머.timer;
 import com.example.teamnova_android_two.weekly_boss;
 import com.example.teamnova_android_two.weekly_quest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Main extends AppCompatActivity implements Serializable {
     String 아이디; //아이디

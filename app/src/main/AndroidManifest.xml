@@ -89,7 +89,7 @@
             android:name=".schedule.schedule"
             android:exported="false" />
         <activity
-            android:name=".timer"
+            android:name=".재획타이머.timer"
             android:exported="false" />
         <activity
             android:name=".weekly_boss"
