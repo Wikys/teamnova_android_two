@@ -34,7 +34,6 @@ public class Buff_Alarm implements Runnable{
             super.handleMessage(msg);
             텍스트 = (TextView) activity.findViewById(R.id.알림);
 
-
         }
     };
 

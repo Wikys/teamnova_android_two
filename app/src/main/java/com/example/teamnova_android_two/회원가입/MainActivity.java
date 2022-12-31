@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.teamnova_android_two.Main.Main;
 import com.example.teamnova_android_two.R;
+import com.example.teamnova_android_two.Reset.Assignment_Service;
 import com.example.teamnova_android_two.recyclerview;
 import com.example.teamnova_android_two.test_activity;
 import com.google.gson.Gson;
@@ -121,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         테스트.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, test_activity.class);
-                startActivity(intent);
+                Intent 숙제알림서비스 = new Intent(MainActivity.this, Assignment_Service.class);
+                startService(숙제알림서비스);
             }
         });
 

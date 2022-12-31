@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.teamnova_android_two.Reset.Assignment_Service;
 import com.example.teamnova_android_two.R;
 import com.example.teamnova_android_two.alarm;
 import com.example.teamnova_android_two.daily_boss;
@@ -211,6 +212,9 @@ public class Main extends AppCompatActivity implements Serializable {
         일퀘상태 = Assignment_load("일퀘상태");
         주간퀘상태 = Assignment_load("주간퀘상태");
         주간보스상태 = Assignment_load("주간보스상태");
+
+//        Intent 숙제알림서비스 = new Intent(Main.this, Assignment_Service.class);
+//        startService(숙제알림서비스);
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {

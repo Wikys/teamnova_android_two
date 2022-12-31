@@ -65,11 +65,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
     Handler memoHandler;
     Handler 메모핸들러;
 
-//    Map<String, String> 제목 = new HashMap<>();
-//    Map<String, String> 메모 = new HashMap<>();
-//    Map<String, String> 분 = new HashMap<>();
-//    Map<String, String> 초 = new HashMap<>();
-//    Map<String, String> 분초 = new HashMap<>();
 
     ActivityResultLauncher<Intent> receive_Memo_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -165,7 +160,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         휴식하기.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 rest_Timer();
 
             }
@@ -178,9 +172,7 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent m_Move = new Intent(mulung_helper.this, mulung_helper_schedule.class);
                 m_Move.putExtra("아이디",아이디);
-
                 receive_Memo_State.launch(m_Move);
-
             }
         });
 

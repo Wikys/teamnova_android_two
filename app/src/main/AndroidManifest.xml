@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <!-- 진동 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,11 +12,16 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Teamnova_android_two"
-        android:largeHeap="true"
         tools:targetApi="33">
+        <service
+            android:name=".Reset.Assignment_Service"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".recyclerview"
             android:exported="false">
@@ -54,9 +60,9 @@
             android:theme="@style/Theme.MyDialog" />
         <activity
             android:name=".seed_49.seed_helper_49"
-            android:exported="false"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"/>
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".seed_helper_48"
             android:exported="false" />
@@ -65,17 +71,15 @@
             android:exported="false" />
         <activity
             android:name=".seed_39.seed_helper_39"
-            android:exported="false"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".seed_helper_36"
             android:exported="false" />
         <activity
             android:name=".seed_24.seed_helper_24"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".seed_helper_23"
             android:exported="false" />
