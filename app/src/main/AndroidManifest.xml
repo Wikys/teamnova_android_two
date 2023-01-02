@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 진동 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,10 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Teamnova_android_two"
         tools:targetApi="33">
+        <activity
+            android:name=".Reset.Reset_Confirm_Dialog"
+            android:exported="false"
+            android:theme="@style/Theme.MyDialog">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <service
             android:name=".Reset.Assignment_Service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".recyclerview"

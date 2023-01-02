@@ -1,5 +1,7 @@
 package com.example.teamnova_android_two.Main;
 
+import static com.example.teamnova_android_two.Reset.Day_Listener.threadContext;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.teamnova_android_two.Reset.*;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -37,6 +40,7 @@ import com.example.teamnova_android_two.weekly_quest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,6 +61,9 @@ public class Main extends AppCompatActivity implements Serializable {
     TextView 오늘의메모; //메모표시될 텍스트뷰
     String input_Memo; //디비에 저장된 메모값 받을 변수
     Calendar today = Calendar.getInstance(); //메모리스트 키값을 날짜포맷으로 저장해놔서 불러오려면 캘린더클래스 쓰는게 간편
+    String 날짜;
+    Context context;
+
 
     public static boolean dq_Reset = false; //일간퀘스트 초기화 변수
     public static boolean db_Reset = false; //일간보스 초기화 변수
@@ -73,6 +80,11 @@ public class Main extends AppCompatActivity implements Serializable {
     SharedPreferences 사용자정보;
     SharedPreferences 최종로그인;
 
+
+
+    public Context getContext() {
+        return context;
+    }
 
     ActivityResultLauncher<Intent> receive_Dq_State = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -155,9 +167,10 @@ public class Main extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Log.d("com/example/teamnova_android_two/Main", "onCreate: ");
+        threadContext = this;
         //이화면은 무조건 로그인후에 넘어올수밖에 없으므로 조건문없이 인텐트를 받아온다
 
-        resetAlarm(this);// 알람실행
+//        resetAlarm(this);// 알람매니저
 
         ImageView 프사 = (ImageView) Main.this.findViewById(R.id.이미지);
         TextView 환영인사 = (TextView) Main.this.findViewById(R.id.환영인사);
@@ -167,54 +180,41 @@ public class Main extends AppCompatActivity implements Serializable {
         주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
         오늘의메모 = (TextView) Main.this.findViewById(R.id.오늘의메모);
 
-        사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
-        SharedPreferences.Editor 상태 = 사용자정보.edit();
+
         최종로그인 = getSharedPreferences("최종로그인",MODE_PRIVATE);
-//        SharedPreferences.Editor 로그인정보 = 최종로그인.edit();
+
 
         uri = 최종로그인.getString("사진","");
         아이디 = 최종로그인.getString("아이디","");
         닉네임 = 최종로그인.getString("닉네임","");
         Uri 사진변환 = Uri.parse(uri);
 
+        사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
+//        Log.d("아이디", "onCreate: "+아이디);
+        SharedPreferences.Editor 상태 = 사용자정보.edit();
+
 
         Glide.with(Main.this).load(사진변환).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
         환영인사.setText(아이디 + "(" + 닉네임 + ") 님 어서오세요");
 
-//        if (wq_Reset) {
-//            //주간리셋 작동하면 모든 관련디비 삭제
-//
-//            상태.remove("주간퀘상태");
-//            상태.remove("주간보스상태");
-//            상태.remove("일퀘상태");
-//            상태.remove("일간보스상태");
-//            상태.apply();
-//            wq_Reset = false;
-//
-//        } else if (dq_Reset) {
-//            주간퀘상태 = Assignment_load("주간퀘상태");
-//            주간보스상태 = Assignment_load("주간보스상태");
-//
-//            상태.remove("일퀘상태");
-//            상태.remove("일간보스상태");
-//            상태.apply();
-//            dq_Reset = false;
-//
-//            //데이리셋 작동하면 주간숙제 상태만 불러오고 일간디비는 삭제
-//        } else {
-//            일간보스상태 = Assignment_load("일간보스상태");
-//            일퀘상태 = Assignment_load("일퀘상태");
-//            주간퀘상태 = Assignment_load("주간퀘상태");
-//            주간보스상태 = Assignment_load("주간보스상태");
-//            //아무것도 작동하지않으면 모든상태 불러옴
-//        }
         일간보스상태 = Assignment_load("일간보스상태");
         일퀘상태 = Assignment_load("일퀘상태");
         주간퀘상태 = Assignment_load("주간퀘상태");
         주간보스상태 = Assignment_load("주간보스상태");
 
-//        Intent 숙제알림서비스 = new Intent(Main.this, Assignment_Service.class);
-//        startService(숙제알림서비스);
+        날짜 = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        //메인화면 들어왔을때 당시 날짜 저장후 디비에 저장
+        //다른화면에서 갑자기 날짜 바뀌었을때 수정용으로 만듬?
+        상태.putString("날짜",날짜);
+        상태.apply();
+
+
+        Intent 숙제알림서비스 = new Intent(Main.this, Assignment_Service.class);
+        숙제알림서비스.putExtra("아이디",아이디);
+//        숙제알림서비스.putExtra("context",this);
+        startService(숙제알림서비스);
+        //인텐트로 디비불러올때 사용해야하는 아이디를 가져옴
+
 
         LinearLayout dqbtn = (LinearLayout) Main.this.findViewById(R.id.일일퀘스트); //일일퀘스트 이동버튼
         dqbtn.setOnClickListener(new View.OnClickListener() {

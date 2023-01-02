@@ -19,11 +19,6 @@ import java.util.ArrayList;
 public class confirm_id extends Activity {
     boolean 허가 = false;
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +31,6 @@ public class confirm_id extends Activity {
         Button 확인버튼 = findViewById(R.id.확인버튼);
         Intent 텍스트값 = getIntent(); // 인텐트에 저장한 데이터 받아오기
         ArrayList<String> 아이디 = (ArrayList<String>)텍스트값.getSerializableExtra("id_list");
-
-
-
 
         중복텍스트.setText(텍스트값.getStringExtra("id")); //키값으로 데이터 찾아서 대입
 
