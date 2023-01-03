@@ -13,6 +13,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.teamnova_android_two.Main.Main;
+
 import java.util.Calendar;
 
 public class Assignment_Service extends Service {
@@ -99,7 +101,6 @@ public class Assignment_Service extends Service {
 
 //                bundle.putString("알림메세지", "일간 스케쥴이 초기화 되었습니다");
                 popupIntent.putExtra("알림메세지", "일간 스케쥴이 초기화 되었습니다");
-
 
                 Log.d("서비스 번들2", "handleMessage: "+popupIntent.getStringExtra("알림메세지"));
             }
