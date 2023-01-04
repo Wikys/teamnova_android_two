@@ -54,6 +54,7 @@ public class schedule extends AppCompatActivity {
         }
 
 
+
         일정.setOnDateChangeListener(new CalendarView.OnDateChangeListener() { //달력 날짜클릭하면 반응하는 리스너
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -97,6 +98,9 @@ public class schedule extends AppCompatActivity {
             }
         });
     }
+
+
+
     public void Assignment_Save(HashMap<String, String> Data, String Type) {
         //각종 숙제 상태저장메소드
         String jsonString = new Gson().toJson(Data);
