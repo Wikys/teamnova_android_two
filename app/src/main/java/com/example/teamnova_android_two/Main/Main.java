@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.teamnova_android_two.Reset.*;
 
 import androidx.activity.result.ActivityResult;
@@ -46,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class Main extends AppCompatActivity implements Serializable {
     String 아이디; //아이디
@@ -79,7 +81,6 @@ public class Main extends AppCompatActivity implements Serializable {
 
     SharedPreferences 사용자정보;
     SharedPreferences 최종로그인;
-
 
 
     public Context getContext() {
@@ -182,14 +183,14 @@ public class Main extends AppCompatActivity implements Serializable {
         주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
         오늘의메모 = (TextView) Main.this.findViewById(R.id.오늘의메모);
 
-        최종로그인 = getSharedPreferences("최종로그인",MODE_PRIVATE);
+        최종로그인 = getSharedPreferences("최종로그인", MODE_PRIVATE);
 
-        uri = 최종로그인.getString("사진","");
-        아이디 = 최종로그인.getString("아이디","");
-        닉네임 = 최종로그인.getString("닉네임","");
+        uri = 최종로그인.getString("사진", "");
+        아이디 = 최종로그인.getString("아이디", "");
+        닉네임 = 최종로그인.getString("닉네임", "");
         Uri 사진변환 = Uri.parse(uri);
 
-        사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
+        사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
 //        Log.d("아이디", "onCreate: "+아이디);
         SharedPreferences.Editor 상태 = 사용자정보.edit();
 
@@ -204,12 +205,12 @@ public class Main extends AppCompatActivity implements Serializable {
         날짜 = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
         //메인화면 들어왔을때 당시 날짜 저장후 디비에 저장
         //다른화면에서 갑자기 날짜 바뀌었을때 수정용으로 만듬?
-        상태.putString("날짜",날짜);
+        상태.putString("날짜", 날짜);
         상태.apply();
 
 
         Intent 숙제알림서비스 = new Intent(Main.this, Assignment_Service.class);
-        숙제알림서비스.putExtra("아이디",아이디);
+        숙제알림서비스.putExtra("아이디", 아이디);
 //        숙제알림서비스.putExtra("context",this);
         startService(숙제알림서비스);
         //인텐트로 디비불러올때 사용해야하는 아이디를 가져옴
@@ -355,7 +356,7 @@ public class Main extends AppCompatActivity implements Serializable {
         Log.d("com/example/teamnova_android_two/Main", "onResume: ");
         super.onResume();
 
-        if (!(일간보스상태.containsValue(false))&& !(일간보스상태.isEmpty())) {
+        if (!(일간보스상태.containsValue(false)) && !(일간보스상태.isEmpty())) {
             //값중에 false가 없으면
             일보체크박스.setChecked(true);
             //체크박스체크
@@ -375,7 +376,7 @@ public class Main extends AppCompatActivity implements Serializable {
             //아니면 해제
             Log.d("체크박스", "주간퀘상태: 호출");
         }
-        if (!(일퀘상태.containsValue(false))&& !(일퀘상태.isEmpty())) {
+        if (!(일퀘상태.containsValue(false)) && !(일퀘상태.isEmpty())) {
             //값중에 false가 없으면
             일퀘체크박스.setChecked(true);
             //체크박스체크
@@ -385,7 +386,7 @@ public class Main extends AppCompatActivity implements Serializable {
             //아니면 해제
             Log.d("체크박스", "일퀘상태: 호출");
         }
-        if (!(주간보스상태.containsValue(false))&& !(주간보스상태.isEmpty())) {
+        if (!(주간보스상태.containsValue(false)) && !(주간보스상태.isEmpty())) {
             //값중에 false가 없으면
             주보체크박스.setChecked(true);
             //체크박스체크
@@ -400,11 +401,16 @@ public class Main extends AppCompatActivity implements Serializable {
         //온스타트에 해봤으나 온스타트 시간이너무짧아서 제대로 작동을안함(됐다안됐다함)
         메모목록 = Memolist_load("메모리스트");
 
-        String key = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
-        if (메모목록.containsKey(key)) {
-            String input = 메모목록.get(key);
+        long systemTime = System.currentTimeMillis();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMd");
+        String 요일 = formatter.format(systemTime);
+
+//        String key = String.format("%d%d%d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
+        if (메모목록.containsKey(요일)) {
+            String input = 메모목록.get(요일);
             오늘의메모.setText(input);
         }
+
         //캘린더클래스를 참조하여 오늘날짜의 메모가 있으면 불러와서 출력해줌
     }
 
