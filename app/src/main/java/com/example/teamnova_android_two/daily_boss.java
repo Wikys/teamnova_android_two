@@ -14,6 +14,7 @@ import android.widget.ToggleButton;
 
 import com.example.teamnova_android_two.Main.Main;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -47,7 +48,8 @@ public class daily_boss extends AppCompatActivity implements Serializable {
 
         Intent 불러오기 = getIntent();
         아이디 = 불러오기.getStringExtra("아이디");
-        버튼상태확인 = (HashMap<String, Boolean>) 불러오기.getSerializableExtra("일보상태");
+//        버튼상태확인 = (HashMap<String, Boolean>) 불러오기.getSerializableExtra("일보상태");
+        버튼상태확인 = Assignment_load("일간보스상태");
         if(버튼상태확인.size() != 0) {
             버튼1.setChecked(버튼상태확인.get("버튼1"));
             버튼2.setChecked(버튼상태확인.get("버튼2"));
@@ -104,6 +106,7 @@ public class daily_boss extends AppCompatActivity implements Serializable {
                 Intent 버튼상태저장 = new Intent(daily_boss.this, Main.class);
                 버튼상태저장.putExtra("일보버튼", 버튼상태확인);
                 setResult(RESULT_OK, 버튼상태저장); // 버튼상태체크 해시맵 넘김(메인으로)
+                Assignment_Save(버튼상태확인,"일간보스상태");
                 finish();
 
             }
@@ -162,5 +165,22 @@ public class daily_boss extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor editor = 사용자정보.edit();
         editor.putString(Type, jsonString);
         editor.apply();
+    }
+    public HashMap<String, Boolean> Assignment_load(String Type) {
+        //각종 숙제 상태저장 불러오는 메소드
+        //해쉬맵 변환하여 불러오는 메소드
+//        HashMap<String, Boolean> outputMap = new HashMap<String, Boolean>();
+
+        사용자정보 = getSharedPreferences(아이디, MODE_PRIVATE);
+        String defValue = new Gson().toJson(new HashMap<String, Boolean>());
+
+        String json = 사용자정보.getString(Type, defValue);
+        //인자 : Type:내가쓴 스트링값을 제목으로, defvalue:json으로 변환된 해시맵
+        TypeToken<HashMap<String, Boolean>> type = new TypeToken<HashMap<String, Boolean>>() {
+        };
+        //암시적 형변환해주는 클래스
+        HashMap<String, Boolean> returnMap = new Gson().fromJson(json, type.getType());
+        //첫번째인자 : 불러온 데이터 , 두번째인자 : 불러온 데이터의 타입
+        return returnMap;
     }
 }

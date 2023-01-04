@@ -93,7 +93,7 @@ public class Main extends AppCompatActivity implements Serializable {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
                         Intent 일퀘정보 = result.getData();
-                        일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
+//                        일퀘상태 = (HashMap<String, Boolean>) 일퀘정보.getSerializableExtra("일퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
 //                        Assignment_Save(일퀘상태, "일퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
@@ -109,10 +109,12 @@ public class Main extends AppCompatActivity implements Serializable {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         Intent 일보정보 = result.getData();
-                        일간보스상태 = (HashMap<String, Boolean>) 일보정보.getSerializableExtra("일보버튼");
+//                        일간보스상태 = Assignment_load("일간보스상태");
                         //일보버튼 체크상태정보 받아옴
 //                        Assignment_Save(일간보스상태, "일간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
+
+
                         Log.d("com/example/teamnova_android_two/Main", "onActivityResult: ");
                     }
                 }
@@ -124,7 +126,7 @@ public class Main extends AppCompatActivity implements Serializable {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         Intent 주간퀘정보 = result.getData();
-                        주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
+//                        주간퀘상태 = (HashMap<String, Boolean>) 주간퀘정보.getSerializableExtra("주간퀘버튼");
                         //일퀘버튼 체크상태정보 받아옴
 //                        Assignment_Save(주간퀘상태, "주간퀘상태");
                         //인텐트로 받아오면서 디비에 상태저장
@@ -139,7 +141,7 @@ public class Main extends AppCompatActivity implements Serializable {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         Intent 주간보스정보 = result.getData();
-                        주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
+//                        주간보스상태 = (HashMap<String, Boolean>) 주간보스정보.getSerializableExtra("주간보스버튼");
                         //일퀘버튼 체크상태정보 받아옴
 //                        Assignment_Save(주간보스상태, "주간보스상태");
                         //인텐트로 받아오면서 디비에 상태저장
@@ -180,9 +182,7 @@ public class Main extends AppCompatActivity implements Serializable {
         주보체크박스 = (CheckBox) Main.this.findViewById(R.id.주간보스상태);
         오늘의메모 = (TextView) Main.this.findViewById(R.id.오늘의메모);
 
-
         최종로그인 = getSharedPreferences("최종로그인",MODE_PRIVATE);
-
 
         uri = 최종로그인.getString("사진","");
         아이디 = 최종로그인.getString("아이디","");
@@ -192,7 +192,6 @@ public class Main extends AppCompatActivity implements Serializable {
         사용자정보 = getSharedPreferences(아이디,MODE_PRIVATE);
 //        Log.d("아이디", "onCreate: "+아이디);
         SharedPreferences.Editor 상태 = 사용자정보.edit();
-
 
         Glide.with(Main.this).load(사진변환).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
         환영인사.setText(아이디 + "(" + 닉네임 + ") 님 어서오세요");
@@ -222,7 +221,7 @@ public class Main extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                 Intent dqmove = new Intent(Main.this, daily_quest.class);
 //                dqmove.putExtra("날짜변경",dq_Reset ); // 날짜변경 변수 넘김
-                dqmove.putExtra("일퀘상태", 일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
+//                dqmove.putExtra("일퀘상태", 일퀘상태); //버튼상태 유지를 위해서 액티비티 들어갈때 버튼상태 받아왔던거 재전송
                 dqmove.putExtra("아이디", 아이디);
                 //사용자정보 구분을 위해 아이디넘김
                 receive_Dq_State.launch(dqmove);
@@ -234,7 +233,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent dbmove = new Intent(Main.this, daily_boss.class);
-                dbmove.putExtra("일보상태", 일간보스상태);
+//                dbmove.putExtra("일보상태", 일간보스상태);
                 dbmove.putExtra("아이디", 아이디);
                 //사용자정보 구분을 위해 아이디넘김
                 receive_Db_State.launch(dbmove);
@@ -246,7 +245,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent wqmove = new Intent(Main.this, weekly_quest.class);
-                wqmove.putExtra("주간퀘상태", 주간퀘상태);
+//                wqmove.putExtra("주간퀘상태", 주간퀘상태);
                 wqmove.putExtra("아이디", 아이디);
                 //사용자정보 구분을 위해 아이디넘김
                 receive_Wq_State.launch(wqmove);
@@ -259,7 +258,7 @@ public class Main extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 Intent wbmove = new Intent(Main.this, weekly_boss.class);
-                wbmove.putExtra("주간보스상태", 주간보스상태);
+//                wbmove.putExtra("주간보스상태", 주간보스상태);
                 wbmove.putExtra("아이디", 아이디);
                 //사용자정보 구분을 위해 아이디넘김
                 receive_Wb_State.launch(wbmove);
@@ -317,32 +316,32 @@ public class Main extends AppCompatActivity implements Serializable {
 
     }
 
-    public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
-        AlarmManager resetAlarm = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        Intent resetIntent = new Intent(context, alarm.class); // 로직클래스(alarm) 인텐트
-        PendingIntent resetSender = PendingIntent.getBroadcast(context, 0, resetIntent, PendingIntent.FLAG_IMMUTABLE);
-        //인텐트 보류후 특정시점에 브로드캐스트로 이동
-
-        //자정시간
-        Calendar resetCal = Calendar.getInstance(); //캘린더클래스 객체
-        resetCal.setTimeInMillis(System.currentTimeMillis()); //현재시간을 밀리세컨드로 가져와 넘겨줌
-        resetCal.set(Calendar.HOUR_OF_DAY, 0); //일을 0으로 셋
-        resetCal.set(Calendar.MINUTE, 0); //분을 0으로 셋
-        resetCal.set(Calendar.SECOND, 0); //초를 0으로 셋
-        //다음날 0시에 맞추기위해 24시간을 뜻하는 상수인 INTERVAL_DAY을 더해줌
-
-
-        resetAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
-                + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);
-        //반복주기
-        //하루,일주일에 한번 울리는 알람이라 수면모드 강제깨움 사용(무슨일이 있어도 동작해야하기때문)
-
-        //테스트코드
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
-        String setResetTime = format.format(new Date(resetCal.getTimeInMillis() + AlarmManager.INTERVAL_DAY));
-        Log.d("resetAlarm", "ResetHour : " + setResetTime);
-
-    }
+//    public static void resetAlarm(Context context) { //알람매니저//알람메소드 나중에 로그인정보가 있어야 알람이뜨게끔 설정
+//        AlarmManager resetAlarm = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+//        Intent resetIntent = new Intent(context, alarm.class); // 로직클래스(alarm) 인텐트
+//        PendingIntent resetSender = PendingIntent.getBroadcast(context, 0, resetIntent, PendingIntent.FLAG_IMMUTABLE);
+//        //인텐트 보류후 특정시점에 브로드캐스트로 이동
+//
+//        //자정시간
+//        Calendar resetCal = Calendar.getInstance(); //캘린더클래스 객체
+//        resetCal.setTimeInMillis(System.currentTimeMillis()); //현재시간을 밀리세컨드로 가져와 넘겨줌
+//        resetCal.set(Calendar.HOUR_OF_DAY, 0); //일을 0으로 셋
+//        resetCal.set(Calendar.MINUTE, 0); //분을 0으로 셋
+//        resetCal.set(Calendar.SECOND, 0); //초를 0으로 셋
+//        //다음날 0시에 맞추기위해 24시간을 뜻하는 상수인 INTERVAL_DAY을 더해줌
+//
+//
+//        resetAlarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, resetCal.getTimeInMillis()
+//                + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, resetSender);
+//        //반복주기
+//        //하루,일주일에 한번 울리는 알람이라 수면모드 강제깨움 사용(무슨일이 있어도 동작해야하기때문)
+//
+//        //테스트코드
+//        SimpleDateFormat format = new SimpleDateFormat("MM/dd kk:mm:ss");
+//        String setResetTime = format.format(new Date(resetCal.getTimeInMillis() + AlarmManager.INTERVAL_DAY));
+//        Log.d("resetAlarm", "ResetHour : " + setResetTime);
+//
+//    }
 
     @Override
     protected void onStart() {
@@ -355,37 +354,46 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onResume() {
         Log.d("com/example/teamnova_android_two/Main", "onResume: ");
         super.onResume();
+
         if (!(일간보스상태.containsValue(false))&& !(일간보스상태.isEmpty())) {
             //값중에 false가 없으면
             일보체크박스.setChecked(true);
             //체크박스체크
+            Log.d("체크박스", "일간보스상태: 호출");
         } else {
             일보체크박스.setChecked(false);
+            Log.d("체크박스", "일간보스상태: 호출");
             //아니면 해제
         }
         if (!(주간퀘상태.containsValue(false)) && !(주간퀘상태.isEmpty())) {
             //값중에 false가 없으면
             주간퀘체크박스.setChecked(true);
             //체크박스체크
+            Log.d("체크박스", "주간퀘상태: 호출");
         } else {
             주간퀘체크박스.setChecked(false);
             //아니면 해제
+            Log.d("체크박스", "주간퀘상태: 호출");
         }
         if (!(일퀘상태.containsValue(false))&& !(일퀘상태.isEmpty())) {
             //값중에 false가 없으면
             일퀘체크박스.setChecked(true);
             //체크박스체크
+            Log.d("체크박스", "일퀘상태: 호출");
         } else {
             일퀘체크박스.setChecked(false);
             //아니면 해제
+            Log.d("체크박스", "일퀘상태: 호출");
         }
         if (!(주간보스상태.containsValue(false))&& !(주간보스상태.isEmpty())) {
             //값중에 false가 없으면
             주보체크박스.setChecked(true);
             //체크박스체크
+            Log.d("체크박스", "주간보스상태: true호출");
         } else {
             주보체크박스.setChecked(false);
             //아니면 해제
+            Log.d("체크박스", "주간보스상태: false호출");
         }
         //생명주기상 어플을 시작할때나 일일퀘스트 액티비티에서 전부 체크하고 나왔을때
         //유연한처리를 위해 리줌에 배치
@@ -422,6 +430,11 @@ public class Main extends AppCompatActivity implements Serializable {
     protected void onRestart() {
         Log.d("com/example/teamnova_android_two/Main", "onRestart: ");
         super.onRestart();
+        일간보스상태 = Assignment_load("일간보스상태");
+        일퀘상태 = Assignment_load("일퀘상태");
+        주간퀘상태 = Assignment_load("주간퀘상태");
+        주간보스상태 = Assignment_load("주간보스상태");
+        Log.d("체크박스", "onRestart: 호출됨");
     }
 
     @Override

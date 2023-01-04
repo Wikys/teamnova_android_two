@@ -11,9 +11,11 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.teamnova_android_two.Main.Main;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class Day_Listener extends Thread {
@@ -68,9 +70,7 @@ public class Day_Listener extends Thread {
 //                    msg.obj = "주간 스케쥴이 초기화 되었습니다";
                 msg.what = 요일;
 
-
                 handler.sendMessage(msg);
-
 
                 //날짜 변경됐을때 목요일이면 주간초기화 메세지전송
                 //아니면 일간초기화 메세지전송
@@ -79,7 +79,21 @@ public class Day_Listener extends Thread {
                 //디비에 바뀐 날짜 다시저장
                 SharedPreferences.Editor editor = 사용자정보.edit();
                 editor.putString("날짜", 실제날짜);
-                editor.apply();
+
+                if (요일 == 5) {
+                    //목요일이면 주간일정+일간일정 초기화해서 디비에 저장
+                    editor.putString("일간보스상태", null);
+                    editor.putString("주간보스상태", null);
+                    editor.putString("일퀘상태", null);
+                    editor.putString("주간퀘상태", null);
+                    editor.apply();
+                } else {
+                    //목요일이 아닐때는 일간일정만 초기화해서 저장
+                    editor.putString("일간보스상태", null);
+                    editor.putString("일퀘상태", null);
+                    editor.apply();
+                }
+                //저장후 해당 액티비티 온리스타트에서 다시 디비 불러오게끔하기
             }
 
             try {
@@ -90,5 +104,14 @@ public class Day_Listener extends Thread {
             }
         }
     }
+//    public void Assignment_Save(HashMap<String, Boolean> Data, String Type) {
+//        //각종 숙제 상태저장메소드
+//        String jsonString = new Gson().toJson(Data);
+//        사용자정보 = threadContext.getSharedPreferences(아이디, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = 사용자정보.edit();
+//        editor.putString(Type, jsonString);
+//        editor.apply();
+//    }
 
 }
+

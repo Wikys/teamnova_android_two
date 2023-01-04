@@ -52,8 +52,6 @@ public class Assignment_Service extends Service {
 
         Log.d("아이디", "onStartCommand: "+아이디);
 
-
-
         thread.start();
         return START_STICKY;
         //start_sticky : 서비스가 강제종료되었을때 재시작시켜줌
@@ -84,32 +82,21 @@ public class Assignment_Service extends Service {
             Bundle bundle = new Bundle();
             Log.d("요일핸들러", "handleMessage: "+msg.what);
             Intent popupIntent = new Intent(getApplicationContext(), Reset_Confirm_Dialog.class);
-//            popupIntent.putExtras(bundle);
-//            if (요일.get(Calendar.DAY_OF_WEEK) == 5) { //목요일이면 주간초기화
-//                bundle.putString("알림메세지", "주간 스케쥴이 초기화 되었습니다");
-//
-//            } else {
-//                bundle.putString("알림메세지", "일간 스케쥴이 초기화 되었습니다");
-//            }
+
             if (msg.what == 5) {
 
-//                bundle.putString("알림메세지", "주간 스케쥴이 초기화 되었습니다");
                 popupIntent.putExtra("알림메세지", "주간 스케쥴이 초기화 되었습니다");
 
-                Log.d("서비스 번들", "handleMessage: "+popupIntent.getStringExtra("알림메세지"));
+//                Log.d("서비스 번들", "handleMessage: "+popupIntent.getStringExtra("알림메세지"));
             }else {
 
-//                bundle.putString("알림메세지", "일간 스케쥴이 초기화 되었습니다");
                 popupIntent.putExtra("알림메세지", "일간 스케쥴이 초기화 되었습니다");
 
-                Log.d("서비스 번들2", "handleMessage: "+popupIntent.getStringExtra("알림메세지"));
+//                Log.d("서비스 번들2", "handleMessage: "+popupIntent.getStringExtra("알림메세지"));
             }
-
-//            popupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             PendingIntent pendingIntent =
                     PendingIntent.getActivity(getApplicationContext(), 0, popupIntent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-
 
             try {
                 pendingIntent.send();
