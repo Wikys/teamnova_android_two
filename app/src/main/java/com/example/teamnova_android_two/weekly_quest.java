@@ -1,6 +1,7 @@
 package com.example.teamnova_android_two;
 
 import static com.example.teamnova_android_two.Main.Main.wq_Reset;
+import static com.example.teamnova_android_two.Reset.Day_Listener.weekly_Reset;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,17 +23,34 @@ public class weekly_quest extends AppCompatActivity {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
     String 아이디; //아이디
     SharedPreferences 사용자정보;
+    ToggleButton 버튼1;
+    ToggleButton 버튼2;
+    ToggleButton 버튼3;
+    ToggleButton 버튼4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weekly_quest);
         Log.d("weekly_quest", "onCreate: ");
+
+
+
+    }
+    @Override
+    protected void onStart() {
+        Log.d("weekly_quest", "onStart: ");
+        super.onStart();
+    }
+    @Override
+    protected void onResume() {
+        Log.d("weekly_quest", "onResume: ");
+        super.onResume();
         Button 뒤로가기 = (Button) weekly_quest.this.findViewById(R.id.뒤로가기);
-        ToggleButton 버튼1 = (ToggleButton) weekly_quest.this.findViewById(R.id.소멸의여로버튼);
-        ToggleButton 버튼2 = (ToggleButton) weekly_quest.this.findViewById(R.id.크리티아스버튼);
-        ToggleButton 버튼3 = (ToggleButton) weekly_quest.this.findViewById(R.id.기계무덤버튼);
-        ToggleButton 버튼4 = (ToggleButton) weekly_quest.this.findViewById(R.id.타락한세계수버튼);
+        버튼1 = (ToggleButton) weekly_quest.this.findViewById(R.id.소멸의여로버튼);
+        버튼2 = (ToggleButton) weekly_quest.this.findViewById(R.id.크리티아스버튼);
+        버튼3 = (ToggleButton) weekly_quest.this.findViewById(R.id.기계무덤버튼);
+        버튼4 = (ToggleButton) weekly_quest.this.findViewById(R.id.타락한세계수버튼);
 
         Intent 불러오기 = getIntent();
         아이디 = 불러오기.getStringExtra("아이디");
@@ -43,16 +61,14 @@ public class weekly_quest extends AppCompatActivity {
             버튼3.setChecked(버튼상태확인.get("버튼3"));
             버튼4.setChecked(버튼상태확인.get("버튼4"));
 
-        }
-        else if(wq_Reset == true){ //브로드캐스트로 변경된 스태틱변수가 트루면
+        }else {
+            weekly_Reset = false;
             버튼1.setChecked(false);
             버튼2.setChecked(false);
             버튼3.setChecked(false);
             버튼4.setChecked(false);
-             //전부 초기화하고
-            wq_Reset = false; //스태틱변수 다시 펄스로바꿈
-
         }
+
         //버튼상태확인 해시맵 안에 요소가 0개이상 있으면 버튼상태 체크하고 바꿔줌
 
         뒤로가기.setOnClickListener(new View.OnClickListener() {
@@ -72,31 +88,31 @@ public class weekly_quest extends AppCompatActivity {
                 finish();
             }
         });
-
-
-    }
-    @Override
-    protected void onStart() {
-        Log.d("weekly_quest", "onStart: ");
-        super.onStart();
-    }
-    @Override
-    protected void onResume() {
-        Log.d("weekly_quest", "onResume: ");
-        super.onResume();
     }
 
     @Override
     protected void onPause() {
         Log.d("weekly_quest", "onPause: ");
         super.onPause();
+        //알림창이 뜨면 온퍼즈로 넘어갔다가 다시 리줌으로 넘어오므로 여기서 저장후 리줌에서 불러오기
+        if(!weekly_Reset){
+            버튼상태확인.put("버튼1", 버튼1.isChecked());
+            버튼상태확인.put("버튼2", 버튼2.isChecked());
+            버튼상태확인.put("버튼3", 버튼3.isChecked());
+            버튼상태확인.put("버튼4", 버튼4.isChecked());
+            Assignment_Save(버튼상태확인,"주간퀘상태");
+            //예외처리 안해놓으면 이비 이중저장되면서 (퍼즈가 후순위라서) 초기화진행안됨
+            //초기화 구분변수가 false일때만 현재상태저장
+        }
+
     }
 
     @Override
     protected void onStop() {
         Log.d("weekly_quest", "onStop: ");
         super.onStop();
-        Assignment_Save(버튼상태확인,"주간퀘상태");
+
+
     }
 
     @Override

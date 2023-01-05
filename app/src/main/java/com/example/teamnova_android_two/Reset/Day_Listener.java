@@ -26,6 +26,8 @@ public class Day_Listener extends Thread {
     String 실제날짜;
     SharedPreferences 사용자정보;
     public static Context threadContext = null;
+    public static boolean daily_Reset = false; //일일리셋 구분자
+    public static boolean weekly_Reset = false; //주간리셋 구분자
     //스태틱으로 선언후 Main 온크리에이트에서 context 초기화후 가져옴(db때문에)
 
 
@@ -87,11 +89,20 @@ public class Day_Listener extends Thread {
                     editor.putString("일퀘상태", null);
                     editor.putString("주간퀘상태", null);
                     editor.apply();
+                    weekly_Reset = true;
+                    //각 화면에서 리셋변수 펄스처리
+                    //팝업액티비티 생명주기때문에 만든변수
+                    //쓰레드의 디비저장이 끝나고 액티비티의 온퍼즈에서 다시한번 저장해서 상태를 덮어씌워버림
+                    Log.d("weekly_boss's", "(day_listener reset: " + weekly_Reset);
+                    Log.d("weekly_boss", "run: ");
                 } else {
                     //목요일이 아닐때는 일간일정만 초기화해서 저장
                     editor.putString("일간보스상태", null);
                     editor.putString("일퀘상태", null);
                     editor.apply();
+                    daily_Reset = true;
+                    //각 화면에서 리셋변수 펄스처리
+                    Log.d("weekly_boss", "reset: " + weekly_Reset);
                 }
                 //저장후 해당 액티비티 온리스타트에서 다시 디비 불러오게끔하기
             }

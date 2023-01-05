@@ -1,6 +1,8 @@
 package com.example.teamnova_android_two;
 
 import static com.example.teamnova_android_two.Main.Main.dq_Reset;
+import static com.example.teamnova_android_two.Reset.Day_Listener.daily_Reset;
+import static com.example.teamnova_android_two.Reset.Day_Listener.weekly_Reset;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,12 @@ public class daily_quest extends AppCompatActivity implements Serializable {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
     String 아이디; //아이디
     SharedPreferences 사용자정보;
+    ToggleButton 버튼1;
+    ToggleButton 버튼2;
+    ToggleButton 버튼3;
+    ToggleButton 버튼4;
+    ToggleButton 버튼5;
+    ToggleButton 버튼6;
 
 
     @Override
@@ -31,14 +39,36 @@ public class daily_quest extends AppCompatActivity implements Serializable {
         setContentView(R.layout.daily_quest);
         Log.d("daily_quest", "onCreate: ");
 
-        //메인가는버튼 하나만들어야할듯...
+    }
+
+
+    @Override
+    protected void onStop() {
+        Log.d("daily_quest", "onStop: ");
+
+
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("daily_quest", "onStart: ");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("daily_quest", "onResume: ");
+        super.onResume();
+
         Button 뒤로가기 = (Button) daily_quest.this.findViewById(R.id.뒤로가기);
-        ToggleButton 버튼1 = (ToggleButton) daily_quest.this.findViewById(R.id.소멸의여로버튼);
-        ToggleButton 버튼2 = (ToggleButton) daily_quest.this.findViewById(R.id.츄츄아일랜드버튼);
-        ToggleButton 버튼3 = (ToggleButton) daily_quest.this.findViewById(R.id.레헬른버튼);
-        ToggleButton 버튼4 = (ToggleButton) daily_quest.this.findViewById(R.id.아르카나버튼);
-        ToggleButton 버튼5 = (ToggleButton) daily_quest.this.findViewById(R.id.모라스버튼);
-        ToggleButton 버튼6 = (ToggleButton) daily_quest.this.findViewById(R.id.에스페라버튼);
+        버튼1 = (ToggleButton) daily_quest.this.findViewById(R.id.소멸의여로버튼);
+        버튼2 = (ToggleButton) daily_quest.this.findViewById(R.id.츄츄아일랜드버튼);
+        버튼3 = (ToggleButton) daily_quest.this.findViewById(R.id.레헬른버튼);
+        버튼4 = (ToggleButton) daily_quest.this.findViewById(R.id.아르카나버튼);
+        버튼5 = (ToggleButton) daily_quest.this.findViewById(R.id.모라스버튼);
+        버튼6 = (ToggleButton) daily_quest.this.findViewById(R.id.에스페라버튼);
 
 
         Intent 불러오기 = getIntent();
@@ -52,15 +82,14 @@ public class daily_quest extends AppCompatActivity implements Serializable {
             버튼4.setChecked(버튼상태확인.get("버튼4"));
             버튼5.setChecked(버튼상태확인.get("버튼5"));
             버튼6.setChecked(버튼상태확인.get("버튼6"));
-        } else if (dq_Reset == true) { //브로드캐스트로 변경된 스태틱변수가 트루면
+        } else {
+            daily_Reset = false;
             버튼1.setChecked(false);
             버튼2.setChecked(false);
             버튼3.setChecked(false);
             버튼4.setChecked(false);
             버튼5.setChecked(false);
-            버튼6.setChecked(false); //전부 초기화하고
-            dq_Reset = false; //스태틱변수 다시 펄스로바꿈
-
+            버튼6.setChecked(false);
         }
         //버튼상태확인 해시맵 안에 요소가 0개이상 있으면 버튼상태 체크하고 바꿔줌
 
@@ -84,39 +113,24 @@ public class daily_quest extends AppCompatActivity implements Serializable {
 
             }
         });
-
-
-    }
-
-
-    @Override
-    protected void onStop() {
-        Log.d("daily_quest", "onStop: ");
-        Assignment_Save(버튼상태확인, "일퀘상태");
-        Log.d("daily_quest", "onStop: " + 버튼상태확인 + " , " + 아이디);
-        super.onStop();
-
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("daily_quest", "onStart: ");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("daily_quest", "onResume: ");
-        super.onResume();
-        //온크리에이트에서 일단 상태변경해주고
-        //여기서 날짜변경 변수받으면 초기화
     }
 
     @Override
     protected void onPause() {
         Log.d("daily_quest", "onPause: ");
-
         super.onPause();
+        if (!daily_Reset) {
+            버튼상태확인.put("버튼1", 버튼1.isChecked());
+            버튼상태확인.put("버튼2", 버튼2.isChecked());
+            버튼상태확인.put("버튼3", 버튼3.isChecked());
+            버튼상태확인.put("버튼4", 버튼4.isChecked());
+            버튼상태확인.put("버튼5", 버튼5.isChecked());
+            버튼상태확인.put("버튼6", 버튼6.isChecked());
+            Assignment_Save(버튼상태확인, "일퀘상태");
+            //예외처리 안해놓으면 이비 이중저장되면서 (퍼즈가 후순위라서) 초기화진행안됨
+            //초기화 구분변수가 false일때만 현재상태저장
+        }
+
     }
 
     @Override
