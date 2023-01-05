@@ -76,7 +76,7 @@ public class Assignment_Service extends Service {
         public void handleMessage(@NonNull Message msg) {
 //            Calendar 요일 = Calendar.getInstance();
             Log.d("서비스", "handleMessage: ");
-            Bundle bundle = new Bundle();
+//            Bundle bundle = new Bundle();
             Log.d("요일핸들러", "handleMessage: "+msg.what);
             Intent popupIntent = new Intent(getApplicationContext(), Reset_Confirm_Dialog.class);
 
@@ -98,10 +98,7 @@ public class Assignment_Service extends Service {
             try {
                 pendingIntent.send();
             } catch (Exception e) {
-
             }
-
-
         }
     }
 }

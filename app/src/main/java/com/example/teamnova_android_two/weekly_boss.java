@@ -22,6 +22,28 @@ public class weekly_boss extends AppCompatActivity {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
     String 아이디; //아이디
     SharedPreferences 사용자정보;
+    ToggleButton 버튼1 ;
+    ToggleButton 버튼2 ;
+    ToggleButton 버튼3 ;
+    ToggleButton 버튼4 ;
+    ToggleButton 버튼5 ;
+    ToggleButton 버튼6 ;
+    ToggleButton 버튼7 ;
+    ToggleButton 버튼8 ;
+    ToggleButton 버튼9 ;
+    ToggleButton 버튼10;
+    ToggleButton 버튼11;
+    ToggleButton 버튼12;
+    ToggleButton 버튼13;
+    ToggleButton 버튼14;
+    ToggleButton 버튼15;
+    ToggleButton 버튼16;
+    ToggleButton 버튼17;
+    ToggleButton 버튼18;
+    ToggleButton 버튼19;
+    ToggleButton 버튼20;
+    ToggleButton 버튼21;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +51,27 @@ public class weekly_boss extends AppCompatActivity {
         setContentView(R.layout.weekly_boss);
         Log.d("weekly_boss", "onCreate: ");
         Button 뒤로가기 = (Button) weekly_boss.this.findViewById(R.id.뒤로가기);
-        ToggleButton 버튼1 = (ToggleButton) weekly_boss.this.findViewById(R.id.자쿰버튼);
-        ToggleButton 버튼2 = (ToggleButton) weekly_boss.this.findViewById(R.id.힐라버튼);
-        ToggleButton 버튼3 = (ToggleButton) weekly_boss.this.findViewById(R.id.파풀버튼);
-        ToggleButton 버튼4 = (ToggleButton) weekly_boss.this.findViewById(R.id.핑크빈버튼);
-        ToggleButton 버튼5 = (ToggleButton) weekly_boss.this.findViewById(R.id.매그너스버튼);
-        ToggleButton 버튼6 = (ToggleButton) weekly_boss.this.findViewById(R.id.시그버튼);
-        ToggleButton 버튼7 = (ToggleButton) weekly_boss.this.findViewById(R.id.블퀸버튼);
-        ToggleButton 버튼8 = (ToggleButton) weekly_boss.this.findViewById(R.id.피에르버튼);
-        ToggleButton 버튼9 = (ToggleButton) weekly_boss.this.findViewById(R.id.반반버튼);
-        ToggleButton 버튼10 = (ToggleButton) weekly_boss.this.findViewById(R.id.벨룸버튼);
-        ToggleButton 버튼11 = (ToggleButton) weekly_boss.this.findViewById(R.id.스우버튼);
-        ToggleButton 버튼12 = (ToggleButton) weekly_boss.this.findViewById(R.id.데미안버튼);
-        ToggleButton 버튼13 = (ToggleButton) weekly_boss.this.findViewById(R.id.가엔슬버튼);
-        ToggleButton 버튼14 = (ToggleButton) weekly_boss.this.findViewById(R.id.루시드버튼);
-        ToggleButton 버튼15 = (ToggleButton) weekly_boss.this.findViewById(R.id.윌버튼);
-        ToggleButton 버튼16 = (ToggleButton) weekly_boss.this.findViewById(R.id.더스크버튼);
-        ToggleButton 버튼17 = (ToggleButton) weekly_boss.this.findViewById(R.id.듄켈버튼);
-        ToggleButton 버튼18 = (ToggleButton) weekly_boss.this.findViewById(R.id.진힐라버튼);
-        ToggleButton 버튼19 = (ToggleButton) weekly_boss.this.findViewById(R.id.검마버튼);
-        ToggleButton 버튼20 = (ToggleButton) weekly_boss.this.findViewById(R.id.세렌버튼);
-        ToggleButton 버튼21 = (ToggleButton) weekly_boss.this.findViewById(R.id.칼로스버튼);
+         버튼1 = (ToggleButton) weekly_boss.this.findViewById(R.id.자쿰버튼);
+         버튼2 = (ToggleButton) weekly_boss.this.findViewById(R.id.힐라버튼);
+         버튼3 = (ToggleButton) weekly_boss.this.findViewById(R.id.파풀버튼);
+         버튼4 = (ToggleButton) weekly_boss.this.findViewById(R.id.핑크빈버튼);
+         버튼5 = (ToggleButton) weekly_boss.this.findViewById(R.id.매그너스버튼);
+         버튼6 = (ToggleButton) weekly_boss.this.findViewById(R.id.시그버튼);
+         버튼7 = (ToggleButton) weekly_boss.this.findViewById(R.id.블퀸버튼);
+         버튼8 = (ToggleButton) weekly_boss.this.findViewById(R.id.피에르버튼);
+         버튼9 = (ToggleButton) weekly_boss.this.findViewById(R.id.반반버튼);
+         버튼10 = (ToggleButton) weekly_boss.this.findViewById(R.id.벨룸버튼);
+         버튼11 = (ToggleButton) weekly_boss.this.findViewById(R.id.스우버튼);
+         버튼12 = (ToggleButton) weekly_boss.this.findViewById(R.id.데미안버튼);
+         버튼13 = (ToggleButton) weekly_boss.this.findViewById(R.id.가엔슬버튼);
+         버튼14 = (ToggleButton) weekly_boss.this.findViewById(R.id.루시드버튼);
+         버튼15 = (ToggleButton) weekly_boss.this.findViewById(R.id.윌버튼);
+         버튼16 = (ToggleButton) weekly_boss.this.findViewById(R.id.더스크버튼);
+         버튼17 = (ToggleButton) weekly_boss.this.findViewById(R.id.듄켈버튼);
+         버튼18 = (ToggleButton) weekly_boss.this.findViewById(R.id.진힐라버튼);
+         버튼19 = (ToggleButton) weekly_boss.this.findViewById(R.id.검마버튼);
+         버튼20 = (ToggleButton) weekly_boss.this.findViewById(R.id.세렌버튼);
+         버튼21 = (ToggleButton) weekly_boss.this.findViewById(R.id.칼로스버튼);
 
         Intent 불러오기 = getIntent();
         아이디 = 불러오기.getStringExtra("아이디");
@@ -157,6 +179,7 @@ public class weekly_boss extends AppCompatActivity {
     protected void onPause() {
         Log.d("weekly_boss", "onPause: ");
         super.onPause();
+        Assignment_Save(버튼상태확인,"주간보스상태");
     }
 
     @Override
@@ -164,6 +187,7 @@ public class weekly_boss extends AppCompatActivity {
         Log.d("weekly_boss", "onStop: ");
         super.onStop();
         Assignment_Save(버튼상태확인,"주간보스상태");
+
         //팅기거나 해당 액티비티에서 앱 강제종료를 대비한 저장
     }
 
@@ -177,6 +201,76 @@ public class weekly_boss extends AppCompatActivity {
     protected void onRestart() {
         Log.d("weekly_boss", "onRestart: ");
         super.onRestart();
+        버튼1 = (ToggleButton) weekly_boss.this.findViewById(R.id.자쿰버튼);
+        버튼2 = (ToggleButton) weekly_boss.this.findViewById(R.id.힐라버튼);
+        버튼3 = (ToggleButton) weekly_boss.this.findViewById(R.id.파풀버튼);
+        버튼4 = (ToggleButton) weekly_boss.this.findViewById(R.id.핑크빈버튼);
+        버튼5 = (ToggleButton) weekly_boss.this.findViewById(R.id.매그너스버튼);
+        버튼6 = (ToggleButton) weekly_boss.this.findViewById(R.id.시그버튼);
+        버튼7 = (ToggleButton) weekly_boss.this.findViewById(R.id.블퀸버튼);
+        버튼8 = (ToggleButton) weekly_boss.this.findViewById(R.id.피에르버튼);
+        버튼9 = (ToggleButton) weekly_boss.this.findViewById(R.id.반반버튼);
+        버튼10 = (ToggleButton) weekly_boss.this.findViewById(R.id.벨룸버튼);
+        버튼11 = (ToggleButton) weekly_boss.this.findViewById(R.id.스우버튼);
+        버튼12 = (ToggleButton) weekly_boss.this.findViewById(R.id.데미안버튼);
+        버튼13 = (ToggleButton) weekly_boss.this.findViewById(R.id.가엔슬버튼);
+        버튼14 = (ToggleButton) weekly_boss.this.findViewById(R.id.루시드버튼);
+        버튼15 = (ToggleButton) weekly_boss.this.findViewById(R.id.윌버튼);
+        버튼16 = (ToggleButton) weekly_boss.this.findViewById(R.id.더스크버튼);
+        버튼17 = (ToggleButton) weekly_boss.this.findViewById(R.id.듄켈버튼);
+        버튼18 = (ToggleButton) weekly_boss.this.findViewById(R.id.진힐라버튼);
+        버튼19 = (ToggleButton) weekly_boss.this.findViewById(R.id.검마버튼);
+        버튼20 = (ToggleButton) weekly_boss.this.findViewById(R.id.세렌버튼);
+        버튼21 = (ToggleButton) weekly_boss.this.findViewById(R.id.칼로스버튼);
+        버튼상태확인 = Assignment_load("주간보스상태");
+
+        Log.d("주간보스상태", "onStop: " + 버튼상태확인.size());
+
+        if(버튼상태확인.size() != 0) {
+            버튼1.setChecked(버튼상태확인.get("버튼1"));
+            버튼2.setChecked(버튼상태확인.get("버튼2"));
+            버튼3.setChecked(버튼상태확인.get("버튼3"));
+            버튼4.setChecked(버튼상태확인.get("버튼4"));
+            버튼5.setChecked(버튼상태확인.get("버튼5"));
+            버튼6.setChecked(버튼상태확인.get("버튼6"));
+            버튼7.setChecked(버튼상태확인.get("버튼7"));
+            버튼8.setChecked(버튼상태확인.get("버튼8"));
+            버튼9.setChecked(버튼상태확인.get("버튼9"));
+            버튼10.setChecked(버튼상태확인.get("버튼10"));
+            버튼11.setChecked(버튼상태확인.get("버튼11"));
+            버튼12.setChecked(버튼상태확인.get("버튼12"));
+            버튼13.setChecked(버튼상태확인.get("버튼13"));
+            버튼14.setChecked(버튼상태확인.get("버튼14"));
+            버튼15.setChecked(버튼상태확인.get("버튼15"));
+            버튼16.setChecked(버튼상태확인.get("버튼16"));
+            버튼17.setChecked(버튼상태확인.get("버튼17"));
+            버튼18.setChecked(버튼상태확인.get("버튼18"));
+            버튼19.setChecked(버튼상태확인.get("버튼19"));
+            버튼20.setChecked(버튼상태확인.get("버튼20"));
+            버튼21.setChecked(버튼상태확인.get("버튼21"));
+        }else{
+            버튼1.setChecked(false);
+            버튼2.setChecked(false);
+            버튼3.setChecked(false);
+            버튼4.setChecked(false);
+            버튼5.setChecked(false);
+            버튼6.setChecked(false);
+            버튼7.setChecked(false);
+            버튼8.setChecked(false);
+            버튼9.setChecked(false);
+            버튼10.setChecked(false);
+            버튼11.setChecked(false);
+            버튼12.setChecked(false);
+            버튼13.setChecked(false);
+            버튼14.setChecked(false);
+            버튼15.setChecked(false);
+            버튼16.setChecked(false);
+            버튼17.setChecked(false);
+            버튼18.setChecked(false);
+            버튼19.setChecked(false);
+            버튼20.setChecked(false);
+            버튼21.setChecked(false);
+        }
     }
     public void Assignment_Save(HashMap<String, Boolean> Data, String Type) {
         //각종 숙제 상태저장메소드

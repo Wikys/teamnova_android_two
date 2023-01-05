@@ -23,6 +23,18 @@ public class daily_boss extends AppCompatActivity implements Serializable {
     HashMap<String, Boolean> 버튼상태확인 = new HashMap<>(); // 버튼상태 저장리스트
     String 아이디; //아이디
     SharedPreferences 사용자정보;
+    ToggleButton 버튼1;
+    ToggleButton 버튼2;
+    ToggleButton 버튼3;
+    ToggleButton 버튼4;
+    ToggleButton 버튼5;
+    ToggleButton 버튼6;
+    ToggleButton 버튼7;
+    ToggleButton 버튼8;
+    ToggleButton 버튼9;
+    ToggleButton 버튼10;
+    ToggleButton 버튼11;
+    ToggleButton 버튼12;
 
 
 
@@ -33,18 +45,18 @@ public class daily_boss extends AppCompatActivity implements Serializable {
         Log.d("daily_boss", "onCreate: ");
 
         Button 뒤로가기 = (Button) daily_boss.this.findViewById(R.id.뒤로가기);
-        ToggleButton 버튼1 = (ToggleButton) daily_boss.this.findViewById(R.id.자쿰버튼);
-        ToggleButton 버튼2 = (ToggleButton) daily_boss.this.findViewById(R.id.힐라버튼);
-        ToggleButton 버튼3 = (ToggleButton) daily_boss.this.findViewById(R.id.혼테일버튼);
-        ToggleButton 버튼4 = (ToggleButton) daily_boss.this.findViewById(R.id.반레온버튼);
-        ToggleButton 버튼5 = (ToggleButton) daily_boss.this.findViewById(R.id.아카이럼버튼);
-        ToggleButton 버튼6 = (ToggleButton) daily_boss.this.findViewById(R.id.블러디퀸버튼);
-        ToggleButton 버튼7 = (ToggleButton) daily_boss.this.findViewById(R.id.피에르버튼);
-        ToggleButton 버튼8 = (ToggleButton) daily_boss.this.findViewById(R.id.반반버튼);
-        ToggleButton 버튼9 = (ToggleButton) daily_boss.this.findViewById(R.id.카웅버튼);
-        ToggleButton 버튼10 = (ToggleButton) daily_boss.this.findViewById(R.id.매그너스버튼);
-        ToggleButton 버튼11= (ToggleButton) daily_boss.this.findViewById(R.id.핑크빈버튼);
-        ToggleButton 버튼12 = (ToggleButton) daily_boss.this.findViewById(R.id.벨룸버튼);
+         버튼1 = (ToggleButton) daily_boss.this.findViewById(R.id.자쿰버튼);
+         버튼2 = (ToggleButton) daily_boss.this.findViewById(R.id.힐라버튼);
+         버튼3 = (ToggleButton) daily_boss.this.findViewById(R.id.혼테일버튼);
+         버튼4 = (ToggleButton) daily_boss.this.findViewById(R.id.반레온버튼);
+         버튼5 = (ToggleButton) daily_boss.this.findViewById(R.id.아카이럼버튼);
+         버튼6 = (ToggleButton) daily_boss.this.findViewById(R.id.블러디퀸버튼);
+         버튼7 = (ToggleButton) daily_boss.this.findViewById(R.id.피에르버튼);
+         버튼8 = (ToggleButton) daily_boss.this.findViewById(R.id.반반버튼);
+         버튼9 = (ToggleButton) daily_boss.this.findViewById(R.id.카웅버튼);
+         버튼10 = (ToggleButton) daily_boss.this.findViewById(R.id.매그너스버튼);
+         버튼11= (ToggleButton) daily_boss.this.findViewById(R.id.핑크빈버튼);
+         버튼12 = (ToggleButton) daily_boss.this.findViewById(R.id.벨룸버튼);
 
         Intent 불러오기 = getIntent();
         아이디 = 불러오기.getStringExtra("아이디");
@@ -107,6 +119,7 @@ public class daily_boss extends AppCompatActivity implements Serializable {
                 버튼상태저장.putExtra("일보버튼", 버튼상태확인);
                 setResult(RESULT_OK, 버튼상태저장); // 버튼상태체크 해시맵 넘김(메인으로)
                 Assignment_Save(버튼상태확인,"일간보스상태");
+//                Log.d("일간보스상태", "onStop: "+Assignment_load("일간보스상태"));
                 finish();
 
             }
@@ -137,6 +150,8 @@ public class daily_boss extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         Log.d("daily_boss", "onPause: ");
+
+//        Log.d("일간보스상태", "onPause: "+Assignment_load("일간보스상태"));
         super.onPause();
     }
 
@@ -145,6 +160,7 @@ public class daily_boss extends AppCompatActivity implements Serializable {
         Log.d("daily_boss", "onStop: ");
         super.onStop();
         Assignment_Save(버튼상태확인,"일간보스상태");
+//        Log.d("일간보스상태", "onStop: "+Assignment_load("일간보스상태"));
     }
 
     @Override
@@ -157,6 +173,50 @@ public class daily_boss extends AppCompatActivity implements Serializable {
     protected void onRestart() {
         Log.d("daily_boss", "onRestart: ");
         super.onRestart();
+        버튼1 = (ToggleButton) daily_boss.this.findViewById(R.id.자쿰버튼);
+        버튼2 = (ToggleButton) daily_boss.this.findViewById(R.id.힐라버튼);
+        버튼3 = (ToggleButton) daily_boss.this.findViewById(R.id.혼테일버튼);
+        버튼4 = (ToggleButton) daily_boss.this.findViewById(R.id.반레온버튼);
+        버튼5 = (ToggleButton) daily_boss.this.findViewById(R.id.아카이럼버튼);
+        버튼6 = (ToggleButton) daily_boss.this.findViewById(R.id.블러디퀸버튼);
+        버튼7 = (ToggleButton) daily_boss.this.findViewById(R.id.피에르버튼);
+        버튼8 = (ToggleButton) daily_boss.this.findViewById(R.id.반반버튼);
+        버튼9 = (ToggleButton) daily_boss.this.findViewById(R.id.카웅버튼);
+        버튼10 = (ToggleButton) daily_boss.this.findViewById(R.id.매그너스버튼);
+        버튼11= (ToggleButton) daily_boss.this.findViewById(R.id.핑크빈버튼);
+        버튼12 = (ToggleButton) daily_boss.this.findViewById(R.id.벨룸버튼);
+
+        버튼상태확인 = Assignment_load("일간보스상태");
+        Log.d("아이디", "onRestart: "+아이디);
+
+        if(버튼상태확인.size() != 0) {
+            버튼1.setChecked(버튼상태확인.get("버튼1"));
+            버튼2.setChecked(버튼상태확인.get("버튼2"));
+            버튼3.setChecked(버튼상태확인.get("버튼3"));
+            버튼4.setChecked(버튼상태확인.get("버튼4"));
+            버튼5.setChecked(버튼상태확인.get("버튼5"));
+            버튼6.setChecked(버튼상태확인.get("버튼6"));
+            버튼7.setChecked(버튼상태확인.get("버튼7"));
+            버튼8.setChecked(버튼상태확인.get("버튼8"));
+            버튼9.setChecked(버튼상태확인.get("버튼9"));
+            버튼10.setChecked(버튼상태확인.get("버튼10"));
+            버튼11.setChecked(버튼상태확인.get("버튼11"));
+            버튼12.setChecked(버튼상태확인.get("버튼12"));
+        }else {
+            버튼1.setChecked(false);
+            버튼2.setChecked(false);
+            버튼3.setChecked(false);
+            버튼4.setChecked(false);
+            버튼5.setChecked(false);
+            버튼6.setChecked(false);
+            버튼7.setChecked(false);
+            버튼8.setChecked(false);
+            버튼9.setChecked(false);
+            버튼10.setChecked(false);
+            버튼11.setChecked(false);
+            버튼12.setChecked(false);
+        }
+
     }
     public void Assignment_Save(HashMap<String, Boolean> Data, String Type) {
         //각종 숙제 상태저장메소드
