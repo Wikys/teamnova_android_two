@@ -73,12 +73,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                     if (result.getResultCode() == Activity.RESULT_OK) { //이동한 액티비티에서 RESULT_OK사인이오면
                         //겟엑스트라 입력
                         Intent 스케쥴 = result.getData();
-//                        제목 = (HashMap<String, String>) 스케쥴.getSerializableExtra("제목");
-//                        메모 = (HashMap<String, String>) 스케쥴.getSerializableExtra("메모");
-//                        분 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분");
-//                        초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("초");
-//                        분초 = (HashMap<String, String>) 스케쥴.getSerializableExtra("분초");
-
 
                         //스케쥴 등록해논거 가져옴
                         Log.d("mulung_helper", "onActivityResult: ");
@@ -101,37 +95,8 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
         Vibrator 진동 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE); //진동객체
         Button memo = (Button) findViewById(R.id.메모);
 
-
-
         Intent idget = getIntent();
         아이디 = idget.getStringExtra("아이디");
-
-
-//        memoHandler = new Handler(Looper.getMainLooper()){
-//            @Override
-//            public void handleMessage(android.os.Message msg){
-//                //서비스랑 연동해서 사용가능
-//                //서비스로 24시간 감시하면서 시간에따라 일정초기화 하는식으로 이용할수있을듯? (UI쪽)
-//                super.handleMessage(msg);
-//                //이곳에 이벤트를 모이게끔해서
-//                //이안에서 ui변경처리를 하게됨 (리스너같은느낌)
-//                if(msg.what == 1) { // 1번일경우 정상메세지
-//
-//                    Toast.makeText(mulung_helper.this, "", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(msg.what == 2){ // 2번인경우 이미지파일 뭐 이런식으로 처리가능
-//
-//                }
-//
-//            }
-//        };
-//        //핸들러로 데이터 전달(데이터가 순차적으로 처리될 수 있도록)
-//        Message msg = memoHandler.obtainMessage();
-//        msg.what = 1; //일련번호처럼 사용 (구분자느낌?)
-//        msg.obj = "메세지당!!";
-//        memoHandler.sendMessage(msg);
-//        //여기서 샌드메세지를 하면 위에 핸들메세지에서 잡힘
-//        //이거쓸라면 스레드에 넣어서 써야할거같은데
 
         시작하기.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +126,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
                 rest_Timer();
-
             }
         });
 
@@ -175,8 +139,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                 receive_Memo_State.launch(m_Move);
             }
         });
-
-
     }
 
 
@@ -203,25 +165,10 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
             public void run() {
                 String 분텍스트 = Integer.toString(분타이머); //비교를위해 스트링으로 캐스팅
                 String 초텍스트 = Integer.toString(초타이머);
-//                String 키합 = 분텍스트 + 초텍스트; // 이거필요없을듯
-
-//                if (초타이머 > 0 || 분타이머 > 0) {
-//                    if (!(분초 == null)) { //해시맵 비어있는지 먼저체크
-//                        if (분초.containsValue(키합)) {
-//                            TextView 준비 = (TextView) mulung_helper.this.findViewById(R.id.준비);
-
-//                            keySet 키분석 = new keySet(분텍스트, 초텍스트, 분초); //키를 찾아주는 클래스
-//                            String 키 = 키분석.result(); // 분석된 키값을 변수에저장
-//                            String 메모수정 = 메모.get(키); // 키값을 인자로주고 저장된 메모받아오기
-//                                    준비.setText(메모수정); //텍스트뷰 메모수정인데 핸들러없어서 안됨
-                //쓰레드에서 계속 포문을 돌리면서 시간과 맞으면 출력 이런식으로 구현?
-
-//                        }
-//                    }
 
                 if (초타이머 > 0 || 분타이머 > 0) {
                     if (schedule.size() > 0) { // 메모가 저장되어있는 어레이리스트 크기가 0이상일떄 작동
-                        //쓰레드에서 계속 포문을 돌리면서 시간과 맞으면 출력 이런식으로 구현?
+
                         memoHandler.post(new Runnable() { //핸들러
                             @Override
                             public void run() {
@@ -232,14 +179,11 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                                         준비.setText(schedule.get(i).get메모());
                                         Log.d("run", "run: "+schedule.get(i).get메모());
                                     }
-
                                 }
-
                             }
                         });
-
                     }
-
+                                                        //핸들러
                     초타이머--;
                     if (초타이머 < 0 && 분타이머 > 0) {
                         분타이머--;
@@ -253,7 +197,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
 
         };
         m_timer.schedule(mt_timer, 0, 1000);
-
     }
 
     private void timer_Stop() { //타이머 중단 메소드
@@ -290,7 +233,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                 Toast.makeText(mulung_helper.this, "재획타이머가 종료되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void rest_Timer() { //휴식타이머
@@ -395,7 +337,6 @@ public class mulung_helper extends AppCompatActivity implements Serializable {
                 end_Onstop = false;
                 timer();
             } else if (rest_End_Onstop == true) {
-
                 rest_End_Onstop = false;
                 초타이머 = 휴식;
                 rest_Timer();

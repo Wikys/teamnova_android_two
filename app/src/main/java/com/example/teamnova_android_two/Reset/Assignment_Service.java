@@ -18,7 +18,7 @@ import com.example.teamnova_android_two.Main.Main;
 import java.util.Calendar;
 
 public class Assignment_Service extends Service {
-    NotificationManager Notifi_M;
+//    NotificationManager Notifi_M;
     //    Day_Listener thread;
 
     Intent intent;
@@ -46,11 +46,8 @@ public class Assignment_Service extends Service {
 //        context = (Context)intent.getSerializableExtra("context");
 
         Day_Listener thread = new Day_Listener(handler, 아이디);
-//        Notifi_M = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        ServiceHandler handler = new ServiceHandler();
-//        thread = new Day_Listener(handler);
 
-        Log.d("아이디", "onStartCommand: "+아이디);
+//        Log.d("아이디", "onStartCommand: "+아이디);
 
         thread.start();
         return START_STICKY;

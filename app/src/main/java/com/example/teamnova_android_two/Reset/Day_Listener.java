@@ -26,7 +26,7 @@ public class Day_Listener extends Thread {
     String 실제날짜;
     SharedPreferences 사용자정보;
     public static Context threadContext = null;
-    //Main 온크리에이트에서 context 초기화후 가져옴(db때문에)
+    //스태틱으로 선언후 Main 온크리에이트에서 context 초기화후 가져옴(db때문에)
 
 
     String 아이디;
