@@ -12,8 +12,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +33,11 @@ import com.example.teamnova_android_two.recyclerview;
 import com.example.teamnova_android_two.test_activity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kakao.sdk.common.util.Utility;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -48,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ArrayList<Account_Data> 계정;
     Gson gson;
     String contect_Account;
+
 
 
     ActivityResultLauncher<Intent> receive_Id_Result = registerForActivityResult(
@@ -84,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
 
 
+
+
         dialog = new Dialog(MainActivity.this);
 
         계정 = new ArrayList();
@@ -94,9 +105,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         //gson 생성
 
         read_Data();
-//        editor.putBoolean("계정기억상태",true);
-//        editor.putString("ID기억",계정.get(인덱스).id);
-//        editor.putString("PS기억",계정.get(인덱스).ps);
+
 
         Button login_button = (Button) MainActivity.this.findViewById(R.id.login_button);
         TextView id_Input = (TextView) MainActivity.this.findViewById(R.id.아이디);
@@ -257,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Log.d("MainActivity", "onRestart: ");
         super.onRestart();
     }
+
 
     public void saved_Data(String ID, String PS, String Nick, String Image_Path) {
         contect_Account = "";

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.teamnova_android_two.Google_API.Map;
 import com.example.teamnova_android_two.Reset.*;
 
 import androidx.activity.result.ActivityResult;
@@ -195,7 +196,7 @@ public class Main extends AppCompatActivity implements Serializable {
         SharedPreferences.Editor 상태 = 사용자정보.edit();
 
         Glide.with(Main.this).load(사진변환).override(150, 150).into(프사); // 프사부분에 이미지띄워주기
-        환영인사.setText(아이디 + "(" + 닉네임 + ") 님 어서오세요");
+        환영인사.setText(닉네임 + " 님 어서오세요");
 
         일간보스상태 = Assignment_load("일간보스상태");
         일퀘상태 = Assignment_load("일퀘상태");
@@ -211,6 +212,7 @@ public class Main extends AppCompatActivity implements Serializable {
 
         Intent 숙제알림서비스 = new Intent(Main.this, Assignment_Service.class);
         숙제알림서비스.putExtra("아이디", 아이디);
+        Log.d("아이디", "onCreate: "+아이디);
 //        숙제알림서비스.putExtra("context",this);
         startService(숙제알림서비스);
         //인텐트로 디비불러올때 사용해야하는 아이디를 가져옴
@@ -303,6 +305,18 @@ public class Main extends AppCompatActivity implements Serializable {
                 Intent mumove = new Intent(Main.this, mulung_helper.class);
                 mumove.putExtra("아이디", 아이디);
                 startActivity(mumove);
+            }
+        });
+
+        LinearLayout mpbtn = (LinearLayout) findViewById(R.id.메빵지도); // 무릉도우미 이동버튼
+
+        mpbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mpmove = new Intent(Main.this, Map.class);
+                mpmove.putExtra("아이디", 아이디);
+                // 단순히 지도보여주는거라 굳이 의미는 없을거같지만 혹시몰라서 일단 냅둠
+                startActivity(mpmove);
             }
         });
 

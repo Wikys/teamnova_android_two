@@ -1,6 +1,7 @@
 package com.example.teamnova_android_two;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,45 +10,51 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import com.example.teamnova_android_two.회원가입.MainActivity;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 
-public class recyclerview extends AppCompatActivity {
+public class recyclerview extends AppCompatActivity implements OnMapReadyCallback {
     public static ArrayList<String> 이름;
+    private GoogleMap map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
-        이름 = new ArrayList<String>();
-        이름.add("안연창");
-        이름.add("박상현");
-        이름.add("박상부");
 
-        RecyclerView 리사이클러뷰 = (RecyclerView) this.findViewById(R.id.recn);
-        //리사이클러뷰 선언하고 연결
+//        ContextCompat.checkSelfPermission()
 
-        LinearLayoutManager 리니어매니저 = new LinearLayoutManager(this);
-        리사이클러뷰.setLayoutManager(리니어매니저);
-        //리니어 매니저 선언 (무조건해야함)
-        //디자인적인부분 수정가능 오리엔테이션등 기능엄청많음 (상하좌우 스크롤등)
-
-        MyAdapter 리사이클러어댑터 = new MyAdapter();
-        리사이클러뷰.setAdapter(리사이클러어댑터);
-        //안에 표시되는것, 몇개표시되는지등을 관리해주는 "어댑터" 선언
-
-        //로컬디비비
-       Context context = this;
-        SharedPreferences 셰어드 = context.getSharedPreferences(
-                "nope", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor 에디터 = 셰어드.edit();
-        에디터.putString("학생1","안연창");
-        에디터.putString("학생2","박상현");
-        에디터.apply();
-        //커밋과 어플라이의 차이
-        //
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(recyclerview.this);
 
 
+
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        LatLng seoul = new LatLng(37.56,126.97);
+
+        MarkerOptions options = new MarkerOptions();
+        options.position(seoul)
+                .title("서울")
+                .snippet("한국의 수도");
+        map.addMarker(options);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 10));
 
     }
 }
